@@ -1,0 +1,18 @@
+#!/bin/sh
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
+CONFIGPATH="/opt/media/sdc/config"
+## Load some common functions:
+. /opt/media/sdc/scripts/common_functions.sh
+
+## Create a certificate for the webserver
+if [ ! -f $CONFIGPATH/lighttpd.pem ]; then
+    export OPENSSL_CONF=$CONFIGPATH/openssl.cnf
+    /opt/media/sdc/bin/openssl req -new -x509 -keyout $CONFIGPATH/lighttpd.pem -out $CONFIGPATH/lighttpd.pem -days 365 -nodes -subj "/C=DE/ST=Mars/L=HellasPlanitia/O=.../OU=.../CN=.../emailAddress=..."
+    chmod 400 $CONFIGPATH/lighttpd.pem
+fi
+
+## Start Webserver:
+if [ ! -f $CONFIGPATH/lighttpd.conf ]; then
+    cp $CONFIGPATH/lighttpd.conf.dist $CONFIGPATH/lighttpd.conf
+fi
+/opt/media/sdc/bin/lighttpd -f /opt/media/sdc/config/lighttpd.conf

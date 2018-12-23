@@ -1,0 +1,46 @@
+#######################################################################
+# Edit this file and move it to /opt/media/sdc/config/rtspserver.conf #
+# if you need to add options, otherwise defaults will be used         #
+#######################################################################
+
+# Configure RTSP Servers
+# Use /opt/media/sdc/bin/v4l2rtspserver-master -h to see available options
+
+PORT=554
+
+# H264 RTSP server options
+# Examples:
+# RTSPH264OPTS="-W960 -H540"
+# To enable authentication:
+# RTSPH264OPTS="-U user:password"
+RTSPH264OPTS="-W1600 -H900"
+
+# MJPEG RTSP server options
+# Examples:
+# RTSPMJPEGOPTS="-W960 -H540"
+# To enable authentication:
+# RTSPMJPEGOPTS="-U user:password"
+RTSPMJPEGOPTS="-W640 -H480"
+
+# Video
+BITRATE=2000
+# Framerate
+FRAMERATE_DEN=1
+FRAMERATE_NUM=16
+# Video format: (0 = FixedQp, 1 = CBR, 2 = VBR, 3 = SMART, default = 2)
+VIDEOFORMAT=1
+
+# AudioFormat
+# Can be: OPUS | MP3 | PCM | PCMU
+AUDIOFORMAT=PCM
+# Audio sampling rate
+AUDIOINBR=24000
+# Audio streaming sampling rate
+AUDIOOUTBR=24000
+HWVOLUME=90
+SWVOLUME=-1
+FILTER=4
+HIGHPASSFILTER=true
+AECFILTER=true
+USERNAME=root
+USERPASSWORD=jco66688

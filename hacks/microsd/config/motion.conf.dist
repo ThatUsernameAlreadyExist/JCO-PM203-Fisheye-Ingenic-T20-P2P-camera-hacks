@@ -1,0 +1,26 @@
+############################################################
+# edit this file and move it to /opt/media/sdc/config/motion.conf #
+############################################################
+
+# Configure the motion core parameters:
+
+region_of_interest=0,0,1280,720
+motion_sensitivity=-1
+motion_indicator_color=2
+motion_timeout=-1
+motion_tracking=off
+
+# Configure how to deal with motion events:
+
+motion_trigger_led=true
+max_snapshots=20
+# Notify about motion
+publish_mqtt_message=false
+# Send the actual image via mqtt
+publish_mqtt_snapshot=false
+# Save the image locally
+save_snapshot=false
+sendemail=false
+send_telegram=false
+save_dir=/opt/media/sdc/motion/stills
+save_file_date_pattern="+%d-%m-%Y_%H.%M.%S"

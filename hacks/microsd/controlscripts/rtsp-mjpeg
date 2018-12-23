@@ -1,0 +1,110 @@
+#!/bin/sh
+PIDFILE="/var/run/v4l2rtspserver-master-mjpeg.pid"
+LOGDIR="/opt/media/sdc/log"
+LOGPATH="$LOGDIR/v4l2rtspserver-master.log"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib:/thirdlib:/system/lib'
+
+if [ ! -f /opt/media/sdc/config/rtspserver.conf ]; then
+  cp /opt/media/sdc/config/rtspserver.conf.dist /opt/media/sdc/config/rtspserver.conf
+fi
+
+if [ -f /opt/media/sdc/config/rtspserver.conf ]; then
+  . /opt/media/sdc/config/rtspserver.conf
+fi
+
+if [ -f /opt/media/sdc/config/osd.conf ]; then
+  . /opt/media/sdc/config/osd.conf 2>/dev/null
+fi
+
+status()
+{
+  pid="$(cat "$PIDFILE" 2>/dev/null)"
+  if [ "$pid" ]; then
+    # Prints PID: $pid if exists and returns 0(no error) else returns 1(error condition)
+    kill -0 "$pid" >/dev/null && echo "PID: $pid" || return 1
+  fi
+}
+
+start()
+{
+  if [ "$(status)" != "" ]; then
+    echo "A v4l2rtspserver is already running, please stop it or reboot"
+  else
+    echo "Starting v4l2rtspserver-master with parameter -fMJPG"
+    /opt/media/sdc/controlscripts/rtsp-h264 stop
+
+    ## Configure OSD
+    if [ -f /opt/media/sdc/controlscripts/configureOsd ]; then
+      . /opt/media/sdc/controlscripts/configureOsd  2>/dev/null
+    fi
+
+    ## Configure Motion
+    if [ -f /opt/media/sdc/controlscripts/configureMotion ]; then
+      . /opt/media/sdc/controlscripts/configureMotion  2>/dev/null
+    fi
+    ## Bitrate
+    /opt/media/sdc/bin/setconf -k b -v ${BITRATE} 2>/dev/null
+
+    ## Framerate
+    if [ "$FRAMERATE_DEN" != "" ] && [ "$FRAMERATE_NUM" != "" ]; then
+        /opt/media/sdc/bin/setconf -k d -v "$FRAMERATE_NUM,$FRAMERATE_DEN" 2>/dev/null
+    fi
+
+    ## Audio
+    if [ "$AUDIOFORMAT" != "OFF" ] ; then
+        AUDIOPARAM="-E $AUDIOFORMAT:$AUDIOINBR:$AUDIOOUTBR"
+        /opt/media/sdc/bin/setconf -k h -v "$HWVOLUME" 2>/dev/null
+        /opt/media/sdc/bin/setconf -k i -v "$SWVOLUME" 2>/dev/null
+        /opt/media/sdc/bin/setconf -k q -v "$FILTER" 2>/dev/null
+        /opt/media/sdc/bin/setconf -k l -v "$HIGHPASSFILTER" 2>/dev/null
+        /opt/media/sdc/bin/setconf -k a -v "$AECFILTER" 2>/dev/null
+    else
+        AUDIOPARAM="-A"
+    fi
+
+    ## Video format
+    if [ "$VIDEOFORMAT" != "" ]; then
+	    VIDEOFORMAT="-r $VIDEOFORMAT"
+    fi
+
+    ## UserName and password
+    if [ "$USERNAME" != "" ]; then
+        CREDENTIAL="-U $USERNAME:$USERPASSWORD"
+    fi
+
+    ## Port
+    if [ "$PORT" != "" ]; then
+        PORT="-P $PORT"
+    fi
+
+    ## FLIP
+    if [ "$FLIP" == "ON" ]; then
+        /opt/media/sdc/bin/setconf -k f -v 1
+    elif [ "$FLIP" == "OFF" ]; then
+        /opt/media/sdc/bin/setconf -k f -v 0
+    fi
+
+    echo "================== START ===============" >> "$LOGPATH"
+    echo "/opt/media/sdc/bin/v4l2rtspserver-master -fMJPG $RTSPMJPEGOPTS  $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT" >> "$LOGPATH"
+    /opt/media/sdc/bin/v4l2rtspserver-master -fMJPG $RTSPMJPEGOPTS  $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT  2>> "$LOGPATH" >> "$LOGPATH" &
+    echo "$!" > "$PIDFILE"
+  fi
+}
+
+stop()
+{
+  pid="$(cat "$PIDFILE" 2>/dev/null)"
+  if [ "$pid" ]; then
+    kill "$pid"
+    rm "$PIDFILE" 1> /dev/null 2>&1
+  fi
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi

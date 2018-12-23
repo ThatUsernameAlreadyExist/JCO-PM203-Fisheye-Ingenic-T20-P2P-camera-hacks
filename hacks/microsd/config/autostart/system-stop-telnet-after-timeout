@@ -1,0 +1,9 @@
+#!/bin/sh
+WAIT_TIMEOUT_SECONDS=300
+TELNET_PORT=9527
+
+if ! ps | grep '[t]elnetd'; then
+    telnetd -p$TELNET_PORT
+fi
+
+(sleep $WAIT_TIMEOUT_SECONDS; (ps|awk '/[t]elnetd/ {print $1}' | while read PID; do kill -9 $PID; done;)) &

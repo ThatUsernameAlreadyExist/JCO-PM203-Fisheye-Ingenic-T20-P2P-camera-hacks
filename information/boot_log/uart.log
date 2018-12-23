@@ -1,0 +1,998 @@
+U-Boot SPL 2013.07-svn2893 (Aug 07 2018 - 16:27:01)
+pll_init:358
+l2cache_clk = 375000000
+pll_cfg.pdiv = 8, pll_cfg.h2div = 4, pll_cfg.h0div = 4, pll_cfg.cdiv = 1, pll_cfg.l2div = 3
+nf=35 nr = 1 od0 = 1 od1 = 1
+cppcr is 02304900
+CPM_CPAPCR 0450890d
+nf=42 nr = 1 od0 = 1 od1 = 1
+cppcr is 02a04900
+CPM_CPMPCR 07d0c90d
+nf=50 nr = 1 od0 = 1 od1 = 1
+cppcr is 03204900
+CPM_CPVPCR 0320490d
+cppcr 0x9a794410
+apll_freq 828000000
+mpll_freq 1000000000
+vpll_freq = 1200000000
+ddr sel mpll, cpu sel apll
+ddrfreq 500000000
+cclk  828000000
+l2clk 276000000
+h0clk 250000000
+h2clk 250000000
+pclk  125000000
+sdram init start
+T20L
+get_ddr_type
+DDRC_DLP:0000f003
+sdram init finished
+
+
+U-Boot 2013.07-svn2893 (Aug 07 2018 - 16:27:01)
+
+Board: ISVP (Ingenic XBurst T20 SoC)
+DRAM:  256 MiB
+Top of RAM usable for U-Boot at: 84000000
+Reserving 457k for U-Boot at: 83f8c000
+Reserving 32800k for malloc() at: 81f84000
+Reserving 32 Bytes for Board Info at: 81f83fe0
+Reserving 124 Bytes for Global Data at: 81f83f64
+Reserving 128k for boot params() at: 81f63f64
+Stack Pointer at: 81f63f48
+Now running in RAM - U-Boot at: 83f8c000
+MMC:   msc: 0
+idcode:ef4017
+the manufacturer ef
+
+idcode:ef4017
+the manufacturer ef
+
+In:    serial
+Out:   serial
+Err:   serial
+Net:   Jz4775-9161
+idcode:ef4017
+the manufacturer ef
+
+  IRCUT Init
+  Sensor is [JXF22]
+  Bootargs Sensor is JXF22
+Interface:  MMC
+  Device 0: Vendor: Man 00001b Snr 487fe100 Rev: 7.14 Prod: 00000
+            Type: Removable Hard Disk
+            Capacity: 29983.0 MB = 29.2 GB (61405184 x 512)
+Filesystem: FAT32 "NO NAME    "
+Hit any key to stop autoboot:  0
+idcode:ef4017
+the manufacturer ef
+
+SF: 2621440 bytes @ 0x48000 Read: OK
+## Booting kernel from Legacy Image at 80600000 ...
+   Image Name:   Linux-3.10.14
+   Image Type:   MIPS Linux Kernel Image (lzma compressed)
+   Data Size:    1420490 Bytes = 1.4 MiB
+   Load Address: 80010000
+   Entry Point:  8036e250
+   Verifying Checksum ... OK
+   Uncompressing Kernel Image ... OK
+
+Starting kernel ...
+
+Initializing cgroup subsys cpu
+Initializing cgroup subsys cpuacct
+Linux version 3.10.14 (root@ubuntu-64) (gcc version 4.7.2 (Ingenic r2.3.3 2016.12) ) #1 PREEMPT Wed Jul 18 09:54:48 CST 2018
+bootconsole [early0] enabled
+CPU0 RESET ERROR PC:EE381877
+CPU0 revision is: 00d00101 (Ingenic Xburst)
+FPU revision is: 00b70000
+CCLK:835MHz L2CLK:417Mhz H0CLK:200MHz H2CLK:200Mhz PCLK:100Mhz
+Determined physical RAM map:
+ memory: 00403000 @ 00010000 (usable)
+ memory: 0002d000 @ 00413000 (usable after init)
+User-defined physical RAM map:
+ memory: 024d4000 @ 00000000 (usable)
+Zone ranges:
+  Normal   [mem 0x00000000-0x024d3fff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x00000000-0x024d3fff]
+Primary instruction cache 32kB, 8-way, VIPT, linesize 32 bytes.
+Primary data cache 32kB, 8-way, VIPT, no aliases, linesize 32 bytes
+pls check processor_id[0x00d00101],sc_jz not support!
+MIPS secondary cache 128kB, 8-way, linesize 32 bytes.
+Built 1 zonelists in Zone order, mobility grouping off.  Total pages: 9354
+Kernel command line: console=ttyS1,115200n8 mem=37712K@0x0 ispmem=8100K@0x24D4000 rmem=19724K@0x2CBD000 init=/linuxrc rootfstype=squashfs root=/dev/mtdblock3 flash=SF sensor=JXF22 maxheight=1080 eeprom=NONE device_id=30400027414 ethaddr=00:11:22:33:44:72 devinfo=jcoxa19700101rj10ed3b40b849aea64bd84eb5c08768fe59cr49hwt cpu=T20 ddr=64M mtdparts=jz_sfc:256K@0K(sf-bootloader),32K@256K(sf-bootenv),1472K@288K(sf-kernel),1152K@1760K(sf-rootfs),4576K@2912K(sf-ipcfs),704K@7488K(sf-miscfs) feature=4 lang=2
+PID hash table entries: 256 (order: -2, 1024 bytes)
+Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+Memory: 32368k/37712k available (3483k kernel code, 5344k reserved, 623k data, 180k init, 0k highmem)
+SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+Preemptible hierarchical RCU implementation.
+NR_IRQS:418
+clockevents_config_and_register success.
+Calibrating delay loop... 829.84 BogoMIPS (lpj=4149248)
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 512
+Initializing cgroup subsys debug
+Initializing cgroup subsys freezer
+regulator-dummy: no parameters
+NET: Registered protocol family 16
+bio: create slab <bio-0> at 0
+jz-dma jz-dma: JZ SoC DMA initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+i2c-gpio i2c-gpio.1: using pins 57 (SDA) and 58 (SCL)
+ (null): set:249  hold:250 dev=100000000 h=500 l=500
+media: Linux media interface: v0.10
+Linux video capture interface: v2.00
+Switching to clocksource jz_clocksource
+cfg80211: Calling CRDA to update world regulatory domain
+jz-dwc2 jz-dwc2: cgu clk gate get error
+jz-dwc2 jz-dwc2: regulator vbus get error
+DWC IN OTG MODE
+sft id =========================off
+dwc2 dwc2: Keep PHY ON
+dwc2 dwc2: Using Buffer DMA mode
+dwc2 dwc2: Core Release: 3.00a
+dwc2 dwc2: DesignWare USB2.0 High-Speed Host Controller
+dwc2 dwc2: new USB bus registered, assigned bus number 1
+usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+usb usb1: Product: DesignWare USB2.0 High-Speed Host Controller
+usb usb1: Manufacturer: Linux 3.10.14 dwc2-hcd
+usb usb1: SerialNumber: dwc2
+hub 1-0:1.0: USB hub found
+hub 1-0:1.0: 1 port detected
+dwc2 dwc2: DWC2 Host Initialized
+NET: Registered protocol family 2
+TCP established hash table entries: 512 (order: 0, 4096 bytes)
+TCP bind hash table entries: 512 (order: -1, 2048 bytes)
+TCP: Hash tables configured (established 512 bind 512)
+TCP: reno registered
+UDP hash table entries: 256 (order: 0, 4096 bytes)
+UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+NET: Registered protocol family 1
+freq_udelay_jiffys[0].max_num = 10
+cpufreq         udelay  loops_per_jiffy
+12000    59588   59588
+24000    119176  119176
+60000    297941  297941
+120000   595882  595882
+200000   993137  993137
+300000   1489705         1489705
+600000   2979411         2979411
+dwc2 dwc2: ID PIN CHANGED!
+init DWC as A_HOST
+792000   3932823         3932823
+1008000  5005411         5005411
+1200000  5958823         5958823
+squashfs: version 4.0 (2009/01/31) Phillip Lougher
+jffs2: version 2.2. © 2001-2006 Red Hat, Inc.
+msgmni has been set to 63
+io scheduler noop registered
+io scheduler cfq registered (default)
+jz-uart.1: ttyS1 at MMIO 0x10031000 (irq = 58) is a uart1
+console [ttyS1] enabled, bootconsole disabled
+console [ttyS1] enabled, bootconsole disabled
+loop: module loaded
+logger: created 256K log 'log_main'
+jz SADC driver registeres over!
+jz TCU driver register completed
+the id code = ef4017, the flash name is W25Q64
+JZ SFC Controller for SFC channel 0 driver register
+6 cmdlinepart partitions found on MTD device jz_sfc
+Creating 6 MTD partitions on "jz_sfc":
+0x000000000000-0x000000040000 : "sf-bootloader"
+0x000000040000-0x000000048000 : "sf-bootenv"
+0x000000048000-0x0000001b8000 : "sf-kernel"
+0x0000001b8000-0x0000002d8000 : "sf-rootfs"
+0x0000002d8000-0x000000750000 : "sf-ipcfs"
+0x000000750000-0x000000800000 : "sf-miscfs"
+SPI NOR MTD LOAD OK
+tun: Universal TUN/TAP device driver, 1.6
+tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+usbcore: registered new interface driver cdc_wdm
+jzmmc_v1.2 jzmmc_v1.2.0: vmmc regulator missing
+jzmmc_v1.2 jzmmc_v1.2.0: card inserted, state=0
+jzmmc_v1.2 jzmmc_v1.2.0: register success!
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+TCP: cubic registered
+NET: Registered protocol family 17
+drivers/rtc/hctosys.c: unable to open rtc device (rtc0)
+VFS: Mounted root (squashfs filesystem) readonly on device 31:3.
+Freeing unused kernel memory: 180K (80413000 - 80440000)
+usb 1-1: new high-speed USB device number 2 using dwc2
+usb 1-1: New USB device found, idVendor=0bda, idProduct=0179
+usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+usb 1-1: Product: 802.11n NIC
+usb 1-1: Manufacturer: Realtek
+usb 1-1: SerialNumber: A09DC18E26D7
+mmc0: new high speed SDHC card at address 0001
+mmcblk0: mmc0:0001 00000 29.2 GiB
+ mmcblk0: p1
+
+       _                          _____          _
+      (_)   ___    ___           |_   _|   ___  | | __
+      | |  / __|  / _ \   _____    | |    / _ \ | |/ /
+      | | | (__  | (_) | |_____|   | |   |  __/ |   <   hello to jco&jz world
+     _/ |  \___|  \___/            |_|    \___| |_|\_\
+    |__/
+
+
+mdev is ok......
+--- mount squashfs succ! ---
+--- mount jfss2 succ! ---
+Auto login as root ...
+jabsco login: PATH: /ipc/bin:/bin:/sbin:/usr/bin:/usr/sbin
+LD_LIBRARY_PATH: /ipc/lib:/lib
+register all isp device successfully!
+@@@@ tx-isp-probe ok @@@@@
+EGISTER Device Driver $Version: 1.0.0.0  (REGISTER DRIVER) $ OK
+i2c Driver OK
+UNIQUE:[00-03] [00][00][00][00]
+UNIQUE:[04-07] [df][67][ac][96]
+UNIQUE:[08-11] [e3][60][50][26]
+UNIQUE:[12-15] [df][67][ac][96]
+UNIQUE:[16-19] [e3][60][50][26]
+UNIQUE:[20-23] [df][67][ac][96]
+gd25q Device Driver OK
+jz_codec_register: probe() successful!
+dma dma0chan24: Channel 24 have been requested.(phy id 7,type 0x06 desc a09cf000)
+dma dma0chan25: Channel 25 have been requested.(phy id 6,type 0x06 desc a08f8000)
+FAT-fs (mmcblk0p1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+nc: can't connect to remote host (127.0.0.1): Connection refused
+___________ sd card probe ______________
+________ scan after sd card mount ________
+RTL871X: module init start
+RTL871X: rtl8188eu rtl8188EUS_linux_v4.3.0.9_15178.20150907_modify_by_Di3_for_airlink_2JieGao
+RTL871X: build time: Jul 10 2017 10:32:13
+bFWReady == _FALSE call reset 8051...
+RTL871X: rtw_ndev_init(wlan0)
+RTL871X: rtw_ndev_init(wlan1)
+usbcore: registered new interface driver rtl8188eu
+RTL871X: module init ret=0
+
+        +------------------------------------------------+
+             Hello Server World @1970-01-01.00:00:07!!
+        +------------------------------------------------+
+
+[-DBG-] [ctrl/wifi_factory_config.c:  228] soft limit -1, hard limit:-1
+[-DBG-] [ctrl/wifi_factory_config.c:  233] soft limit 6291456, hard limit:6291456
+[-DBG-] [ctrl/wifi_factory_config.c:  109] szDevID: 30400027414
+[-DBG-] [ctrl/wifi_factory_config.c:  116] danale.conf is exist,id:1aeb2cdbe2c4766189777ba98ffa18e8
+[-DBG-] [ctrl/wifi_factory_config.c:  385] device id is ok, danale conf is ok
+<log_0> [j_schedule.c:82]:create_BGread_schedule init sche_thread:0x8a5640
+[j_schedule.c:   69] create_BGread_schedule start sche_thread:0x8a5640 pid:212 ppid:71
+<lUNIQUE:[00-03] [00][00][00][00]
+og_0> [j_event.c:437]:new event loop:0x8a5760
+<log_0> [j_scheduUNIQUE:[04-07] [df][67][ac][96]
+le.c:199]:new sched:0x8a55f0
+[ctrl/system_main.cpp:  120] inUNIQUE:[08-11] [e3][60][50][26]
+it support str_dev_type:enhanced str_platform:danale ...
+UNIQUE:[12-15] [df][67][ac][96]
+UNIQUE:[16-19] [e3][60][50][26]
+UNIQUE:[20-23] [df][67][ac][96]
+[-DBG-] [ctrl/system_ctrl.c:  736] systemType:secure=1 sectype=2 devid=30400027414 cpu=3 sensor=25 cpufreq=829
+[-DBG-] [conf/jconfig.cpp: 4261] config init
+[ctrl/system_main.cpp:  130] init JCPCMD...
+[jcp/jcpService.cpp:   65] success create socket (socket:8)
+[ctrl/system_main.cpp:  133] init timezone...
+[ctrl/system_main.cpp:  139] init Encode ___1___
+[-ENC-] [encode/system/encode_system.c:  103] --- gstVencSystem:[13]
+set sensor gpio as PA-low-10bit
+jxf22 0-0040: jxf22 chip found @ 0x40 (i2c0)
+tx_isp: Registered sensor subdevice jxf22 0-0040
+Sensor ISP File :/ipc/sensor/jxf22.bin
+###### image_tuning_v4l2_open 4329 #######
+[-ENC-] [encode/sdk/encode_sdk.c:  195] --- IMP Version:IMP-3.11.1 CPU Info:T20-Lite
+[conf/conf_nand.c:  892] read sensor[JXF22] and maxheight[1080]
+[-DBG-] [src/pthread_manage.cpp:   92] Init pthreadManage...
+[-ENC-] [encode/message/encode_message.c:  541] --- Audio [1][0][80][84][1][2]
+[ctrl/system_main.cpp:  141] init Encode ___2___
+[-ENC-] [encode/common/encode_common.c:  615] --- priority_min=1,priority_max=99
+[src/pthread_manage.cpp:   73] pthread_info [capture_audio_thread] tid:228 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = capture_audio_thread, pid = 228
+[-ENC-] [encode/audio/encode_captureaudio.c:  374] --- Audio In GetPubAttr samplerate : 8000
+[-ENC-] [encode/audio/encode_captureaudio.c:  375] --- Audio In GetPubAttr   bitwidth : 16
+[-ENC-] [encode/audio/encode_captureaudio.c:  376] --- Audio In GetPubAttr  soundmode : 1
+[-ENC-] [encode/audio/encode_captureaudio.c:  377] --- Audio In GetPubAttr     frmNum : 20
+[-ENC-] [encode/audio/encode_captureaudio.c:  378] --- Audio In GetPubAttr  numPerFrm : 640
+[-ENC-] [encode/audio/encode_captureaudio.c:  379] --- Audio In GetPubAttr     chnCnt : 1
+[src/pthread_manage.cpp:   73] pthread_info [play_audio_process] tid:227 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = play_audio_process, pid = 227
+[-ENC-] [encode/audio/encode_playaudio.c:  766] --- Audio Out GetPubAttr samplerate : 8000
+[-ENC-] [encode/audio/encode_playaudio.c:  767] --- Audio Out GetPubAttr   bitwidth : 16
+[-ENC-] [encode/audio/encode_playaudio.c:  768] --- Audio Out GetPubAttr  soundmode : 1
+[-ENC-] [encode/audio/encode_playaudio.c:  769] --- Audio Out GetPubAttr     frmNum : 20
+[-ENC-] [encode/audio/encode_playaudio.c:  770] --- Audio Out GetPubAttr  numPerFrm : 640
+[-ENC-] [encode/audio/encode_playaudio.c:  771] --- Audio Out GetPubAttr     chnCnt : 1
+[-ENC-] [encode/infrared/encode_infrared.c:  110] --- SU_ADC_Init is Finish
+[-ENC-] [encode/infrared/encode_infrared.c:  113] --- SU_ADC_EnableChn is Finish
+[-ENC-] [encode/infrared/encode_infrared.c:   56] --- eIRCUTMode:NORMAL
+[-ENC-] [encode/stream/encode_stream.c:   58] --- encode_stream_init is OK
+[-ENC-] [encode/osd/encode_osd.c:  398] --- encode_osd_init is OK
+[-ENC-] [encode/encode/encode_encode.c: 2207] --- encode_encode_init is OK!
+[-ENC-] [encode/message/encode_message.c: 1022] --- Encodec_set_device: set device: speaker...
+ter message Init...
+This event manager doesn't know about '64' events!
+This event manager doesn't know about '103' events!
+This event manager doesn't know about '105' events!
+This event manager doesn't know about '1012' events!
+[-ENC-] [encode/message/encode_message.c:   75] --- cb video chage of profile
+[-ENC-] [encode/message/encode_message.c:  186] --- gnum:2
+[-ENC-] [encode/message/encode_message.c:  190] --- ------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  191] --- id:0
+[-ENC-] [encode/message/encode_message.c:  192] --- enable:1
+[-ENC-] [encode/message/encode_message.c:  193] --- codec:2
+[-ENC-] [encode/message/encode_message.c:  194] --- vencsize:5
+[-ENC-] [encode/message/encode_message.c:  195] --- standard:0
+[-ENC-] [encode/message/encode_message.c:  196] --- fps:8
+[-ENC-] [encode/message/encode_message.c:  197] --- bps:1000
+[-ENC-] [encode/message/encode_message.c:  198] --- gop:16
+[-ENC-] [encode/message/encode_message.c:  199] --- fixfps:1
+[-ENC-] [encode/message/encode_message.c:  200] --- fixbps:2
+[-ENC-] [encode/message/encode_message.c:   54] --- vencsize:[5] profile:[0]
+[-ENC-] [encode/message/encode_message.c:  190] --- ------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  191] --- id:1
+[-ENC-] [encode/message/encode_message.c:  192] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  193] --- codec:2
+[-ENC-] [encode/message/encode_message.c:  194] --- vencsize:7
+[-ENC-] [encode/message/encode_message.c:  195] --- standard:0
+[-ENC-] [encode/message/encode_message.c:  196] --- fps:5
+[-ENC-] [encode/message/encode_message.c:  197] --- bps:360
+[-ENC-] [encode/mescodec_set_device: set device: MIC...
+sage/encode_message.c:  198] --- gop:8
+[-ENC-] [encode/message/encode_message.c:  199] --- fixfps:1
+[-ENC-] [encode/message/encode_message.c:  200] --- fixbps:2
+[-ENC-] [encode/message/encode_message.c:   54] --- vencsize:[7] profile:[0]
+[-ENC-] [encode/message/encode_message.c:  190] --- ------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  191] --- id:2
+[-ENC-] [encode/message/encode_message.c:  192] --- enable:1
+[-ENC-] [encode/message/encode_message.c:  193] --- codec:5
+[-ENC-] [encode/message/encode_message.c:  194] --- vencsize:2
+[-ENC-] [encode/message/encode_message.c:  195] --- standard:0
+[-ENC-] [encode/message/encode_message.c:  196] --- fps:25
+[-ENC-] [encode/message/encode_message.c:  197] --- bps:1024
+[-ENC-] [encode/message/encode_message.c:  198] --- gop:25
+[-ENC-] [encode/message/encode_message.c:  199] --- fixfps:1
+[-ENC-] [encode/message/encode_message.c:  200] --- fixbps:1
+[-ENC-] [encode/message/encode_message.c:   54] --- vencsize:[2] profile:[0]
+[-ENC-] [encode/message/encode_message.c:  237] --- CAPTURE:5
+[-ENC-] [encode/message/encode_message.c:   79] --- cb video chage of videocfg
+[-ENC-] [encode/message/encode_message.c:  186] --- gnum:2
+[-ENC-] [encode/message/encode_message.c:  190] --- ------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  191] --- id:0
+[-ENC-] [encode/message/encode_message.c:  192] --- enable:1
+[-ENC-] [encode/message/encode_message.c:  193] --- codec:2
+[-ENC-] [encode/message/encode_message.c:  194] --- vencsize:5
+[-ENC-] [encode/message/encode_message.c:  195] --- standard:0
+[-ENC-] [encode/message/encode_message.c:  196] --- fps:8
+[-ENC-] [encode/message/encode_message.c:  197] --- bps:1000
+[-ENC-] [encode/message/encode_message.c:  198] --- gop:16
+[-ENC-] [encode/message/encode_message.c:  199] --- fixfps:1
+[-ENC-] [encode/message/encode_message.c:  200] --- fixbps:2
+[-ENC-] [encode/message/encode_message.c:   54] --- vencsize:[5] profile:[0]
+[-ENC-] [encode/message/encode_message.c:  190] --- ------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  191] --- id:1
+[-ENC-] [encode/message/encode_message.c:  192] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  193] --- codec:2
+[-ENC-] [encode/message/encode_message.c:  194] --- vencsize:7
+[-ENC-] [encode/message/encode_message.c:  195] --- standard:0
+[-ENC-] [encode/message/encode_message.c:  196] --- fps:5
+[-ENC-] [encode/message/encode_message.c:  197] --- bps:360
+[-ENC-] [encode/message/encode_message.c:  198] --- gop:8
+[-ENC-] [encode/message/encode_message.c:  199] --- fixfps:1
+[-ENC-] [encode/message/encode_message.c:  200] --- fixbps:2
+[-ENC-] [encode/message/encode_message.c:   54] --- vencsize:[7] profile:[0]
+[-ENC-] [encode/message/encode_message.c:  190] --- ------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  191] --- id:2
+[-ENC-] [encode/message/encode_message.c:  192] --- enable:1
+[-ENC-] [encode/message/encode_message.c:  193] --- codec:5
+[-ENC-] [encode/message/encode_message.c:  194] --- vencsize:2
+[-ENC-] [encode/message/encode_message.c:  195] --- standard:0
+[-ENC-] [encode/message/encode_message.c:  196] --- fps:25
+[-ENC-] [encode/message/encode_message.c:  197] --- bps:1024
+[-ENC-] [encode/message/encode_message.c:  198] --- gop:25
+[-ENC-] [encode/message/encode_message.c:  199] --- fixfps:1
+[-ENC-] [encode/message/encode_message.c:  200] --- fixbps:1
+[-ENC-] [encode/message/encode_message.c:   54] --- vencsize:[2] profile:[0]
+[-ENC-] [encode/message/encode_message.c:  237] --- CAPTURE:5
+[src/pthread_manage.cpp:   73] pthread_info [timer_thread] tid:255 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = timer_thread, pid = 255
+[-ENC-] [encode/timer/encode_timer.c:   31] --- Now timer_process is start
+[-ENC-] [encode/audio/encode_playaudio.c:  972] --- Now play_audio_process is start:1
+[-ENC-] [encode/audio/encode_captureaudio.c:  450] --- Now audio_process is start
+[-ENC-] [encode/message/encode_message.c:  370] --- ----------------------Mask----------------------------
+[-ENC-] [encode/message/encode_message.c:  371] --- gnum:8
+[-ENC-] [encode/message/encode_message.c:  374] --- id:0
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:1
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:2
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:3
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:4
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:5
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:6
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  374] --- id:7
+[-ENC-] [encode/message/encode_message.c:  375] --- enable:0
+[-ENC-] [encode/message/encode_message.c:  376] --- color:0
+[-ENC-] [encode/message/encode_message.c:  377] --- x0:0
+[-ENC-] [encode/message/encode_message.c:  378] --- y0:0
+[-ENC-] [encode/message/encode_message.c:  379] --- x1:0
+[-ENC-] [encode/message/encode_message.c:  380] --- y1:0
+[-ENC-] [encode/message/encode_message.c:  382] --- -----------------------------------------------------
+[-ENC-] [encode/message/encode_message.c:  541] --- Audio [1][0][80][84][1][2]
+[encode/audio/encode_playaudio.c:  127] ___close_cache_ 1
+[-ENC-] [encode/audio/encode_playaudio.c:  137] --- Audio Out GetVol    vol : 84
+[-ENC-] [encode/audio/encode_playaudio.c:  145] --- Audio Out GetGain    gain : 20
+[-ENC-] [encode/audio/encode_playaudio.c:  190] --- encode_message_play_audio_change_process is OK
+[encode/infrared/encode_infrared.c:  687] init to day, close ir-led
+[-ENC-] [encode/message/encode_message.c:  577] --- Audio Test [0][1][90][90]
+[-ENC-] [encode/message/encode_message.c:  269] --- motion detect enable:0 thresh:0 intv:120
+[-ENC-] [encode/message/encode_message.c:  270] --- mbdesc:1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,
+[-ENC-] [encode/message/encode_message.c:  323] --- VideoLoss:[0][1]
+[-ENC-] [encode/infrared/encode_infrared.c:   56] --- eIRCUTMode:NORMAL
+[-ENC-] [encode/message/encode_message.c:  713] --- video 3a ae:0 awb:0 blc:0 redgain:128 bluegain:128
+[-ENC-] [encode/isp/encode_isp.c:  887] --- AWB:mode:0 rgain:129 bgain:129
+[-ENC-] [encode/message/encode_message.c:  756] --- cb_event_capture_cfg
+[-ENC-] [encode/message/encode_message.c:  779] --- denoise enable:1 mode:50
+[-ENC-] [encode/message/encode_message.c:  800] --- [ROI] gnum:8
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:0 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:1 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:2 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:3 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:4 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:5 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:6 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  813] --- [ROI] id:7 qp:95 interval:0 enable:0 left:0 top:0 right:0 bottom:0
+[-ENC-] [encode/message/encode_message.c:  847] --- bright:128
+[-ENC-] [encode/message/encode_message.c:  848] --- contrast:128
+[-ENC-] [encode/message/encode_message.c:  849] --- hue:128
+[-ENC-] [encode/message/encode_message.c:  850] --- saturation:128
+[-ENC-] [encode/message/encode_message.c:  851] --- sharpness:128
+[-ENC-] [encode/message/encode_message.c:  852] --- lampfrequency:1
+[-ENC-] [encode/message/encode_message.c:  853] --- reverse:0
+[-ENC-] [encode/message/encode_message.c:  854] --- gain:128
+[-ENC-] [encode/message/encode_message.c:  855] --- nightluma:35
+[-ENC-] [encode/message/encode_message.c:  856] --- contrast enhance enable:0
+[-ENC-] [encode/message/encode_message.c:  857] --- brightlevel:3
+[-ENC-] [encode/isp/encode_isp.c:  176] --- encode_isp_set_image_setting is start
+[encode/infrared/encode_infrared.c:  239] ir_param[JXF22] i: 1
+[-DBG-] [encode/audio/encode_captureaudio.c:  420] _________ audiocfg change _________
+[-ENC-] [encode/audio/encode_captureaudio.c:   51] --- Audio In GetVol    vol : 80
+[-ENC-] [encode/audio/encode_captureaudio.c:   59] --- Audio In GetGain    gain : 12
+[encode/audio/encode_playaudio.c:  153] ___close_cache_ 2
+[-ENC-] [encode/audio/encode_playaudio.c:  163] --- Audio Out GetVol    vol : 84
+[-ENC-] [encode/audio/encode_playaudio.c:  171] --- Audio Out GetGain    gain : 20
+[-ENC-] [encode/audio/encode_playaudio.c:  190] --- encode_message_play_audio_change_process is OK
+[-ENC-] [encode/audio/encode_playaudio.c:  296] --- audioport:8004
+[-ENC-] [encode/audio/encode_playaudio.c:  314] --- encode_message_play_port_change_process is OK
+set safe_suppression_value 1.500000
+[-ENC-] [encode/audio/encode_captureaudio.c:  149] --- encode_message_capture_audio_change_process is OK
+[-ENC-] [encode/isp/encode_isp.c:  191] --- MaxAgain:128 Comp:128
+[-ENC-] [encode/isp/encode_isp.c:  230] --- contrast:128 sharpness:128 saturation:128
+[-ENC-] [encode/isp/encode_isp.c:  401] --- encode_isp_set_image_setting is OK
+[-ENC-] [encode/isp/encode_isp.c: 1569] --- eDayNightType:2
+[-ENC-] [encode/isp/encode_isp.c:  460] --- ISP Set Gamma Day Low
+[-DBG-] [encode/infrared/encode_infrared.c:  648] ___set ircut 2: day
+[-ENC-] [encode/message/encode_message.c:  297] --- MaskAlarm:[0][50]
+[-ENC-] [encode/message/encode_message.c:  895] --- [BlackMargin]width:0 height:0 posx:0 posy:0
+[-ENC-] [encode/message/encode_message.c:  929] --- [LensSCS]eLSCMode:1 ratio:0
+[-ENC-] [encode/message/encode_message.c:  847] --- bright:128
+[-ENC-] [encode/message/encode_message.c:  848] --- contrast:128
+[-ENC-] [encode/message/encode_message.c:  849] --- hue:128
+[-ENC-] [encode/message/encode_message.c:  850] --- saturation:128
+[-ENC-] [encode/message/encode_message.c:  851] --- sharpness:128
+[-ENC-] [encode/message/encode_message.c:  852] --- lampfrequency:1
+[-ENC-] [encode/message/encode_message.c:  853] --- reverse:0
+[-ENC-] [encode/message/encode_message.c:  854] --- gain:128
+[-ENC-] [encode/message/encode_message.c:  855] --- nightluma:35
+[-ENC-] [encode/message/encode_message.c:  856] --- contrast enhance enable:0
+[-ENC-] [encode/message/encode_message.c:  857] --- brightlevel:3
+[-ENC-] [encode/isp/encode_isp.c:  176] --- encode_isp_set_image_setting is start
+[-ENC-] [encode/isp/encode_isp.c:  230] --- contrast:128 sharpness:128 saturation:128
+[-ENC-] [encode/infrared/encode_infrared.c:   48] --- day, use red-filter glass
+aecMode = 0
+dtdEnable = 1
+dtdBandNum = 3
+dtdPowThd = 6000000.000000
+dtdDxRatio = 2.000000
+safeSupression = 1.500000
+[-ENC-] [encode/isp/encode_isp.c:  401] --- encode_isp_set_image_setting is OK
+[-ENC-] [encode/common/encode_common.c:  615] --- priority_min=1,priority_max=99
+[ctrl/system_main.cpp:  143] init Encode __over_
+[-DBG-] [src/time_call.cpp:   31] new time engine:0x90b798
+[-ENC-] [encode/isp/encode_isp.c:  176] --- encode_isp_set_image_setting is start
+[-ENC-] [encode/isp/encode_isp.c:  230] --- contrast:128 sharpness:128 saturation:128
+[src/pthread_manage.cpp:   73] pthread_info [time_call_thread] tid:268 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = time_call_thread, pid = 268
+[src/time_call.cpp:   62] [getpid():210 pid:268] time call main loop...
+[src/pthread_manage.cpp:   73] pthread_info [encode_process_thread] tid:267 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = encode_process_thread, pid = 267
+[-ENC-] [encode/encode/encode_encode.c: 1674] --- VESIZE:5 :0
+[-ENC-] [encode/encode/encode_encode.c: 1365] --- ptVideoEnc:[0][1][2][5][0][8][1000][16][1][2][0][40][1]
+[-ENC-] [encode/encode/encode_encode.c: 1365] --- ptVideoEnc:[1][1][2][7][0][5][360][8][1][2][0][40][1]
+[-ENC-] [encode/encode/encode_encode.c: 1365] --- ptVideoEnc:[2][0][5][5][0][10][1000][25][1][1][0][40][1]
+[-ENC-] [encode/encode/encode_encode.c: 1413] --- bInitFirst:0
+[-DBG-] [encode/encode/encode_encode.c:  289] got a small resolution
+[-ENC-] [encode/encode/encode_encode.c:  338] --- FS[0] picWidth:1712
+[-ENC-] [encode/encode/encode_encode.c:  339] --- FS[0] picHeight:1072
+[-ENC-] [encode/encode/encode_encode.c:  340] --- FS[0] pixFmt:10
+[-ENC-] [encode/encode/encode_encode.c:  342] --- FS[0] crop enable:1
+[-ENC-] [encode/encode/encode_encode.c:  343] --- FS[0] crop left:62
+[-ENC-] [encode/encode/encode_encode.c:  344] --- FS[0] crop top:8
+[-ENC-] [encode/encode/encode_encode.c:  345] --- FS[0] crop width:1712
+[-ENC-] [encode/encode/encode_encode.c:  346] --- FS[0] crop height:1072
+[-ENC-] [encode/encode/encode_encode.c:  348] --- FS[0] scaler enable:0
+[-ENC-] [encode/encode/encode_encode.c:  349] --- FS[0] scaler outwidth:1920
+[-ENC-] [encode/encode/encode_encode.c:  350] --- FS[0] scaler outheight:1080
+[-ENC-] [encode/encode/encode_encode.c:  351] --- FS[0] outFrmRateNum:25
+[-ENC-] [encode/encode/encode_encode.c:  352] --- FS[0] outFrmRateDen:1
+[-ENC-] [encode/encode/encode_encode.c:  353] --- FS[0] nrVBs:2
+[-ENC-] [encode/encode/encode_encode.c:  354] --- FS[0] type:0
+[-ENC-] [encode/encode/encode_encode.c:  338] --- FS[1] picWidth:640
+[-ENC-] [encode/encode/encode_encode.c:  339] --- FS[1] picHeight:480
+[-ENC-] [encode/encode/encode_encode.c:  340] --- FS[1] pixFmt:10
+[-ENC-] [encode/encode/encode_encode.c:  342] --- FS[1] crop enable:1
+[-ENC-] [encode/encode/encode_encode.c:  343] --- FS[1] crop left:0
+[-ENC-] [encode/encode/encode_encode.c:  344] --- FS[1] crop top:0
+[-ENC-] [encode/encode/encode_encode.c:  345] --- FS[1] crop width:1920
+[-ENC-] [encode/encode/encode_encode.c:  346] --- FS[1] crop height:1080
+[-ENC-] [encode/encode/encode_encode.c:  348] --- FS[1] scaler enable:1
+[-ENC-] [encode/encode/encode_encode.c:  349] --- FS[1] scaler outwidth:640
+[-ENC-] [encode/encode/encode_encode.c:  350] --- FS[1] scaler outheight:480
+[-ENC-] [encode/encode/encode_encode.c:  351] --- FS[1] outFrmRateNum:25
+[-ENC-] [encode/encode/encode_encode.c:  352] --- FS[1] outFrmRateDen:1
+[-ENC-] [encode/encode/encode_encode.c:  353] --- FS[1] nrVBs:2
+[-ENC-] [encode/encode/encode_encode.c:  354] --- FS[1] type:0
+[-ENC-] [encode/encode/encode_encode.c:  358] --- encode_imp_chn_fill_param is OK
+[-ENC-] [encode/encode/encode_encode.c:  402] --- bCreate[1] FS[0] [1712]X[1072] scaler[0][1920][1080] crop[1][62][8][1712][1072] type[0]
+[-ENC-] [encode/encode/encode_encode.c:  402] --- bCreate[1] FS[1] [640]X[480] scaler[1][640][480] crop[1][0][0][1920][1080] type[0]
+[-ENC-] [encode/encode/encode_encode.c:  405] --- encode_framesource_init is OK
+[-ENC-] [encode/encode/encode_encode.c: 1128] --- encode_cache_init is OK
+[-ENC-] [encode/encode/encode_encode.c:  511] --- #################################### 1080P  :1
+[-ENC-] [encode/encode/encode_encode.c: 2475] --- maxgop:16 fps:8 sensor_fps:12
+[-ENC-] [encode/encode/encode_encode.c:  615] --- Encode[0] H264 SMART frmRateNum:8
+[-ENC-] [encode/encode/encode_encode.c:  616] --- Encode[0] H264 SMART frmRateDen:1
+[-ENC-] [encode/encode/encode_encode.c:  679] --- encChn:0 [1712]X[1072] :[1][25][8]
+[-ENC-] [encode/encode/encode_encode.c:  682] --- Encode[0] enType:1
+[-ENC-] [encode/encode/encode_encode.c:  683] --- Encode[0] bufSize:0
+[-ENC-] [encode/encode/encode_encode.c:  684] --- Encode[0] profile:2
+[-ENC-] [encode/encode/encode_encode.c:  685] --- Encode[0] picWidth:1712
+[-ENC-] [encode/encode/encode_encode.c:  686] --- Encode[0] picHeight:1072
+[-ENC-] [encode/encode/encode_encode.c:  687] --- Encode[0] crop enable:0
+[-ENC-] [encode/encode/encode_encode.c:  688] --- Encode[0] crop x:0
+[-ENC-] [encode/encode/encode_encode.c:  689] --- Encode[0] crop y:0
+[-ENC-] [encode/encode/encode_encode.c:  690] --- Encode[0] crop w:0
+[-ENC-] [encode/encode/encode_encode.c:  691] --- Encode[0] crop h:0
+[-ENC-] [encode/encode/encode_encode.c:  490] --- #################################### VGA   :1
+[-ENC-] [encode/encode/encode_encode.c: 2475] --- maxgop:10 fps:5 sensor_fps:12
+[-ENC-] [encode/encode/encode_encode.c:  615] --- Encode[0] H264 SMART frmRateNum:5
+[-ENC-] [encode/encode/encode_encode.c:  616] --- Encode[0] H264 SMART frmRateDen:1
+[-ENC-] [encode/encode/encode_encode.c:  679] --- encChn:1 [640]X[480] :[1][25][5]
+[-ENC-] [encode/encode/encode_encode.c:  682] --- E&&& chan1  scaler.max_width = 1712 max_height = 1072  min_width = 128 min_height = 128 &&&
+ncode[1] enType:1
+[-ENC-] [encode/encode/encode_encode.c:  683] --- Encode[1] bufSize:0
+[-ENC-] [encode/encode/encode_encode.c:  684] --- Encode[1] profile:2
+[-ENC-] [encode/encode/encode_encode.c:  685] --- Encode[1] picWidth:640
+[-ENC-] [encode/encode/encode_encode.c:  686] --- Encode[1] picHeight:480
+[-ENC-] [encode/encode/encode_encode.c:  687] --- Encode[1] crop enable:0
+[-ENC-] [encode/encode/encode_encode.c:  688] --- Encode[1] crop x:0
+[-ENC-] [encode/encode/encode_encode.c:  689] --- Encode[1] crop y:0
+[-ENC-] [encode/encode/encode_encode.c:  690] --- Encode[1] crop w:0
+[-ENC-] [encode/encode/encode_encode.c:  691] --- Encode[1] crop h:0
+[ctrl/system_main.cpp:  152] init client rstkey
+[-DBG-] [ctrl/watch_rstkey.cpp:   79] init_reset_key
+i264e[info]: profile &&& chan2  scaler.max_width = 800 max_height = 800  min_width = 128 min_height = 128 &&&
+High, level 4.0
+[-ENC-] [encode/isp/encode_isp.c:  401] --- encode_isp_set_image_setting is OK
+i264e[info]: profile High, level 2.2
+[-ENC-] [encode/encode/encode_encode.c:  800] --- encode_codec_init is OK
+[-ENC-] [encode/encode/encode_encode.c:  932] --- IMPCell FS:[0][0][0] OSD:[4][0][0] H264:[1][0][0]  JPG:[1][0][1]
+[-ENC-] [encode/encode/encode_encode.c:  932] --- IMPCell FS:[0][1][0] OSD:[4][1][0] H264:[1][1][0]  JPG:[1][1][1]
+sh: line 0: echo: write error: Operation not permitted
+[-DBG-] [src/librecover.c:   71] recover_init is OK
+[-DBG-] [src/JTimeCallService.h:   41] new time call:rst after 2
+[ctrl/system_main.cpp:  155] init airlink...
+[chn0] scaler->outwidth = 1920 scaler->outheight = 1080, sscaler.outwidth = 0 sscaler.outheight = 0
+[-ENC-] [encode/encode/encode_encode.c:  957] --- dwFrameSourceChn:0 EnableChn
+[chn1] scaler->outwidth = 640 scaler->outheight = 480, sscaler.outwidth = 640 sscaler.outheight = 480
+[-ENC-] [encode/encode/encode_encode.c:  957] --- dwFrameSourceChn:1 EnableChn
+[-ENC-] [encode/encode/encode_encode.c:  961] --- encode_framesource_on is OK  ppid: 267, pid: 210
+[-ENC-] [encode/encode/encode_encode.c: 1047] --- H264 Encode:0 Enable
+[-ENC-] [encode/encode/encode_encode.c: 1047] --- H264 Encode:1 Enable
+[-ENC-] [encode/encode/encode_encode.c: 1052] --- encode_encode_start is OK
+[-ENC-] [encode/encode/encode_encode.c: 1011] --- encChn:0 IMP_Encoder_InsertUserData:ShenZhenJabscoTechnology
+[-ENC-] [encode/encode/encode_encode.c: 1011] --- encChn:1 IMP_Encoder_InsertUserData:ShenZhenJabscoTechnology
+[-ENC-] [encode/encode/encode_encode.c: 1016] --- encode_codec_watermark is OK
+[-ENC-] [encode/encode/encode_encode.c: 1500] --- encode message is change ok
+[-ENC-] [encode/snapshot/encode_snapshot.c:  138] --- jpg:[5] [1] [1] [5]
+[*ERR*] [encode/snapshot/encode_snapshot.c:  151] *** bRet[-1] is ERROR! Please Check Code
+[-ENC-] [encode/snapshot/encode_snapshot.c:  152] --- encChn:2 Encoder_StartRecvPic
+[*ERR*] [encode/encode/encode_encode.c: 1687] *** bRet[-1] is ERROR! Please Check Code
+[-ENC-] [encode/encode/encode_encode.c: 1365] --- ptVideoEnc:[0][1][2][5][0][8][1000][16][1][2][0][40][1]
+[-ENC-] [encode/encode/encode_encode.c: 1365] --- ptVideoEnc:[1][1][2][7][0][5][360][8][1][2][0][40][1]
+[-ENC-] [encode/encode/encode_encode.c: 1365] --- ptVideoEnc:[2][0][5][5][0][10][1000][25][1][1][0][40][1]
+[-ENC-] [encode/encode/encode_encode.c:  816] --- encode_codec_quick is Start
+[-ENC-] [encode/encode/encode_encode.c:  511] --- #################################### 1080P  :2
+[-ENC-] [encode/encode/encode_encode.c: 2475] --- maxgop:16 fps:8 sensor_fps:12
+[-ENC-] [encode/encode/encode_encode.c:  615] --- Encode[0] H264 SMART frmRateNum:8
+[-ENC-] [encode/encode/encode_encode.c:  616] --- Encode[0] H264 SMART frmRateDen:1
+[-ENC-] [encode/encode/encode_encode.c:  679] --- encChn:0 [1712]X[1072] :[1][25][8]
+[-ENC-] [encode/encode/encode_encode.c:  682] --- Encode[0] enType:1
+[-ENC-] [encode/encode/encode_encode.c:  683] --- Encode[0] bufSize:0
+[-ENC-] [encode/encode/encode_encode.c:  684] --- Encode[0] profile:2
+[-ENC-] [encode/encode/encode_encode.c:  685] --- Encode[0] picWidth:1712
+[-ENC-] [encode/encode/encode_encode.c:  686] --- Encode[0] picHeight:1072
+[-ENC-] [encode/encode/encode_encode.c:  687==> rtl8188e_iol_efuse_patch
+] --- Encode[0] crop enable:0
+[-ENC-] [encode/encode/encode_encode.c:  688] --- Encode[0] crop x:0
+[-ENC-] [encode/encode/encode_encode.c:  689] --- Encode[0] crop y:0
+[-ENC-] [encode/encode/encode_encode.c:  690] --- Encode[0] crop w:0
+[-ENC-] [encode/encode/encode_encode.c:  691] --- Encode[0] crop h:0
+[-ENC-] [encode/encode/encode_encode.c:  490] --- #################################### VGA   :2
+[-ENC-] [encode/encode/encode_encode.c: 2475] --- maxgop:10 fps:5 sensor_fps:12
+[-ENC-] [encode/encode/encode_encode.c:  615] --- Encode[0] H264 SMART frmRateNum:5
+[-ENC-] [encode/encode/encode_encode.c:  616] --- Encode[0] H264 SMART frmRateDen:1
+[-ENC-] [encode/encode/encode_encode.c:  679] --- encChn:1 [640]X[480] :[1][25][5]
+[-ENC-] [encode/encode/encode_encode.c:  682] --- Encode[1] enType:1
+[-ENC-] [encode/encode/encode_encode.c:  683] --- Encode[1] bufSize:0
+[-ENC-] [encode/encode/encode_encode.c:  684] --- Encode[1] profile:2
+[-ENC-] [encode/encode/encode_encode.c:  685] --- Encode[1] picWidth:640
+[-ENC-] [encode/encode/encode_encode.c:  686] --- Encode[1] picHeight:480
+[-ENC-] [encode/encode/encode_encode.c:  687] --- Encode[1] crop enable:0
+[-ENC-] [encode/encode/encode_encode.c:  688] --- Encode[1] crop x:0
+[-ENC-] [encode/encode/encode_encode.c:  689] --- Encode[1] crop y:0
+[-ENC-] [encode/encode/encode_encode.c:  690] --- Encode[1] crop w:0
+[-ENC-] [encode/encode/encode_encode.c:  691] --- Encode[1] crop h:0
+[-ENC-] [encode/encode/encode_encode.c:  855] --- encode_codec_quick is OK
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[0] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[1] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[2] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[3] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[4] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[5] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[6] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1181] --- ROI[8]:[7] [0][95][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][0]:[0][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][1]:[1][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][2]:[2][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][3]:[3][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][4]:[4][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][5]:[5][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][6]:[6][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[0][7]:[7][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][0]:[0][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][1]:[1][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][2]:[2][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][3]:[3][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][4]:[4][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][5]:[5][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][6]:[6][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1244] --- ROI[1][7]:[7][0][1][-15][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-0-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-1-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-2-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-3-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-4-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-5-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-6-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1549] --- ptVideoMask [8][-7-][0][0][0][0][0][0]
+[-ENC-] [encode/encode/encode_encode.c: 1513] --- MB:enable:0 thresh:0 intv:120 mbdesc:1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,1111111111111111111111,
+[-ENC-] [encode/motion/encode_motion.c:  359] --- encode_motion_creat start
+[-ENC-] [encode/motion/encode_motion.c:  398] --- encode_motion_creat OK
+[-ENC-] [encode/encode/encode_encode.c: 1527] --- VMaskAlarm:enable:0 thresh:50
+[-ENC-] [encode/encode/encode_encode.c: 1634] --- ptOsdStyle [0][0][48][48]
+[-ENC-] [encode/osd/encode_osd.c:  880] --- Font W:48 H:48 Color:0
+[-ENC-] [encode/osd/encode_osd.c:  880] --- Font W:16 H:22 Color:0
+[-ENC-] [encode/osd/encode_osd.c:  880] --- Font W:48 H:48 Color:0
+[-ENC-] [encode/osd/encode_osd.c:  880] --- Font W:16 H:22 Color:0
+[-ENC-] [encode/encode/encode_encode.c: 1617] --- ptOsdInfo time[1][652][20] bps[1][0][0] name[0][1500][980][HSIPC]
+[encode/infrared/encode_infrared.c:  687] init to day, close ir-led
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+[ctrl/system_main.cpp:  158] init client led
+[-DBG-] [src/JTimeCallService.h:   41] new time call:rst after 1
+[ctrl/system_main.cpp:  161] init networking...
+[-DBG-] [danale/danale_airlink.c: 1812] network_up:ifconfig wlan0 up
+[-DBG-] [danale/danale_airlink.c: 1335] detect wifidev chiptyp:2
+[-DBG-] [conf/jconfig.cpp:  959] no eth on fisheye
+[danale/danale_airlink.c:  778] ___wifi_restart___ from danale_airlink_rtl8188eus_cfg_init
+[-DBG-] [danale/danale_airlink.c: 1642] stop wpa_supplicant
+[-ENC-] [encode/osd/encode_osd.c:  500] --- OSD dwWidth:456 dwHeight:48
+[-ENC-] [encode/osd/encode_osd.c:  501] --- OSD name:1970-01-01 00:00:13 dwUnicodeLen:19
+[-ENC-] [encode/osd/encode_osd.c:  502] --- Font W:48 H:48 dwX:652 dwY:20
+[-ENC-] [encode/osd/encode_osd.c:   70] --- IMP_OSD_CreateRgn HanderFont:0
+[-ENC-] [encode/osd/encode_osd.c:  500] --- OSD dwWidth:152 dwHeight:22
+[-ENC-] [encode/osd/encode_osd.c:  501] --- OSD name:1970-01-01 00:00:14 dwUnicodeLen:19
+[-ENC-] [encode/osd/encode_osd.c:  502] --- Font W:16 H:22 dwX:217 dwY:8
+[-ENC-] [encode/osd/encode_osd.c:   70] --- IMP_OSD_CreateRgn HanderFont:1
+[-ENC-] [encode/osd/encode_osd.c:  835] --- encode_osd_set_param is OK
+[-ENC-] [encode/osd/encode_osd.c:  880] --- Font W:48 H:48 Color:0
+[-ENC-] [encode/osd/encode_osd.c:  880] --- Font W:16 H:22 Color:0
+[-ENC-] [encode/encode/encode_encode.c: 1661] --- ptOsdExpand [0][0][0][0][0][0][custom]
+[-ENC-] [encode/osd/encode_osd.c:  957] --- encode_osd_set_expand is OK
+[-ENC-] [encode/encode/encode_encode.c: 1289] --- encode_osd_sdk_start is OK
+[-ENC-] [encode/encode/encode_encode.c: 1968] --- SPS[0] [26]:
+[-ENC-] [encode/encode/encode_encode.c: 1988] --- PPS[0] [8]:
+[-ENC-] [encode/encode/encode_encode.c: 2007] --- SEI[32]:00000001060518d73eba3de6a64c809379640b42f2b8665368656e5a68656e80
+[-ENC-] [encode/encode/encode_encode.c: 1968] --- SPS[1] [24]:
+[-ENC-] [encode/encode/encode_encode.c: 1988] --- PPS[1] [8]:
+[-ENC-] [encode/encode/encode_encode.c: 2007] --- SEI[32]:00000001060518d73eba3de6a64c809379640b42f2b8665368656e5a68656e80
+Failed to connect to wpa_supplicant - wpa_ctrl_open: No such file or directory
+[-DBG-] [danale/danale_airlink.c: 1812] network_up:ifconfig wlan0 up
+[-DBG-] [danale/danale_airlink.c: 1659] start wpa_supplicant
+[-DBG-] [danale/danale_airlink.c: 1671] /var/run/wlan0_supplicant cleanup
+[-ENC-] [encode/isp/encode_isp.c: 1380] --- gtVencISP.nSaturation:128
+rfkill: Cannot open RFKILL control deviceRTL871X: set bssid:00:00:00:00:00:00
+
+ioctl[SIOCSIWAP]: Operation not permitted
+[-DBG-] [conf/jconfig.cpp: 2094] cmdline & inner are the same!
+[-DBG-] [danale/danale_airlink.c:  787] connect wifi: network={
+    ssid="xxx"
+    key_mgmt=WPA-PSK
+    scan_ssid=1
+    psk="xxx"
+}
+
+I am recving: [wificfg -act list]
+/var/network/eth0.conf: line 9: 802.11n: command not found
+udhcpc (v1.19.4) started
+wlan0 dhcp deconfig
+udhcpc 180s: 15
+Sending discover...
+[-ENC-] [encode/infrared/encode_infrared.c:  723] --- eDayOrNight:-1 change to scene:1 Day
+RTL871X: set ssid [xxx] fw_state=0x00000008
+RTL871X: set bssid:1c:74:0d:7f:62:cc
+RTL871X: start auth
+RTL871X: auth success, start assoc
+RTL871X: assoc success
+RsvdPageNum: 8
+RTL871X: recv eapol packet
+RTL871X: send eapol packet
+RTL871X: recv eapol packet
+RTL871X: send eapol packet
+RTL871X: set pairwise key camid:4, addr:1c:74:0d:7f:62:cc, kid:0, type:AES
+RTL871X: set group key camid:5, addr:1c:74:0d:7f:62:cc, kid:1, type:AES
+udhcpc 180s: 17
+Sending discover...
+Sending select for 192.168.100.11...
+Lease of 192.168.100.11 obtained, lease time 345600
+deleting routes
+route: ioctl 0x890c failed: No such process
+adding dns 192.168.100.1
+I am recving: [dhcpnotify -act dns -ip 192.168.100.1]
+[-DBG-] [jcp/jcpCmdImplement.cpp: 5710] result: interface: ip:192.168.100.1 lease:0
+[Success]
+
+
+I am recving: [dhcpnotify -act set -result success -interface wlan0 -ip 192.168.100.11 -lease 345600]
+[-DBG-] [jcp/jcpCmdImplement.cpp: 5710] result:success interface:wlan0 ip:192.168.100.11 lease:345600
+index 1 is lo
+index 2 is wlan0
+index 3 is wlan1
+check eth over @3
+[net/net_check.cpp:  799] eth is not exist
+[Success]
+
+
+[ctrl/system_main.cpp:  171] init Record...
+[-DBG-] [record/record_rec.cpp:  146] ret[2]: 1 normal, 2 expection, 3 repaired
+m_fmtp_spropparametersets=[Z2QAKKw7UDWBD0IAAAMAAgAAAwAhCA==,aO48gA==]
+[-DBG-] [record/record_rec.cpp:  150] Repair /opt/media/mmcblk0p1/IPCamera/20181214/S-025110.mp4.tmp ret 0
+[record/record_rec.cpp:  177] ______ mv /opt/media/mmcblk0p1/IPCamera/20181214/S-025110.mp4.tmp /opt/media/mmcblk0p1/IPCamera/20181214/S-025110-0900.mp4
+[record/record_delay_email.cpp:   50] thread: delay_email_handle_exec,  tid: 362, pid : 210
+[record/record_delay.cpp:   52] thread: delay_handle_exec,      tid: 361, pid : 210
+[-DBG-] [src/time_call.cpp:   31] new time engine:0x9a1e00
+[src/pthread_manage.cpp:   73] pthread_info [time_call_thread] tid:364 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = time_call_thread, pid = 364
+[src/time_call.cpp:   62] [getpid():210 pid:364] time call main loop...
+[record/record_save_thread.cpp:   78] thread: recordThreadFunc, tid: 363, pid : 210
+[-DBG-] [src/JTimeCallService.h:   41] new time call:watch schedule record after 1
+[record/record_disk.cpp:  976] init_record_disk create time engine
+[-DBG-] [src/time_call.cpp:   31] new time engine:0x98ce58
+[src/pthread_manage.cpp:   73] pthread_info [time_call_thread] tid:369 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = time_call_thread, pid = 369
+[src/time_call.cpp:   62] [getpid():210 pid:369] time call main loop...
+[-DBG-] [src/JTimeCallService.h:   41] new time call:watch storage space after 30
+[-DBG-] [src/JTimeCallService.h:   41] new time call:watch storage readonly after 60
+[-DBG-] [src/JTimeCallService.h:   41] new time call:watch romote mount after 60
+This event manager doesn't know about '27' events!
+This event manager doesn't know about '504' events!
+[-DBG-] [src/time_call.cpp:   31] new time engine:0x99a9b0
+[src/pthread_manage.cpp:   73] pthread_info [time_call_thread] tid:370 ptid:210 pid:210
+[-DBG-] [src/pthread_manage.cpp:   74] thread begin = time_call_thread, pid = 370
+[src/time_call.cpp:   62] [getpid():210 pid:370] time call main loop...
+[ctrl/system_main.cpp:  181] init Alarm...
+[-DBG-] [alarm/alarm_service.cpp:   67] init_link_param
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 31
+[-DBG-] [alarm/alarm_service.cpp:  385] JEvent_VideoLossLinkCfgChg
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 32
+[-DBG-] [alarm/alarm_service.cpp:  392] JEvent_MotionDetLinkCfgChg
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 59
+[-DBG-] [alarm/alarm_service.cpp:  400] JEvent_IpBrokenCfgChg
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 21
+[-DBG-] [alarm/alarm_service.cpp:  407] JEvent_MotionDetectCfgChg
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 25
+[-DBG-] [alarm/alarm_service.cpp:  415] JEvent_AlarmInCfgChg
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 98
+[-DBG-] [alarm/alarm_service.cpp:  423] JEvent_VMaskAlarmCfg
+[-DBG-] [alarm/alarm_service.cpp:  378] event type = 99
+[-DBG-] [alarm/alarm_service.cpp:  430] JEvent_VMaskAlarmLinkCfg
+This event manager doesn't know about '31' events!
+This event manager doesn't know about '59' events!
+[ctrl/system_main.cpp:  184] init client wdt log config
+[-DBG-] [ctrl/system_ctrl.c:  363] timeout = 60
+[ctrl/system_ctrl.c:  367] watchdog new timeout = 60
+[-DBG-] [ctrl/system_ctrl.c:  370] 0
+[-DBG-] [ctrl/system_ctrl.c:  373] 0
+[-DBG-] [src/JTimeCallService.h:   41] new time call:watch dog after 20
+[-DBG-] [src/JTimeCallService.h:   41] new time call:log_client_sync after 60
+[-DBG-] [src/JTimeCallService.h:   41] new time call:confSyncHanding after 3
+[ctrl/system_main.cpp:  196] init client ntp
+[-DBG-] [time/time_config.c:  392] PORT = 123
+[-DBG-] [src/JTimeCallService.h:   41] new time call:cpu usage after 15
+[ctrl/system_main.cpp:  217] init server update...
+[ctrl/system_main.cpp:  220] init server search...
+<log_0> [j_schedule.c:82]:create_BGread_schedule init sche_thread:0x98d1a8
+[j_schedule.c:   69] create_BGread_schedule start sche_thread:0x98d1a8 pid:372 ppid:71
+<log_0> [j_event.c:437]:new event loop:0x98d2c8
+<log_0> [j_schedule.c:199]:new sched:0x99d300
+[search/search_service.cpp:  868] create wlan0 search success @fd:47
+[-DBG-] [danale/danale_param_conf.c:  494] 21 10800 tz:GMT+03:00
+<log_0> [j_schedule.c:82]:create_time_schedule init sche_thread:0x9970b0
+[j_schedule.c:   69] create_time_schedule start sche_thread:0x9970b0 pid:373 ppid:71
+<log_0> [j_event.c:437]:new event loop:0x9971f8
+<log_0> [j_schedule.c:199]:new sched:0x997060
+[-DBG-] [danale/danale_server.c:  246] create thread success
+[danale/danale_auto_bps.c:  245] thread: danale_auto_bps,       tid: 379, pid : 210
+[danale/danale_server.c:  100] ___________ danale_server,       tid: 377, pid : 210
+[danale/danale_param_conf.c: 2582] thread: danale_send_audio,   tid: 376, pid: 210
+[-DBG-] [danale/danale_param_conf.c:  393] media type = 1
+[danale/danale_param_conf.c: 2588] __audio_type_ ALAW
+[danale/danale_param_conf.c: 2318] thread: danale_send_video,   tid: 375, pid: 210
+[-DBG-] [danale/danale_param_conf.c: 2253] [2]mediatype= 12, fps = 8 [1920 x 1080]
+[-DBG-] [danale/danale_param_conf.c: 2269] retry: sps size = 26, pps size = 8 of strnum:2
+[-DBG-] [danale/danale_param_conf.c: 2276] sps size = 26, pps size = 8
+[danale/danale_param_conf.c: 2342] __________________ start
+[record/record_save_thread.cpp:  106] doHandlePipeFunc!
+[record/record_save_thread.cpp:  116] read s!
+[-DBG-] [record/record_save_session.cpp:  144] fAudioMediaType:1, fAudioBps:8000, fAudioFps:16, dummyw:0, dummyh:0
+m_fmtp_spropparametersets=[Z2QAKKw7UDWBD0IAAAMAAgAAAwAhCA==,aO48gA==]
+RTP timestamp loop back,m_dwTickRTPLast=20,dwRTPTimeStamp=0,dwDurationLastFrame=4294967275
+######### dwDurationLastFrame=-21
+[-DBG-] [danale/danale_server.c:  109] cat /etc/resolv.conf
+nameserver 192.168.100.1
+nameserver 8.8.8.8
+[danale/danale_process.c: 2167] danale video USING LIBDANAVIDEO_VERSION 1.0.180323
+dbg_tail_start start Thread logtail_send succeeded
+dbg_tail_start start Thread logtail_listen succeeded
+dbg_tail_startsearch_listen start Thread th_logtail_search_listen succeeded
+[danale/danale_process.c: 2071] feature[0]: 8196
+[danale/danale_process.c: 2071] feature[1]: 8200
+[danale/danale_process.c: 2071] feature[2]: 8193
+[danale/danale_process.c: 2071] feature[3]: 8201
+[danale/danale_process.c: 2071] feature[4]: 4121
+[danale/danale_process.c: 2071] feature[5]: 4112
+[danale/danale_process.c: 2071] feature[6]: 4113
+[danale/danale_process.c: 2071] feature[7]: 4114
+[danale/danale_process.c: 2071] feature[8]: 4150
+[danale/danale_process.c: 2071] feature[9]: 4147
+[danale/danale_process.c: 2078] feature success
+[-DBG-] [conf/jconfig.cpp:  272] soft_version:3.1.34
+[danale/danale_process.c: 2097] api_ver: 1.0.180323 fw_ver: 3.1.34
+
+
+[danale/danale_process.c: 2108] ______________________ fw OTA opening @3.1.34 ____________________
+[danale/danale_fw_upgrade.c:  152] testdanafwupgrade start
+
+
+[danale/danale_fw_upgrade.c:  164] testdanafwupgrade dana_fw_upgrade_init succeeded
+
+
+[danale/danale_alarm_queue.c:   34] thread: alarm_queue_send,   tid: 405, pid: 210
+[danale/danale_process.c: 2226] lib_danavideo_cloud_init SUCCESS
+[upgrade/update_service.cpp:  147] success create socket (socket:61)
+[upgrade/update_service.cpp:  169] bind (port:8006)
+[upgrade/update_service.cpp:  181] Start listening.................
+[upgrade/update_service.cpp:   77] create listening succ
+[danale/danale_process.c: 2005] _________ epoch -28772
+[danale/danale_process.c: 2007] _________ power_freq: 0
+        now_time: 1544745125
+        time_zone: GMT+03:00
+        ntp_server1: 0.asia.pool.ntp.org
+        ntp_server2: 1.asia.pool.ntp.org
+[-DBG-] [jcp/jcpCmdImplement.cpp: 2542] inner.offset : 10800, outer.offset : 10800, time: 1544745125
+[-DBG-] [jcp/jcpCmdImplement.cpp: 2551] tmset - tmnow = 1544755897
+[-DBG-] [conf/jconfig.cpp: 3417] TIME : 1544755925
+[-DBG-] [danale/danale_process.c: 2015] _________ bcz manual setting, set time only
+[event.c:  206] event_async_loop: syscall(SYS_gettid):413, getpid():210
+[record/record_save_thread.cpp:  106] doHandlePipeFunc!
+[-ENC-] [encode/encode/encode_encode.c: 1707] --- ptImmeIframe:[0] bEnableEncode[1] dwEncodeChn[0]
+[-DBG-] [src/JTimeCallService.h:   41] new time call:unkown after 0
+[-DBG-] [src/JTimeCallService.h:   50] delete time call:unkown
+[record/record_save_thread.cpp:  106] doHandlePipeFunc!
+[record/record_save_thread.cpp:  116] read s!
+[-DBG-] [record/record_save_session.cpp:  144] fAudioMediaType:1, fAudioBps:8000, fAudioFps:16, dummyw:0, dummyh:0
+m_fmtp_spropparametersets=[Z2QAKKw7UDWBD0IAAAMAAgAAAwAhCA==,aO48gA==]
+[-ENC-] [encode/encode/encode_encode.c: 1707] --- ptImmeIframe:[0] bEnableEncode[1] dwEncodeChn[0]
+RTP timestamp loop back,m_dwTickRTPLast=20,dwRTPTimeStamp=0,dwDurationLastFrame=4294967275
+######### dwDurationLastFrame=-21
+[danale/danale_process.c: 2005] _________ epoch 1544727126
+[danale/danale_process.c: 2007] _________ power_freq: 0
+        now_time: 1544745124
+        time_zone: GMT+03:00
+        ntp_server1: 0.asia.pool.ntp.org
+        ntp_server2: 1.asia.pool.ntp.org
+[-DBG-] [jcp/jcpCmdImplement.cpp: 2542] inner.offset : 10800, outer.offset : 10800, time: 1544745124
+[-DBG-] [jcp/jcpCmdImplement.cpp: 2551] tmset - tmnow = 2
+[-DBG-] [conf/jconfig.cpp: 3417] TIME : 1544755924
+[record/record_save_thread.cpp:  106] doHandlePipeFunc!
+[-DBG-] [danale/danale_process.c: 2015] _________ bcz manual setting, set time only
+[-ENC-] [encode/encode/encode_encode.c: 1707] --- ptImmeIframe:[0] bEnableEncode[1] dwEncodeChn[0]
+[-DBG-] [src/JTimeCallService.h:   41] new time call:unkown after 0
+[-DBG-] [src/JTimeCallService.h:   50] delete time call:unkown
+[-ENC-] [encode/encode/encode_encode.c: 1707] --- ptImmeIframe:[0] bEnableEncode[1] dwEncodeChn[0]
+[record/record_save_thread.cpp:  106] doHandlePipeFunc!
+[record/record_save_thread.cpp:  116] read s!
+[-DBG-] [record/record_save_session.cpp:  144] fAudioMediaType:1, fAudioBps:8000, fAudioFps:16, dummyw:0, dummyh:0
+m_fmtp_spropparametersets=[Z2QAKKw7UDWBD0IAAAMAAgAAAwAhCA==,aO48gA==]
+RTP timestamp loop back,m_dwTickRTPLast=20,dwRTPTimeStamp=0,dwDurationLastFrame=4294967275
+######### dwDurationLastFrame=-21
+[danale/danale_airlink.c: 1941] thread: danale_airlink_avoid_drop,      tid: 378, pid : 210
+<log_0> [j_schedule.c:82]:create_time_schedule init sche_thread:0x9d6578
+[j_schedule.c:   69] create_time_schedule start sche_thread:0x9d6578 pid:420 ppid:71
+<log_0> [j_event.c:437]:new event loop:0x9d66c0
+<log_0> [j_schedule.c:199]:new sched:0x99ab60
+[-DBG-] [danale/danale_airlink.c: 1965] i_cflct is 6, [toggle wifi 8] to comment this cry
+[-DBG-] [net/net_check.cpp:  132] wlan0 (our ip) = 192.168.100.11
+[-DBG-] [net/net_check.cpp:  140] interfaces:wlan0 dapter index 2
+[-DBG-] [net/net_check.cpp:  149] interfaces:wlan0 adapter hardware address a0:9d:c1:8e:26:d7
+[-DBG-] [net/net_check.cpp:  267] No valid arp replies for this address, rest time:-1535
+[encode/audio/encode_playaudio.c:  802] _____ START COUNT 300s
+[encode/audio/encode_playaudio.c:  818] _____ RESET 300s for AP DHCP OK
+[-ENC-] [encode/audio/encode_playaudio.c:  955] --- ------skip---status:6-----------------
+[-DBG-] [ctrl/watch_led.c:   65] ______ setting gpio.led_index
+[-DBG-] [ctrl/watch_led.c:   65] ______ setting gpio.led_index
