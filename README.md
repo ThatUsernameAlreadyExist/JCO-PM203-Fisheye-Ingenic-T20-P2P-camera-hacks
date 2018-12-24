@@ -39,6 +39,7 @@ To permanently remove hacks:
 3. After uninstalling camera will be rebooted.
 
 ## Misc
+* Determine current firmware version via telent:  cat /ipc/app/jco_server | grep soft_version
 * Tested on **firmware: api_ver: 1.0.180323 fw_ver: 3.1.34**
 * Default camera login/password: root/jco66688
 * Change password for http-access in web interface
