@@ -1,0 +1,8 @@
+cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00040000 00008000 "sf-bootloader"
+mtd1: 00008000 00008000 "sf-bootenv"
+mtd2: 00170000 00008000 "sf-kernel"
+mtd3: 00120000 00008000 "sf-rootfs"
+mtd4: 00478000 00008000 "sf-ipcfs"
+mtd5: 000b0000 00008000 "sf-miscfs"
