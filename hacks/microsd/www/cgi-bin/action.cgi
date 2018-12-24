@@ -190,12 +190,12 @@ if [ -n "$F_cmd" ]; then
 
       if [ ! -z "$enabled" ]; then
         /opt/media/sdc/bin/setconf -k o -v "$osdtext"
-        echo "OSD=\"${osdtext}\"" | sed -r 's/[ ]X=.*"/"/' >> /opt/media/sdc/config/osd.conf
+        echo "OSD=\"${osdtext}\"" | sed -r 's/[ ]X=.*"/"/' > /opt/media/sdc/config/osd.conf
         echo "OSD set"
       else
         echo "OSD removed"
         /opt/media/sdc/bin/setconf -k o -v ""
-        echo "OSD=\"\" " >> /opt/media/sdc/config/osd.conf
+        echo "OSD=\"\" " > /opt/media/sdc/config/osd.conf
       fi
 
       echo "COLOR=${F_color}" >> /opt/media/sdc/config/osd.conf
