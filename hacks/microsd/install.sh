@@ -8,11 +8,10 @@ PATCH_ENABLE_FILE="/opt/media/mmcblk0p1/force_dbg.txt"
 AUTORUN_FILE="/ipc/etc/auto_run.sh"
 WIFI_SYSTEM_CONFIG="/opt/conf/airlink/supplicant.conf"
 WIFI_USER_CONFIG="/opt/media/mmcblk0p1/wpa_supplicant.conf"
-
-
 AUTORUN_FILE_TAG1="/opt/media/mmcblk0p1/force_dbg.txt"
 AUTORUN_FILE_TAG2="lzbox 0"
 
+. /opt/media/mmcblk0p1/scripts/common_functions.sh
 
 apply_patch()
 {
@@ -39,25 +38,6 @@ apply_patch()
             sleep 3
             reboot -f
         fi
-    fi
-}
-
-is_file_contain_str()
-{
-    if grep -Fq -e "$2" "$1"; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-is_files_equal()
-{
-    is_equal="$(/opt/media/mmcblk0p1/bin/busybox cmp -s $1 $2; echo $?)"
-    if [ $is_equal -eq "0" ]; then
-        return 0
-    else
-        return 1
     fi
 }
 

@@ -5,15 +5,7 @@ SRC_BACKUP_FILE="/opt/media/mmcblk0p1/patch/backup/lzbox"
 SRC_PATCHED_FILE="/opt/media/mmcblk0p1/patch/patched/lzbox"
 PATCH_ENABLE_FILE="/opt/media/mmcblk0p1/force_dbg.txt"
 
-is_files_equal()
-{
-    is_equal="$(/opt/media/mmcblk0p1/bin/busybox cmp -s $1 $2; echo $?)"
-    if [ $is_equal -eq "0" ]; then
-        return 0
-    else
-        return 1
-    fi
-}
+. /opt/media/mmcblk0p1/scripts/common_functions.sh
 
 ############################################################
 echo "=====Uninstalling patch====="

@@ -308,3 +308,25 @@ reboot_system() {
 remount_sdcard() {
   mount -o remount,rw /opt/media/sdc
 }
+
+is_file_contain_str() {
+  if grep -Fq -e "$2" "$1"; then
+      return 0
+  else
+      return 1
+  fi
+}
+
+is_files_equal() {
+  if [ ! -f $1 ] || [ ! -f $2 ]; then
+      return 1
+  else
+      is_equal="$(/opt/media/mmcblk0p1/bin/busybox cmp -s $1 $2; echo $?)"
+      if [ $is_equal -eq "0" ]; then
+          return 0
+      else
+          return 1
+      fi
+  fi
+}
+

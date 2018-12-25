@@ -11,14 +11,14 @@ SWAPSIZE=64
 ## Load some common functions:
 . /opt/media/sdc/scripts/common_functions.sh
 
-function init_log()
+init_log()
 {
     if [ ! -d $LOGDIR ]; then
         mkdir -p $LOGDIR
     fi
 }
 
-function stop_cloud()
+stop_cloud()
 {
     echo "Stopping cloud apps" >> $LOGPATH
     ps | awk '/[a]uto_run.sh/ {print $1}' | while read PID; do kill -9 $PID; done;
@@ -30,7 +30,7 @@ function stop_cloud()
     rm '/opt/media/mmcblk0p1/cid.txt' &>/dev/null
 }
 
-function init_network()
+init_network()
 {
     mkdir /var/network
     WIFI_CONFIG='/opt/conf/airlink/supplicant.conf'
@@ -49,7 +49,7 @@ function init_network()
     echo "udhcpc: $udhcpc_status" >> $LOGPATH
 }
 
-function create_swap_if_need()
+create_swap_if_need()
 {
     if [ "$SWAP" = true ]; then
         if [ ! -f $SWAPPATH ]; then
@@ -64,7 +64,7 @@ function create_swap_if_need()
     fi
 }
 
-function sync_time()
+sync_time()
 {
     if [ ! -f $CONFIGPATH/ntp_srv.conf ]; then
         cp $CONFIGPATH/ntp_srv.conf.dist $CONFIGPATH/ntp_srv.conf
@@ -74,7 +74,7 @@ function sync_time()
     /opt/media/sdc/bin/busybox ntpd -p "$ntp_srv"
 }
 
-function initialize_gpio()
+initialize_gpio()
 {
     for pin in 25 26 72 81; do
         init_gpio $pin
@@ -89,7 +89,7 @@ function initialize_gpio()
     blue_led on
 }
 
-function run_autostart_scripts()
+run_autostart_scripts()
 {
     echo "Autorstart..." >> $LOGPATH
     for i in /opt/media/sdc/config/autostart/*; do

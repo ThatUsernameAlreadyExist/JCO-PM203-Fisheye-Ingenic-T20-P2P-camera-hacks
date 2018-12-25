@@ -1,5 +1,6 @@
 #!/bin/sh
 PIDFILE="/var/run/v4l2rtspserver-master-h264.pid"
+WATCHDOG_PIDFILE="/var/run/v4l2rtspserver-master-h264-watch.pid"
 LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/v4l2rtspserver-master.log"
 export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/thirdlib:/system/lib'
@@ -17,6 +18,25 @@ fi
 if [ -f /opt/media/sdc/config/osd.conf ]; then
   . /opt/media/sdc/config/osd.conf 2>/dev/null
 fi
+
+killpid()
+{
+  pid="$(cat "$1" 2>/dev/null)"
+  if [ "$pid" ]; then
+    kill "$pid"
+    rm "$1" 1> /dev/null 2>&1
+  fi
+}
+
+checkpid()
+{
+  pid="$(cat "$1" 2>/dev/null)"
+  if ([ "$pid" ] && kill -0 "$pid" >/dev/null); then
+    return 0
+  else
+    return 1
+  fi
+}
 
 status()
 {
@@ -90,16 +110,19 @@ start()
     echo "/opt/media/sdc/bin/v4l2rtspserver-master $RTSPH264OPTS $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT" >> "$LOGPATH"
     /opt/media/sdc/bin/v4l2rtspserver-master $RTSPH264OPTS $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT 2>> "$LOGPATH" >> "$LOGPATH" &
     echo "$!" > "$PIDFILE"
+    
+    ## Watchdog
+    if ! checkpid "$WATCHDOG_PIDFILE"; then
+      /opt/media/sdc/scripts/service-watchdog.sh /opt/media/sdc/controlscripts/rtsp-h264 &
+      echo "$!" > "$WATCHDOG_PIDFILE"
+    fi
   fi
 }
 
 stop()
 {
-  pid="$(cat "$PIDFILE" 2>/dev/null)"
-  if [ "$pid" ]; then
-    kill "$pid"
-    rm "$PIDFILE" 1> /dev/null 2>&1
-  fi
+  killpid "$WATCHDOG_PIDFILE"
+  killpid "$PIDFILE"
 }
 
 if [ $# -eq 0 ]; then
