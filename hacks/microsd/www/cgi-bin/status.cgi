@@ -39,12 +39,12 @@ cat << EOF
 
         <div class="field is-horizontal">
             <div class="field-label is-normal">
-                <label class="label" for="tz">TZ</label>
+                <label class="label" for="tz">OSD TZ</label>
             </div>
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <input class="input" id="tz" name="tz" type="text" size="25" value="$(cat /etc/TZ)" />
+                        <input class="input" id="tz" name="tz" type="text" size="25" value="$(cat /opt/media/sdc/config/timezone.conf)" />
                     </div>
                     <p>$(date)</p>
                 </div>

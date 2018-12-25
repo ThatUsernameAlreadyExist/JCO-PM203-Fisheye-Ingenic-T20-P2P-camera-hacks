@@ -153,13 +153,21 @@ if [ -n "$F_cmd" ]; then
       fi
 
       tz=$(printf '%b' "${F_tz//%/\\x}")
-      if [ "$(cat /etc/TZ)" != "$tz" ]; then
+      if [ "$(cat /opt/media/sdc/config/timezone.conf)" != "$tz" ]; then
         echo "<p>Setting TZ to '$tz'...</p>"
-        echo "$tz" > /etc/TZ
+        echo "$tz" > /opt/media/sdc/config/timezone.conf
         echo "<p>Syncing time...</p>"
         if /opt/media/sdc/bin/busybox ntpd -q -n -p "$ntp_srv" > /dev/null 2>&1; then
           echo "<p>Success</p>"
         else echo "<p>Failed</p>"
+        fi
+        if [ "$(rtsp_h264_server status)" = "ON" ]; then
+          rtsp_h264_server off
+          rtsp_h264_server on
+        fi
+        if [ "$(rtsp_mjpeg_server status)" = "ON" ]; then
+          rtsp_mjpeg_server off
+          rtsp_mjpeg_server on
         fi
       fi
       hst=$(printf '%b' "${F_hostname}")

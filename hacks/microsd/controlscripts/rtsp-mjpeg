@@ -4,6 +4,8 @@ LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/v4l2rtspserver-master.log"
 export LD_LIBRARY_PATH='/opt/media/sdc/lib:/thirdlib:/system/lib'
 
+. /opt/media/sdc/scripts/update_timezone.sh
+
 if [ ! -f /opt/media/sdc/config/rtspserver.conf ]; then
   cp /opt/media/sdc/config/rtspserver.conf.dist /opt/media/sdc/config/rtspserver.conf
 fi
