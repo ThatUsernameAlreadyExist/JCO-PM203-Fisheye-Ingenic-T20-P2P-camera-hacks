@@ -8,10 +8,7 @@ source ./func.cgi
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 
 cat << EOF
-Information:
-<pre>Interfaces:<br/>$(ifconfig; iwconfig)</pre>
-<pre>Routes:<br/>$(route)</pre>
-<pre>DNS:<br/>$(cat /etc/resolv.conf)</pre>
+<pre>Disk space information<br/>$(df -h)</pre>
 </body>
 </html>
 EOF
