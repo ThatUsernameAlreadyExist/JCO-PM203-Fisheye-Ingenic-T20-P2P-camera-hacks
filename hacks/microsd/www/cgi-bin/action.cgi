@@ -40,7 +40,6 @@ if [ -n "$F_cmd" ]; then
 
       esac
       echo "</pre>"
-      return
     ;;
     clearlog)
       echo "<pre>"
@@ -66,19 +65,16 @@ if [ -n "$F_cmd" ]; then
           ;;
       esac
       echo "</pre>"
-      return
     ;;
 
     reboot)
       echo "Rebooting device..."
       /sbin/reboot
-      return
     ;;
 
     shutdown)
       echo "Shutting down device.."
       /sbin/halt
-      return
     ;;
 
     blue_led_on)
@@ -112,7 +108,6 @@ if [ -n "$F_cmd" ]; then
       fi
       /opt/media/sdc/bin/busybox nohup /opt/media/sdc/bin/audioplay $F_audioSource $F_audiotestVol >> "/var/log/update.log" &
       echo  "Play $F_audioSource at volume $F_audiotestVol"
-      return
     ;;
 
     h264_start)
@@ -179,7 +174,6 @@ if [ -n "$F_cmd" ]; then
         else echo "<p>Failed</p>"
         fi
       fi
-      return
     ;;
 
     set_http_password)
@@ -223,7 +217,6 @@ if [ -n "$F_cmd" ]; then
 
       echo "FONTNAME=${fontName}" >> /opt/media/sdc/config/osd.conf
       /opt/media/sdc/bin/setconf -k e -v "${fontName}"
-      return
     ;;
 
     auto_night_mode_start)
@@ -306,7 +299,6 @@ if [ -n "$F_cmd" ]; then
         rtsp_mjpeg_server off
         rtsp_mjpeg_server on
       fi
-      return
     ;;
 
     set_region_of_interest)
@@ -341,7 +333,6 @@ if [ -n "$F_cmd" ]; then
         fi
 
         echo "Motion Configuration done"
-        return
     ;;
 
     get_sw_night_config)
@@ -381,7 +372,6 @@ if [ -n "$F_cmd" ]; then
       else
         echo "Invalid timelapse duration"
       fi
-      return
     ;;
 
     conf_audioin)
@@ -425,47 +415,38 @@ if [ -n "$F_cmd" ]; then
        /opt/media/sdc/bin/setconf -k l -v "$F_HFEnabled" 2>/dev/null
        /opt/media/sdc/bin/setconf -k a -v "$F_AECEnabled" 2>/dev/null
        /opt/media/sdc/bin/setconf -k h -v "$F_audioinVol" 2>/dev/null
-       return
      ;;
 
      motion_detection_mail_on)
          rewrite_config /opt/media/sdc/config/motion.conf sendemail "true"
-         return
          ;;
 
      motion_detection_mail_off)
           rewrite_config /opt/media/sdc/config/motion.conf sendemail "false"
-          return
           ;;
 
      motion_detection_snapshot_on)
           rewrite_config /opt/media/sdc/config/motion.conf save_snapshot "true"
-          return
           ;;
 
      motion_detection_snapshot_off)
           rewrite_config /opt/media/sdc/config/motion.conf save_snapshot "false"
-          return
           ;;
 
      motion_detection_mqtt_publish_on)
           rewrite_config /opt/media/sdc/config/motion.conf publish_mqtt_message "true"
-          return
           ;;
 
      motion_detection_mqtt_publish_off)
           rewrite_config /opt/media/sdc/config/motion.conf publish_mqtt_message "false"
-          return
           ;;
 
      motion_detection_mqtt_snapshot_on)
           rewrite_config /opt/media/sdc/config/motion.conf publish_mqtt_snapshot "true"
-          return
           ;;
 
      motion_detection_mqtt_snapshot_off)
           rewrite_config /opt/media/sdc/config/motion.conf publish_mqtt_snapshot "false"
-          return
           ;;
 
      *)

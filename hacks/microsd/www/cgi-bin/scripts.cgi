@@ -55,90 +55,89 @@ if [ -n "$F_script" ]; then
     echo ""
     echo "<p>$F_script is not a valid script!</p>"
   fi
-  return
-fi
-
-echo "Content-type: text/html"
-echo ""
-
-if [ ! -d "$SCRIPT_HOME" ]; then
-  echo "<p>No scripts.cgi found in $SCRIPT_HOME</p>"
 else
-  SCRIPTS=$(ls -A "$SCRIPT_HOME")
-
-  for i in $SCRIPTS; do
-    # Card - start
-    echo "<div class='card script_card'>"
-    # Header
-    echo "<header class='card-header'><p class='card-header-title'>"
-    # echo "<div class='card-content'>"
-    if [ -x "$SCRIPT_HOME/$i" ]; then
-      if grep -q "^status()" "$SCRIPT_HOME/$i"; then
-        status=$("$SCRIPT_HOME/$i" status)
-        if [ $? -eq 0 ]; then
-          if [ -n "$status" ]; then
-            badge="";
-          else 
-            badge="is-badge-warning";
+  echo "Content-type: text/html"
+  echo ""
+  
+  if [ ! -d "$SCRIPT_HOME" ]; then
+    echo "<p>No scripts.cgi found in $SCRIPT_HOME</p>"
+  else
+    SCRIPTS=$(ls -A "$SCRIPT_HOME")
+  
+    for i in $SCRIPTS; do
+      # Card - start
+      echo "<div class='card script_card'>"
+      # Header
+      echo "<header class='card-header'><p class='card-header-title'>"
+      # echo "<div class='card-content'>"
+      if [ -x "$SCRIPT_HOME/$i" ]; then
+        if grep -q "^status()" "$SCRIPT_HOME/$i"; then
+          status=$("$SCRIPT_HOME/$i" status)
+          if [ $? -eq 0 ]; then
+            if [ -n "$status" ]; then
+              badge="";
+            else 
+              badge="is-badge-warning";
+            fi
+          else
+            badge="is-badge-danger"
+            status="NOK"
           fi
+          echo "<span class='badge $badge' data-badge='$status'>$i</span>"
         else
-          badge="is-badge-danger"
-          status="NOK"
+          echo "$i"
         fi
-        echo "<span class='badge $badge' data-badge='$status'>$i</span>"
-      else
-        echo "$i"
-      fi
-      # echo "</div>"
-      echo "</p></header>"
-
-      # Footer
-      echo "<footer class='card-footer'>"
-      echo "<span class='card-footer-item'>"
-
-      # Start / Stop / Run buttons
-      echo "<div class='buttons'>"
-      if grep -q "^start()" "$SCRIPT_HOME/$i"; then
-        echo "<button data-target='cgi-bin/scripts.cgi?cmd=start&script=$i' class='button is-link script_action_start' data-script='$i' "
-        if [ ! -z "$status" ]; then
-          echo "disabled"
+        # echo "</div>"
+        echo "</p></header>"
+  
+        # Footer
+        echo "<footer class='card-footer'>"
+        echo "<span class='card-footer-item'>"
+  
+        # Start / Stop / Run buttons
+        echo "<div class='buttons'>"
+        if grep -q "^start()" "$SCRIPT_HOME/$i"; then
+          echo "<button data-target='cgi-bin/scripts.cgi?cmd=start&script=$i' class='button is-link script_action_start' data-script='$i' "
+          if [ ! -z "$status" ]; then
+            echo "disabled"
+          fi
+          echo ">Start</button>"
+        else
+          echo "<button data-target='cgi-bin/scripts.cgi?cmd=start&script=$i' class='button is-link script_action_start' data-script='$i' "
+          echo ">Run</button>"
         fi
-        echo ">Start</button>"
-      else
-        echo "<button data-target='cgi-bin/scripts.cgi?cmd=start&script=$i' class='button is-link script_action_start' data-script='$i' "
-        echo ">Run</button>"
-      fi
-
-      if grep -q "^stop()" "$SCRIPT_HOME/$i"; then
-        echo "<button data-target='cgi-bin/scripts.cgi?cmd=stop&script=$i' class='button is-danger script_action_stop' data-script='$i' "
-        if [ ! -n "$status" ]; then
-          echo "disabled"
+  
+        if grep -q "^stop()" "$SCRIPT_HOME/$i"; then
+          echo "<button data-target='cgi-bin/scripts.cgi?cmd=stop&script=$i' class='button is-danger script_action_stop' data-script='$i' "
+          if [ ! -n "$status" ]; then
+            echo "disabled"
+          fi
+          echo ">Stop</button>"
         fi
-        echo ">Stop</button>"
+        echo "</div>"
+        echo "</span>"
+  
+        # Autostart Switch
+        echo "<span class='card-footer-item'>"
+        echo "<input type='checkbox' id='autorun_$i' name='autorun_$i' class='switch is-rtl autostart' data-script='$i' "
+          echo " data-unchecked='cgi-bin/scripts.cgi?cmd=disable&script=$i'"
+          echo " data-checked='cgi-bin/scripts.cgi?cmd=enable&script=$i'"
+        if [ -f "/opt/media/sdc/config/autostart/$i" ]; then
+          echo " checked='checked'"
+        fi
+        echo "'>"
+        echo "<label for='autorun_$i'>Autorun</label>"
+        echo "</span>"
+  
+        # View link
+        echo "<a href='cgi-bin/scripts.cgi?cmd=view&script=$i' class='card-footer-item view_script' data-script="$i">View</a>"
+        echo "</footer>"
       fi
+      # Card - End
       echo "</div>"
-      echo "</span>"
-
-      # Autostart Switch
-      echo "<span class='card-footer-item'>"
-      echo "<input type='checkbox' id='autorun_$i' name='autorun_$i' class='switch is-rtl autostart' data-script='$i' "
-        echo " data-unchecked='cgi-bin/scripts.cgi?cmd=disable&script=$i'"
-        echo " data-checked='cgi-bin/scripts.cgi?cmd=enable&script=$i'"
-      if [ -f "/opt/media/sdc/config/autostart/$i" ]; then
-        echo " checked='checked'"
-      fi
-      echo "'>"
-      echo "<label for='autorun_$i'>Autorun</label>"
-      echo "</span>"
-
-      # View link
-      echo "<a href='cgi-bin/scripts.cgi?cmd=view&script=$i' class='card-footer-item view_script' data-script="$i">View</a>"
-      echo "</footer>"
-    fi
-    # Card - End
-    echo "</div>"
-  done
+    done
+  fi
+  
+  script=$(cat /opt/media/sdc/www/scripts/scripts.cgi.js)
+  echo "<script>$script</script>"
 fi
-
-script=$(cat /opt/media/sdc/www/scripts/scripts.cgi.js)
-echo "<script>$script</script>"
