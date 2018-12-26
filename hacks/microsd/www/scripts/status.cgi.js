@@ -125,27 +125,6 @@ $(document).ready(function() {
     event.preventDefault();
   });
 
-  $('#formldr').submit(function(event) {
-    var b = $('#ldrSubmit');
-    b.toggleClass('is-loading');
-    b.prop('disabled', !b.prop('disabled'));
-    var formData = {
-      'avg': $('select[name=avg]').val()
-    };
-    $.ajax({
-      type: 'POST',
-      url: $('#formldr').attr('action'),
-      data: formData,
-      dataType: 'html',
-      encode: true
-    }).done(function(res) {
-      b.toggleClass('is-loading');
-      b.prop('disabled', !b.prop('disabled'));
-      showResult(res);
-    });
-    event.preventDefault();
-  });
-
   $('#formTimelapse').submit(function(event) {
     var b = $('#tlSubmit');
     b.toggleClass('is-loading');

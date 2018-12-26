@@ -12,11 +12,11 @@ status()
 
 start()
 {
-  AUTONIGHT_OPTS=
-  if [ -f $CONF_FILE ]
-  then
-        AUTONIGHT_OPTS=$(cat $CONF_FILE)
+  if [ ! -f $CONF_FILE ]; then
+    cp $CONF_FILE.dist $CONF_FILE
   fi
+  AUTONIGHT_OPTS=$(cat $CONF_FILE)
+
   if [ -f /var/run/auto-night-detection.pid ]; then
     echo "Auto Night Detection already running";
   else

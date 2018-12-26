@@ -226,14 +226,6 @@ if [ -n "$F_cmd" ]; then
       return
     ;;
 
-    setldravg)
-      ldravg=$(printf '%b' "${F_avg}")
-      ldravg=$(echo "$ldravg" | sed "s/[^0-9]//g")
-      echo AVG="$ldravg" > /opt/media/sdc/config/ldr-average.conf
-      echo "Average set to $ldravg iterations."
-      return
-    ;;
-
     auto_night_mode_start)
       /opt/media/sdc/controlscripts/auto-night-detection start
     ;;
@@ -350,20 +342,6 @@ if [ -n "$F_cmd" ]; then
 
         echo "Motion Configuration done"
         return
-    ;;
-
-    autonight_sw)
-      if [ ! -f /opt/media/sdc/config/autonight.conf ]; then
-        echo "-S" > /opt/media/sdc/config/autonight.conf
-      fi
-      current_setting=$(sed 's/-S *//g' /opt/media/sdc/config/autonight.conf)
-      echo "-S" $current_setting > /opt/media/sdc/config/autonight.conf
-    ;;
-
-    autonight_hw)
-      if [ -f /opt/media/sdc/config/autonight.conf ]; then
-        sed -i 's/-S *//g' /opt/media/sdc/config/autonight.conf
-      fi
     ;;
 
     get_sw_night_config)

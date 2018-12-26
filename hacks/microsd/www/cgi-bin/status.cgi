@@ -179,34 +179,6 @@ cat << EOF
         <div class="column">
             <button class="button is-link" onClick="call('cgi-bin/action.cgi?cmd=auto_night_mode_start')">On</button>
             <button class="button is-warning" onClick="call('cgi-bin/action.cgi?cmd=auto_night_mode_stop')">Off</button>
-            <input class="is-checkradio" id="night_config_hw" type="radio" name="night_config" $(if [ "$(grep -q -e "-S" /opt/media/sdc/config/autonight.conf; echo $?)" != 0 ]; then echo "checked";  fi) onClick="call('cgi-bin/action.cgi?cmd=autonight_hw')" >
-            <label for="night_config_hw">HW</label>
-            <input class="is-checkradio" id="night_config_sw" type="radio" name="night_config" $(if [ "$(grep -q -e "-S" /opt/media/sdc/config/autonight.conf; echo $?)" == 0 ]; then echo "checked";  fi)  onClick="call('cgi-bin/action.cgi?cmd=autonight_sw')">
-            <label for="night_config_sw">SW</label>
-        </div>
-        <div class="column">
-        <form id="formldr" action="cgi-bin/action.cgi?cmd=setldravg" method="post">
-            <p>Use average measurement on switching.</p>
-            <label class="label">Number of measurements</label>
-            <div class="field is-grouped">
-                <div class="control">
-                    <div class="select">
-                        <select class="select" name="avg">
-                            <option value="1" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 1 ]; then echo selected; fi)>1</option>
-                            <option value="2" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 2 ]; then echo selected; fi)>2</option>
-                            <option value="3" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 3 ]; then echo selected; fi)>3</option>
-                            <option value="4" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 4 ]; then echo selected; fi)>4</option>
-                            <option value="5" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 5 ]; then echo selected; fi)>5</option>
-                            <option value="10" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 10 ]; then echo selected; fi)>10</option>
-                            <option value="15" $(if [ "$(sed s/AVG=// /opt/media/sdc/config/ldr-average.conf)" -eq 15 ]; then echo selected; fi)>15</option>
-                        </select>
-                    </div>
-                </div>
-                <p class="control">
-                    <input id="ldrSubmit" class="button is-primary" type="submit" value="Set" />
-                </p>
-            </div>
-        </form>
         </div>
         </div>
     </div>
