@@ -30,7 +30,7 @@ if [ -n "$F_cmd" ]; then
 
         3)
           echo "Content of logcat<br/>"
-          /system/bin/logcat -d
+          /ipc/bin/logcat -d
           ;;
 
         4)
@@ -58,7 +58,7 @@ if [ -n "$F_cmd" ]; then
           ;;
         3)
           echo "Content of logcat cleared<br/>"
-          /system/bin/logcat -c
+          /ipc/bin/logcat -c
           ;;
         4)
           echo "Content of v4l2rtspserver-master.log cleared<br/>"
@@ -393,16 +393,16 @@ if [ -n "$F_cmd" ]; then
             audioinBR="8000"
        fi
        if [ "$audiooutBR" == "" ]; then
-           audioOutBR = audioinBR
+           audiooutBR = audioinBR
        fi
        if [ "$audioinFormat" == "OPUS" ]; then
-            audioOutBR="48000"
+            audiooutBR="48000"
        fi
        if [ "$audioinFormat" == "PCM" ]; then
-            audioOutBR = audioinBR
+            audiooutBR = audioinBR
        fi
        if [ "$audioinFormat" == "PCMU" ]; then
-           audioOutBR = audioinBR
+           audiooutBR = audioinBRs
        fi
 
        rewrite_config /opt/media/sdc/config/rtspserver.conf AUDIOFORMAT "$audioinFormat"

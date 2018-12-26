@@ -2,7 +2,7 @@
 PIDFILE="/var/run/v4l2rtspserver-master-mjpeg.pid"
 LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/v4l2rtspserver-master.log"
-export LD_LIBRARY_PATH='/opt/media/sdc/lib:/thirdlib:/system/lib'
+export LD_LIBRARY_PATH='/opt/media/sdc/lib:/thirdlib:/system/lib/:/ipc/lib/'
 
 . /opt/media/sdc/scripts/update_timezone.sh
 
