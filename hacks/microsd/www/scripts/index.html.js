@@ -146,6 +146,14 @@ $(document).ready(function () {
         }
         timeoutJobs['syncSwitches'] = setTimeout(syncSwitches, 10);
     });
+    
+    // Autohide navbar for mobile
+    $('#nav_menu').click(function () {
+        // for mobile
+        var e = $('#navbar_burger');
+        e.toggleClass('is-active');
+        $('#' + e.data('target')).toggleClass('is-active');
+    });
 
     // Close action for quickview
     $("#quickViewClose").click(function () {
