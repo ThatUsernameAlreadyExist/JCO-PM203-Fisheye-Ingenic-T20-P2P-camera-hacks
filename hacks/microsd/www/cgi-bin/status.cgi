@@ -228,7 +228,7 @@ cat << EOF
                 <div class="select">
                     <select name="audioSource">
                         $(
-                           for i in `/opt/media/sdc/bin/busybox find /usr/share/notify/ /opt/media/sdc/Media -name *.wav`
+                           for i in `/opt/media/sdc/bin/busybox find /usr/share/notify/ /opt/media/sdc/media -name *.wav`
                            do
                                 echo  "<option value=$i> `/opt/media/sdc/bin/busybox basename $i` </option>"
                            done
