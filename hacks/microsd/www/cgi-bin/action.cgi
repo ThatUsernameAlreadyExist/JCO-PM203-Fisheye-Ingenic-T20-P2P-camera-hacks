@@ -389,10 +389,10 @@ if [ -n "$F_cmd" ]; then
             audiooutBR="48000"
        fi
        if [ "$audioinFormat" == "PCM" ]; then
-            audiooutBR = audioinBR
+            audiooutBR=audioinBR
        fi
        if [ "$audioinFormat" == "PCMU" ]; then
-           audiooutBR = audioinBRs
+           audiooutBR=audioinBR
        fi
 
        rewrite_config /opt/media/sdc/config/rtspserver.conf AUDIOFORMAT "$audioinFormat"
