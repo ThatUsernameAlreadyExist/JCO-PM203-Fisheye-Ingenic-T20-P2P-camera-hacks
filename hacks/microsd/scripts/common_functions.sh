@@ -330,3 +330,38 @@ is_files_equal() {
   fi
 }
 
+get_current_cpu_usage()
+{
+    cpu_active_prev=0
+    cpu_total_prev=0
+    if [ -f /tmp/cpuact ]; then
+        read cpu_active_prev< /tmp/cpuact
+    fi
+
+    if [ -f /tmp/cputot ]; then
+        read cpu_total_prev< /tmp/cputot
+    fi
+
+    read cpu user nice system idle iowait irq softirq steal guest< /proc/stat
+
+    cpu_active_cur=$((user+system+nice+softirq+steal))
+    cpu_total_cur=$((user+system+nice+softirq+steal+idle+iowait))
+    echo $cpu_active_cur >/tmp/cpuact
+    echo $cpu_total_cur >/tmp/cputot
+
+    cpu_util=$((100*( cpu_active_cur-cpu_active_prev ) / (cpu_total_cur-cpu_total_prev) ))
+
+    echo "$cpu_util"
+}
+
+get_current_memory_usage()
+{
+    used=$(free -m | awk 'NR==2{printf "%s\n", $3 }')
+    echo $used
+}
+
+get_all_memory()
+{
+    all=$(free -m | awk 'NR==2{printf "%s\n", $2 }')
+    echo $all
+}

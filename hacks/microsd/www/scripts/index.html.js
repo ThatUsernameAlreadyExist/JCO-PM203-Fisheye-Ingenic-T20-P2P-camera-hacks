@@ -17,6 +17,16 @@ function scheduleRefreshLiveImage(interval) {
     }
     timeoutJobs['refreshLiveImage'] = setTimeout(refreshLiveImage, interval);
 }
+function refreshSysUsage() {
+    var ts = new Date().getTime();
+    $.get("cgi-bin/sysusage.cgi?" + ts, function(sysusage){document.getElementById("sysusage").innerHTML = sysusage; scheduleRefreshSysUsage(5000);});
+}
+function scheduleRefreshSysUsage(interval) {
+    if (timeoutJobs['refreshSysUsage'] != undefined) {
+        clearTimeout(timeoutJobs['refreshSysUsage']);
+    }
+    timeoutJobs['refreshSysUsage'] = setTimeout(refreshSysUsage, interval);
+}
 function syncSwitch(sw) {
     var e = $('#' + sw);
     if (!e.prop('disabled')) {
@@ -58,9 +68,6 @@ $(document).ready(function () {
     $.get("cgi-bin/state.cgi", {cmd: "hostname"}, function(title){document.title = title;document.getElementById("title").innerHTML = title;});
     
     
-    // Set git version to bottim page
-    $.get("cgi-bin/state.cgi", {cmd: "version"}, function(version){document.getElementById("version").innerHTML = version;});
-   
     // Load link into #content
     $('.onpage').click(function () {
         var e = $(this);
@@ -167,6 +174,8 @@ $(document).ready(function () {
 
     // Make liveview self refresh
     $("#liveview").attr("onload", "scheduleRefreshLiveImage(1000);");
+    
+    refreshSysUsage();
 
 });
 
