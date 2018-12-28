@@ -356,7 +356,8 @@ get_current_cpu_usage()
 
 get_current_memory_usage()
 {
-    used=$(free -m | awk 'NR==2{printf "%s\n", $3 }')
+    # get used memory without buffers
+    used=$(free -m | awk 'NR==3{printf "%s\n", $3 }')
     echo $used
 }
 
