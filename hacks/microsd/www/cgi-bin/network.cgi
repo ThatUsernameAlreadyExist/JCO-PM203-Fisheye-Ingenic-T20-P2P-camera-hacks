@@ -8,10 +8,42 @@ source ./func.cgi
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 
 cat << EOF
-Information:
-<pre>Interfaces:<br/>$(ifconfig; iwconfig)</pre>
-<pre>Routes:<br/>$(route)</pre>
-<pre>DNS:<br/>$(cat /etc/resolv.conf)</pre>
+
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Interfaces</p></header>
+    <div class='card-content'>
+        <pre>$(ifconfig; iwconfig)</pre>
+    </div>
+</div>
+
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Routes</p></header>
+    <div class='card-content'>
+        <pre>$(route)</pre>
+    </div>
+</div>
+
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>DNS</p></header>
+    <div class='card-content'>
+        <pre>$(cat /etc/resolv.conf)</pre>
+    </div>
+</div>
+
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Opened ports</p></header>
+    <div class='card-content'>
+        <pre>$(netstat -l)</pre>
+    </div>
+</div>
+
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Connections</p></header>
+    <div class='card-content'>
+        <pre>$(netstat)</pre>
+    </div>
+</div>
+
 </body>
 </html>
 EOF

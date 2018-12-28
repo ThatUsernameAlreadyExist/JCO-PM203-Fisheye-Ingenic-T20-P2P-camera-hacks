@@ -785,40 +785,6 @@ cat << EOF
     </div>
 </div>
 
-<!-- Process List -->
-<div class='card status_card'>
-    <header class='card-header'><p class='card-header-title'>Process List</p></header>
-    <div class='card-content'>
-        <pre>$(ps)</pre>
-    </div>
-</div>
-
-<!-- Mounts -->
-<div class='card status_card'>
-    <header class='card-header'><p class='card-header-title'>Mounts</p></header>
-    <div class='card-content'>
-        <pre>$(mount)</pre>
-    </div>
-</div>
-
-<!-- Bootloader -->
-<div class='card status_card'>
-    <header class='card-header'><p class='card-header-title'>Bootloader Information</p></header>
-    <div class='card-content'>
-        Your Bootloader MD5 is:
-        <pre>$(md5sum /dev/mtd0 |cut -f 1 -d " ")</pre>
-        Your Bootloader Version is:
-        <pre>$(/opt/media/sdc/bin/busybox strings /dev/mtd0 | grep "U-Boot 2")</pre>
-        Your CMDline is:
-        <pre>$(cat /proc/cmdline)</pre>
-
-
-        <a target="_blank" href="cgi-bin/dumpbootloader.cgi">Download Bootloader</a>
-    </div>
-</div>
-
-
-
 EOF
 script=$(cat /opt/media/sdc/www/scripts/status.cgi.js)
 echo "<script>$script</script>"

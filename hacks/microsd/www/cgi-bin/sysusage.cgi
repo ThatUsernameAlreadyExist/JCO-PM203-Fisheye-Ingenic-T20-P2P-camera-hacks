@@ -15,3 +15,4 @@ free=$(get_current_memory_usage)
 all=$(get_all_memory)
 
 echo "CPU: $cpu% RAM: $free/$all kB"
+
