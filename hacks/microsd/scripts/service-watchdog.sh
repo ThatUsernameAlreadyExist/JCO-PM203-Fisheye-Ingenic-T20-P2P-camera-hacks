@@ -2,6 +2,7 @@
 
 LOGPATH="/var/log/service-watchdog.log"
 MAX_ERRORS_TO_REBOOT=5
+MAX_ERRORS_TO_ALTERNATIVE_REBOOT=10 # If normal reboot not work
 MIN_SUCCES_TO_RESET_REBOOT=30
 CHECK_TIMEOUT_SECONDS=30
 
@@ -25,9 +26,13 @@ monitor_service()
             CURRENT_SUCCESS=0
             CURRENT_ERRORS=$((CURRENT_ERRORS+1))
             echo "$(date) Service $SERVICE_TO_MONITOR not runnning, error count: $CURRENT_ERRORS" >> "$LOGPATH"
-            if [ "$CURRENT_ERRORS" -gt "$MAX_ERRORS_TO_REBOOT" ]; then
+            if [ "$CURRENT_ERRORS" -gt "$MAX_ERRORS_TO_ALTERNATIVE_REBOOT" ]; then # If we can't reboot by normal call to 'reboot'
+                echo "$SERVICE_TO_MONITOR - perform alternative reboot" >> "$LOGPATH"
+                echo b >/proc/sysrq-trigger
+                CURRENT_ERRORS=0
+            elif [ "$CURRENT_ERRORS" -gt "$MAX_ERRORS_TO_REBOOT" ]; then
                 echo "$SERVICE_TO_MONITOR - perform reboot" >> "$LOGPATH"
-                reboot -f
+                /sbin/reboot -f
             else
                 echo "$SERVICE_TO_MONITOR - perform restart" >> "$LOGPATH"
                 "$SERVICE_TO_MONITOR" start
