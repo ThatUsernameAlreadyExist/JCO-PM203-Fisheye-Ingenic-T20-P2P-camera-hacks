@@ -1,5 +1,0 @@
-#!/bin/sh
-export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
-
-/opt/media/sdc/bin/bftpd -d
-

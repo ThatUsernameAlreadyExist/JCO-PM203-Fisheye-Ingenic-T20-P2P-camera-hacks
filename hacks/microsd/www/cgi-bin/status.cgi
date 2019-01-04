@@ -36,7 +36,6 @@ cat << EOF
     <header class='card-header'><p class='card-header-title'>System</p></header>
     <div class='card-content'>
     <form id="tzForm" action="cgi-bin/action.cgi?cmd=settz" method="post">
-
         <div class="field is-horizontal">
             <div class="field-label is-normal">
                 <label class="label" for="tz">OSD TZ</label>
@@ -89,6 +88,39 @@ cat << EOF
     </div>
 </div>
 
+<!-- All services Password -->
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>HTTP/RTSP/FTP Password</p></header>
+    <div class='card-content'>
+        <form id="allPasswordForm" action="cgi-bin/action.cgi?cmd=set_all_password" method="post">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">New Password</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" id="password" name="password" type="password" size="12" value="*****"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="control">
+                    <input id="allpwSubmit" class="button is-primary" type="submit" value="Set" />
+                </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+
 <!-- HTTP Password -->
 <div class='card status_card'>
     <header class='card-header'><p class='card-header-title'>HTTP Password</p></header>
@@ -121,6 +153,95 @@ cat << EOF
     </div>
 </div>
 
+
+<!-- Telnet -->
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Telnet Server</p></header>
+    <div class='card-content'>
+    <form id="telnetForm" action="cgi-bin/action.cgi?cmd=set_telnet" method="post">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="telnetport">Port</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" id="telnetport" name="telnetport" type="number" size="12" value="$(source /opt/media/sdc/config/telnetd.conf; echo $TELNET_PORT)"/>
+                    </div>
+                    <p>NOTE: for telnet access use default camera login/password: root/jco*****</p>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="control">
+                    <input id="telnetSubmit" class="button is-primary" type="submit" value="Set" />
+                </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+<!-- FTP -->
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>FTP Server</p></header>
+    <div class='card-content'>
+    <form id="ftpForm" action="cgi-bin/action.cgi?cmd=set_ftp" method="post">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="ftpport">Port</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" id="ftpport" name="ftpport" type="number" size="12" value="$(grep PORT= /opt/media/sdc/config/bftpd.conf|sed 's/PORT=\| \| ;//g'|sed 's/"//g')"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="ftpuser">Username</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" id="ftpuser" name="ftpuser" type="text" size="12" value="$(cat /opt/media/sdc/config/bftpd.password|awk '{print $1}')"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label" for="ftppassword">Password</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" id="ftppassword" name="ftppassword" type="password" size="12" value="$(cat /opt/media/sdc/config/bftpd.password|awk '{print $2}')"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="control">
+                    <input id="ftpSubmit" class="button is-primary" type="submit" value="Set" />
+                </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
 
 <script>
     function call(url){

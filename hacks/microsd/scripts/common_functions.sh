@@ -43,7 +43,7 @@ rewrite_config(){
   if [ "$ret" == "1" ] ; then
       echo "$2=$3" >> $1
   else
-        sed -i -e "/\\s*#.*/!{/""$cfg_key""=/ s/=.*/=""$new_value""/}" "$cfg_path"
+      sed -i -e "/\\s*#.*/!{/""$cfg_key""=/ s/=.*/=""$new_value""/}" "$cfg_path"
   fi
 }
 
@@ -365,4 +365,28 @@ get_all_memory()
 {
     all=$(free -m | awk 'NR==2{printf "%s\n", $2 }')
     echo $all
+}
+
+restart_service_if_need()
+{
+    service_path="$1"
+    if $service_path status | grep -q "PID"; then
+        $service_path stop > /dev/null 2>&1
+        $service_path start > /dev/null 2>&1
+    fi
+}
+
+# Set a new ftp login password
+ftp_login_password()
+{
+    echo "$1 $2 users /" > /opt/media/sdc/config/bftpd.password
+}
+
+all_password()
+{
+    DEFAULT_LOGIN="root"
+    http_password $1
+    ftp_login_password "$DEFAULT_LOGIN" $1 
+    rewrite_config /opt/media/sdc/config/rtspserver.conf USERNAME "$DEFAULT_LOGIN"
+    rewrite_config /opt/media/sdc/config/rtspserver.conf USERPASSWORD "$1"
 }

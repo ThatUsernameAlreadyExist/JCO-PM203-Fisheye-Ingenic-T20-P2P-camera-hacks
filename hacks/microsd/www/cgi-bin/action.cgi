@@ -130,6 +130,25 @@ if [ -n "$F_cmd" ]; then
       /opt/media/sdc/controlscripts/rtsp-mjpeg stop
       /opt/media/sdc/controlscripts/rtsp-h264 stop
     ;;
+    
+    set_telnet)
+      telnetport=$(echo "${F_telnetport}"| sed -e 's/+/ /g')
+      echo "TELNET_PORT=$telnetport" > /opt/media/sdc/config/telnetd.conf
+      restart_service_if_need /opt/media/sdc/controlscripts/telnet-server
+      echo "<p>Setting telnet service port to : $telnetport</p>"
+    ;;
+    
+    set_ftp)
+      ftpport=$(echo "${F_ftpport}"| sed -e 's/+/ /g')
+      ftppassword=$(printf '%b' "${F_ftppassword}")
+      ftpuser=$(printf '%b' "${F_ftpuser}")
+      echo "<p>Setting ftp service port to: $ftpport</p>"
+      echo "<p>Setting ftp service login to: $ftpuser</p>"
+      echo "<p>Setting ftp service password to: $ftppassword</p>"
+      ftp_login_password $ftpuser $ftppassword
+      rewrite_config /opt/media/sdc/config/bftpd.conf PORT "\"$ftpport\""
+      restart_service_if_need /opt/media/sdc/controlscripts/ftp-server
+    ;;
 
     settz)
        ntp_srv=$(printf '%b' "${F_ntp_srv}")
@@ -156,14 +175,8 @@ if [ -n "$F_cmd" ]; then
           echo "<p>Success</p>"
         else echo "<p>Failed</p>"
         fi
-        if [ "$(rtsp_h264_server status)" = "ON" ]; then
-          rtsp_h264_server off
-          rtsp_h264_server on
-        fi
-        if [ "$(rtsp_mjpeg_server status)" = "ON" ]; then
-          rtsp_mjpeg_server off
-          rtsp_mjpeg_server on
-        fi
+        restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
+        restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
       fi
       hst=$(printf '%b' "${F_hostname}")
       if [ "$(cat /opt/media/sdc/config/hostname.conf)" != "$hst" ]; then
@@ -180,6 +193,15 @@ if [ -n "$F_cmd" ]; then
       password=$(printf '%b' "${F_password//%/\\x}")
       echo "<p>Setting http password to : $password</p>"
       http_password "$password"
+    ;;
+    
+    set_all_password)
+      password=$(printf '%b' "${F_password//%/\\x}")
+      echo "<p>Setting all services password to : $password</p>"
+      all_password "$password"
+      restart_service_if_need /opt/media/sdc/controlscripts/ftp-server
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
     ;;
 
     osd)
@@ -457,4 +479,3 @@ if [ -n "$F_cmd" ]; then
 fi
 
 echo "<hr/>"
-echo "<button title='Return to status page' onClick=\"window.location.href='status.cgi'\">Back</button>"

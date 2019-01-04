@@ -1,0 +1,44 @@
+#!/bin/sh
+PIDFILE="/var/run/ftp-server.pid"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/thirdlib:/system/lib/:/ipc/lib/'
+PATH=/opt/media/sdc/bin:/system/bin:/bin:/sbin:/usr/bin:/usr/sbin
+
+status()
+{
+  pid="$(cat "$PIDFILE" 2>/dev/null)"
+  if [ "$pid" ]; then
+    # Prints PID: $pid if exists and returns 0(no error) else returns 1(error condition)
+    kill -0 "$pid" >/dev/null && echo "PID: $pid" || return 1
+  fi
+}
+
+start()
+{
+  if [ "$(status)" != "" ]; then
+    echo "A ftp server is already running, please stop it or reboot"
+  else
+    stop
+    /opt/media/sdc/bin/bftpd -d
+    sleep 1
+    PID=$(ps|awk '/[b]ftpd/ {print $1}')
+    echo "$PID" > "$PIDFILE"
+  fi
+}
+
+stop()
+{
+  pid="$(cat "$PIDFILE" 2>/dev/null)"
+  if [ "$pid" ]; then
+    rm "$PIDFILE" 1> /dev/null 2>&1
+  fi
+  ps|awk '/[b]ftpd/ {print $1}' | while read OLDPID; do kill -9 $OLDPID; done;
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi

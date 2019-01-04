@@ -61,7 +61,7 @@ $(document).ready(function() {
   });
 
   $('#passwordForm').submit(function(event) {
-    var b = $('#passwordSubmit');
+    var b = $('#pwSubmit');
     b.toggleClass('is-loading');
     b.prop('disabled', !b.prop('disabled'));
     var formData = {
@@ -85,7 +85,87 @@ $(document).ready(function() {
     });
     event.preventDefault();
   });
+  
+  $('#allPasswordForm').submit(function(event) {
+    var b = $('#allpwSubmit');
+    b.toggleClass('is-loading');
+    b.prop('disabled', !b.prop('disabled'));
+    var formData = {
+      'password': $('input[name=password]').val(),
+    };
+    $.ajax({
+      type: 'POST',
+      url: $('#allPasswordForm').attr('action'),
+      data: formData,
+      dataType: 'html',
+      encode: true
+    }).done(function(res) {
+      b.toggleClass('is-loading');
+      b.prop('disabled', !b.prop('disabled'));
 
+      showResult(res);
+      // reload after 2s
+      setTimeout(function() {
+        $('#content').load('cgi-bin/status.cgi');
+      }, 2000);
+    });
+    event.preventDefault();
+  });
+  
+  $('#telnetForm').submit(function(event) {
+    var b = $('#telnetSubmit');
+    b.toggleClass('is-loading');
+    b.prop('disabled', !b.prop('disabled'));
+    var formData = {
+      'telnetport': $('input[name=telnetport]').val(),
+    };
+    $.ajax({
+      type: 'POST',
+      url: $('#telnetForm').attr('action'),
+      data: formData,
+      dataType: 'html',
+      encode: true
+    }).done(function(res) {
+      b.toggleClass('is-loading');
+      b.prop('disabled', !b.prop('disabled'));
+
+      showResult(res);
+      // reload after 2s
+      setTimeout(function() {
+        $('#content').load('cgi-bin/status.cgi');
+      }, 2000);
+    });
+    event.preventDefault();
+  });
+
+  $('#ftpForm').submit(function(event) {
+    var b = $('#ftpSubmit');
+    b.toggleClass('is-loading');
+    b.prop('disabled', !b.prop('disabled'));
+    var formData = {
+      'ftpport': $('input[name=ftpport]').val(),
+      'ftpuser': $('input[name=ftpuser]').val(),
+      'ftppassword': $('input[name=ftppassword]').val(),
+    };
+    $.ajax({
+      type: 'POST',
+      url: $('#ftpForm').attr('action'),
+      data: formData,
+      dataType: 'html',
+      encode: true
+    }).done(function(res) {
+      b.toggleClass('is-loading');
+      b.prop('disabled', !b.prop('disabled'));
+
+      showResult(res);
+      // reload after 2s
+      setTimeout(function() {
+        $('#content').load('cgi-bin/status.cgi');
+      }, 2000);
+    });
+    event.preventDefault();
+  });
+  
   $('#formOSD').submit(function(event) {
     var b = $('#osdSubmit');
     b.toggleClass('is-loading');

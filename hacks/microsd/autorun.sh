@@ -91,7 +91,7 @@ initialize_gpio()
 
 run_autostart_scripts()
 {
-    echo "Autorstart..." >> $LOGPATH
+    echo "Autostart..." >> $LOGPATH
     for i in /opt/media/sdc/config/autostart/*; do
         echo "Run $i" >> $LOGPATH
         $i
