@@ -42,10 +42,7 @@ To permanently remove hacks:
 * Determine current firmware version via telent:  cat /ipc/app/jco_server | grep soft_version
 * Tested on **firmware: api_ver: 1.0.180323 fw_ver: 3.1.34**
 * Default camera login/password: root/jco66688
-* Change password for http-access in web interface
-* Change login/password for rtsp in web interface or in config-file: /config/rtspserver.conf (rtspserver.conf.dist)
-* Change login/password for ftp in config-file: /config/bftpd.password
-* For disable ftp/telnet/web-interface: remove files 'system-*' from /config/autostart and reboot camera
+* Change password for http/rtsp/ftp-access in web interface
 * UART connection - see /information/teardown/P_20181212_224700.jpg COM port speed: 115200
 * To change WiFi credentials or connect to new network: change(or create) file wpa_supplicant.conf in MicroSD-card and reboot.
 wpa_supplicant.conf format: 
