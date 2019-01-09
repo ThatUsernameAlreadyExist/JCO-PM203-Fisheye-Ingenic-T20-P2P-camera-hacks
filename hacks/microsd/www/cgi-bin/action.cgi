@@ -313,14 +313,8 @@ if [ -n "$F_cmd" ]; then
       /opt/media/sdc/bin/setconf -k d -v "$frmRateNum,$frmRateDen" 2>/dev/null
       echo "Video format set to $video_format<br/>"
 
-      if [ "$(rtsp_h264_server status)" = "ON" ]; then
-        rtsp_h264_server off
-        rtsp_h264_server on
-      fi
-      if [ "$(rtsp_mjpeg_server status)" = "ON" ]; then
-        rtsp_mjpeg_server off
-        rtsp_mjpeg_server on
-      fi
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
     ;;
 
     set_region_of_interest)
