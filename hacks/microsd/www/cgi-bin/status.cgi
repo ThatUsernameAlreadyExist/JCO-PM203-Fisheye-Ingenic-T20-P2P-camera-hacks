@@ -379,6 +379,14 @@ cat << EOF
     </div>
 </div>
 
+
+<div class='card status_card'>
+    <div class='card-content'>
+        <pre>To remote play custom file use this url:<br/>https://[CAMERA_IP]/cgi-bin/action.cgi?cmd=audio_test&audioSource=/opt/media/sdc/media/[WAV_FILE]&audiotestVol=30</pre>
+    </div>
+</div>
+
+
 <!-- Video settings -->
 <div class='card status_card'>
     <header class='card-header'><p class='card-header-title'>Video Settings</p></header>
