@@ -1,0 +1,33 @@
+#!/bin/sh
+SERVICE_NAME="Motion Detection MQTT Snapshot"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
+
+. /opt/media/sdc/scripts/common_functions.sh
+
+status()
+{
+  . /opt/media/sdc/config/motion.conf 2> /dev/null
+  if [ "$publish_mqtt_snapshot" == "true" ]; then
+    echo "PID: OK" 
+  fi
+}
+
+start()
+{
+  rewrite_config /opt/media/sdc/config/motion.conf publish_mqtt_snapshot "true"
+}
+
+stop()
+{
+  rewrite_config /opt/media/sdc/config/motion.conf publish_mqtt_snapshot "false"
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi
+

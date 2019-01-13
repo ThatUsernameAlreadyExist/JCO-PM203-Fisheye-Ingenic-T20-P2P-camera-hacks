@@ -1,4 +1,5 @@
 #!/bin/sh
+SERVICE_NAME="RTSP MJPEG Server"
 PIDFILE="/var/run/v4l2rtspserver-master-mjpeg.pid"
 LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/v4l2rtspserver-master.log"

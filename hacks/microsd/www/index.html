@@ -82,7 +82,7 @@
                         <div class="navbar-dropdown is-boxed">
                             <a id="status" class="navbar-item onpage" href="javascript: void(0)" data-target="cgi-bin/status.cgi">Settings</a>
                             <a id="scripts" class="navbar-item onpage" href="javascript: void(0)" data-target="cgi-bin/scripts.cgi">Services</a>
-                            <a id="status" class="navbar-item onpage" href="javascript: void(0)" data-target="cgi-bin/camcontrols.cgi">Camera Controls</a>
+                            <a id="camcontrols" class="navbar-item onpage" href="javascript: void(0)" data-target="cgi-bin/camcontrols.cgi?cmd=getsettings">Camera Controls</a>
                             <a id="configmotion" class="navbar-item onpage" href="javascript: void(0)" data-target="configmotion.html">Motion Detection</a>
                             <a id="sw_night" class="navbar-item onpage" href="javascript: void(0)" data-target="sw_night_configure.html">SW night configuration</a>
                         </div>
@@ -111,82 +111,7 @@
                     <div id="camcontrol_link" class="navbar-item has-dropdown">
                         <!-- Camera Movement Controls -->
                         <span class="navbar-link">Camera Controls</span>
-                        <div class="navbar-dropdown is-boxed is-right">
-                            <!-- Led: IR -->
-                            <span class="navbar-item">
-                                <input id="ir_led" type="checkbox" name="ir_led" class="switch" data-checked="cgi-bin/action.cgi?cmd=ir_led_on" data-unchecked="cgi-bin/action.cgi?cmd=ir_led_off">
-                                <label for="ir_led">IR Led</label>
-                            </span>
-                            <!-- IR Cut -->
-                            <span class="navbar-item">
-                                <input id="ir_cut" type="checkbox" name="ir_cut" class="switch" data-checked="cgi-bin/action.cgi?cmd=ir_cut_on" data-unchecked="cgi-bin/action.cgi?cmd=ir_cut_off">
-                                <label for="ir_cut">IR-Cut</label>
-                            </span>
-                            <!-- Auto Night Detect -->
-                            <span class="navbar-item">
-                                <input id="auto_night_detection" type="checkbox" name="auto_night_detection" class="switch" data-checked="cgi-bin/scripts.cgi?cmd=start&script=auto-night-detection"
-                                    data-unchecked="cgi-bin/scripts.cgi?cmd=stop&script=auto-night-detection">
-                                <label for="auto_night_detection">Auto Night Detection</label>
-                            </span>
-                            <!-- LED: Blue -->
-                            <span class="navbar-item">
-                                <input id="blue_led" type="checkbox" name="blue_led" class="switch" data-checked="cgi-bin/action.cgi?cmd=blue_led_on" data-unchecked="cgi-bin/action.cgi?cmd=blue_led_off">
-                                <label for="blue_led">Blue LED</label>
-                            </span>
-                            <!-- Motion Detection -->
-                            <span class="navbar-item">
-                                <input id="motion_detection" type="checkbox" name="motion_detection" class="switch" data-checked="cgi-bin/action.cgi?cmd=motion_detection_on"
-                                    data-unchecked="cgi-bin/action.cgi?cmd=motion_detection_off">
-                                <label for="motion_detection">Motion Detection</label>
-                            </span>
-                            <!-- RTSP H264 -->
-                            <span class="navbar-item">
-                                <input id="rtsp_h264" type="checkbox" name="rtsp_h264" class="switch" data-checked="cgi-bin/scripts.cgi?cmd=start&script=rtsp-h264"
-                                    data-unchecked="cgi-bin/scripts.cgi?cmd=stop&script=rtsp-h264">
-                                <label for="rtsp_h264">RTSP H264 Server</label>
-                            </span>
-                            <!-- RTSP MJPEG -->
-                            <span class="navbar-item">
-                                <input id="rtsp_mjpeg" type="checkbox" name="rtsp_mjpeg" class="switch" data-checked="cgi-bin/scripts.cgi?cmd=start&script=rtsp-mjpeg"
-                                    data-unchecked="cgi-bin/scripts.cgi?cmd=stop&script=rtsp-mjpeg">
-                                <label for="rtsp_mjpeg">RTSP MJPEG Server</label>
-                            </span>
-                            <!-- MQTT Status -->
-                            <span class="navbar-item">
-                                <input id="mqtt_status" type="checkbox" name="mqtt_status" class="switch" data-checked="cgi-bin/scripts.cgi?cmd=start&script=mqtt-status"
-                                    data-unchecked="cgi-bin/scripts.cgi?cmd=stop&script=mqtt-status">
-                                <label for="mqtt_status">MQTT Status Server</label>
-                            </span>
-                            <!-- MQTT Control -->
-                            <span class="navbar-item">
-                                <input id="mqtt_control" type="checkbox" name="mqtt_control" class="switch" data-checked="cgi-bin/scripts.cgi?cmd=start&script=mqtt-control"
-                                    data-unchecked="cgi-bin/scripts.cgi?cmd=stop&script=mqtt-control">
-                                <label for="mqtt_control">MQTT Control Server</label>
-                            </span>
-                            <!-- Motion: mail -->
-                            <span class="navbar-item">
-                                <input id="motion_mail" type="checkbox" name="motion_mail" class="switch" data-checked="cgi-bin/action.cgi?cmd=motion_detection_mail_on"
-                                       data-unchecked="cgi-bin/action.cgi?cmd=motion_detection_mail_off">
-                                <label for="motion_mail">Motion - Send emails</label>
-                            </span>
-                            <!-- Motion: SNAPSHOT -->
-                            <span class="navbar-item">
-                                <input id="motion_snapshot" type="checkbox" name="motion_snapshot" class="switch" data-checked="cgi-bin/action.cgi?cmd=motion_detection_snapshot_on"
-                                       data-unchecked="cgi-bin/action.cgi?cmd=motion_detection_snapshot_off">
-                                <label for="motion_snapshot">Motion - Snapshots</label>
-                            </span>
-                            <!-- Motion: MQTT Message -->
-                            <span class="navbar-item">
-                                <input id="motion_mqtt" type="checkbox" name="motion_mqtt" class="switch" data-checked="cgi-bin/action.cgi?cmd=motion_detection_mqtt_publish_on"
-                                       data-unchecked="cgi-bin/action.cgi?cmd=motion_detection_mqtt_publish_off">
-                                <label for="motion_mqtt">Motion - MQTT Message</label>
-                            </span>
-                            <!-- Motion: MQTT Message -->
-                            <span class="navbar-item">
-                                <input id="motion_mqtt_snapshot" type="checkbox" name="motion_mqtt_snapshot" class="switch" data-checked="cgi-bin/action.cgi?cmd=motion_detection_mqtt_snapshot_on"
-                                       data-unchecked="cgi-bin/action.cgi?cmd=motion_detection_mqtt_snapshot_off">
-                                <label for="motion_mqtt_snapshot">Motion - MQTT Snapshot</label>
-                            </span>
+                        <div id="camcontrol_items" class="navbar-dropdown is-boxed is-right">
                         </div>
                     </div>
                 </div>

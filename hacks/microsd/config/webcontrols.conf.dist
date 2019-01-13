@@ -1,0 +1,1 @@
+ENABLED_CAM_CONTROL_SWITCHES=("auto-night-detection" "blue-led" "ftp-server" "ir-cut" "ir-led" "rtsp-h264" "telnet-server")

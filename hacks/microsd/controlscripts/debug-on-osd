@@ -1,5 +1,5 @@
 #!/bin/sh
-
+SERVICE_NAME="OSD Debug Info"
 PIDFILE="/var/run/debugOnOsd.pid"
 
 status()

@@ -1,4 +1,5 @@
 #!/bin/sh
+SERVICE_NAME="Recording"
 PIDFILE="/var/run/recording.pid"
 DCIM_PATH="/opt/media/sdc/DCIM"
 

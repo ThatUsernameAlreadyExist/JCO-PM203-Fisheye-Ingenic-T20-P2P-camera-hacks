@@ -1,4 +1,5 @@
 #!/bin/sh
+SERVICE_NAME="Telnet Server"
 PIDFILE="/var/run/telnet-server.pid"
 export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/thirdlib:/system/lib/:/ipc/lib/'
 PATH=/opt/media/sdc/bin:/system/bin:/bin:/sbin:/usr/bin:/usr/sbin

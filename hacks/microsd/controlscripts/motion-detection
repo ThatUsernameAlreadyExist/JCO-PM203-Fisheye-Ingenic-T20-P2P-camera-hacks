@@ -1,0 +1,41 @@
+#!/bin/sh
+SERVICE_NAME="Motion Detection"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
+
+. /opt/media/sdc/scripts/common_functions.sh
+
+status()
+{
+  state=$(motion_detection status)
+  if [[ $state == "ON" || $state == "on" ]]; then
+    echo "PID: OK" 
+  fi
+}
+
+start()
+{
+  motion_sensitivity=4
+  if [ -f /opt/media/sdc/config/motion.conf ]; then
+    source /opt/media/sdc/config/motion.conf
+  fi
+  if [ $motion_sensitivity -eq -1 ]; then
+     motion_sensitivity=4
+  fi
+  /opt/media/sdc/bin/setconf -k m -v $motion_sensitivity
+  rewrite_config /opt/media/sdc/config/motion.conf motion_sensitivity $motion_sensitivity
+}
+
+stop()
+{
+  /opt/media/sdc/bin/setconf -k m -v -1
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi
+

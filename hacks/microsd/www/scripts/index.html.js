@@ -1,9 +1,4 @@
-var SWITCHES = [
-    "yellow_led", "blue_led", "ir_led", "ir_cut",
-    "rtsp_h264", "rtsp_mjpeg", "auto_night_detection",
-    "mqtt_status", "mqtt_control",
-    "sound_on_startup", "motion_detection", "motion_mail",
-    "motion_led","motion_snapshot","motion_mqtt", "motion_mqtt_snapshot"];
+var SWITCHES = [];
 
 var timeoutJobs = {};
 
@@ -30,8 +25,9 @@ function scheduleRefreshSysUsage(interval) {
 function syncSwitch(sw) {
     var e = $('#' + sw);
     if (!e.prop('disabled')) {
-        $.get("cgi-bin/state.cgi", {
-            cmd: sw
+        $.get("cgi-bin/camcontrols.cgi", {
+            cmd: "getstate",
+            control: sw
         }).done(function (status) {
             // console.log(sw + " status " + status + " / current " + e.prop('checked'));
             e.prop('checked', (status.trim().toLowerCase() == "on"));
@@ -67,6 +63,8 @@ $(document).ready(function () {
     // Set title page and menu with hostname
     $.get("cgi-bin/state.cgi", {cmd: "hostname"}, function(title){document.title = title;document.getElementById("title").innerHTML = title;});
     
+    // Set initial fast camera controls.
+    updateCameraControls();
     
     // Load link into #content
     $('.onpage').click(function () {
@@ -98,26 +96,6 @@ $(document).ready(function () {
         var b = $(this);
         $.get("cgi-bin/action.cgi?cmd=" + b.data('cmd')).done(function (data) {
             setTimeout(refreshLiveImage, 500);
-        });
-    });
-
-    // Switch controls
-    $(".switch").click(function () {
-        var e = $(this);
-        e.prop('disabled', true);
-        $.get("cgi-bin/state.cgi", {
-            cmd: e.attr('id')
-        }).done(function (status) {
-            if (status.trim().toLowerCase() == "on") {
-                $.get(e.data('unchecked')).done(function (data) {
-                    e.prop('checked', false);
-                });
-            } else {
-                $.get(e.data('checked')).done(function (data) {
-                    e.prop('checked', true);
-                });
-            }
-            e.prop('disabled', false);
         });
     });
 
@@ -196,6 +174,7 @@ function getCookie(name) {
     }
     return null;
 }
+
 function setTheme(c) {
     if (!c) {
         return;
@@ -224,7 +203,52 @@ function setTheme(c) {
         setCookie('theme', c);
     }
 }
+
 function getThemeChoice() {
     var c = getCookie('theme');
     return c;
+}
+
+function cameraControlClick(control)
+{   
+    var e = $(control);
+    e.prop('disabled', true);
+    $.get("cgi-bin/camcontrols.cgi", {
+        cmd: "getstate",
+        control: e.attr('id')
+    }).done(function (status) {
+        if (status.trim().toLowerCase() == "on") {
+            $.get(e.data('unchecked')).done(function (data) {
+                e.prop('checked', false);
+            });
+        } else {
+            $.get(e.data('checked')).done(function (data) {
+                e.prop('checked', true);
+            });
+        }
+        e.prop('disabled', false);
+    });
+}
+
+
+function updateCameraControls() {
+    $.get("cgi-bin/camcontrols.cgi?cmd=getcontrols").done(function(data) {
+        $("#camcontrol_items").empty();
+        SWITCHES = []
+        var camControlsArray = eval(data);
+        for (var i = 0; i < camControlsArray.length; i++) {
+            var camControl = camControlsArray[i];
+            SWITCHES.push(camControl.id);
+            $("#camcontrol_items").append("<span class=\"navbar-item\"><input id=\"" + camControl.id + "\" \
+                onclick='cameraControlClick(this)' \
+                type=\"checkbox\" name=\"" + camControl.id + "\" class=\"switch\" \
+                data-checked=\"cgi-bin/camcontrols.cgi?cmd=on&control=" + camControl.id + "\" \
+                data-unchecked=\"cgi-bin/camcontrols.cgi?cmd=off&control=" + camControl.id + "\"> \
+                <label for=\"" + camControl.id + "\">" + camControl.name + "</label></span>");
+        }
+        
+        if (SWITCHES.length > 0) {
+          syncSwitches(); 
+        }
+    });
 }

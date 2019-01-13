@@ -1,0 +1,33 @@
+#!/bin/sh
+SERVICE_NAME="Motion Detection Email"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
+
+. /opt/media/sdc/scripts/common_functions.sh
+
+status()
+{
+  . /opt/media/sdc/config/motion.conf 2> /dev/null
+  if [ "$sendemail" == "true" ]; then
+    echo "PID: OK" 
+  fi
+}
+
+start()
+{
+  rewrite_config /opt/media/sdc/config/motion.conf sendemail "true"
+}
+
+stop()
+{
+  rewrite_config /opt/media/sdc/config/motion.conf sendemail "false"
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi
+

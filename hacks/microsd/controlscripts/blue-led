@@ -1,0 +1,33 @@
+#!/bin/sh
+SERVICE_NAME="Blue Led"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
+
+. /opt/media/sdc/scripts/common_functions.sh
+
+status()
+{
+  state=$(blue_led status)
+  if [[ $state == "ON" || $state == "on" ]]; then
+    echo "PID: OK" 
+  fi
+}
+
+start()
+{
+  blue_led on
+}
+
+stop()
+{
+  blue_led off
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi
+

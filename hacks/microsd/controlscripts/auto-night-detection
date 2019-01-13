@@ -1,4 +1,5 @@
 #!/bin/sh
+SERVICE_NAME="Auto Night Detection"
 PIDFILE="/var/run/auto-night-detection.pid"
 CONF_FILE="/opt/media/sdc/config/autonight.conf"
 

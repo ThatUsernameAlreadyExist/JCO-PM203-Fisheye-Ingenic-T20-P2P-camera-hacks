@@ -1,4 +1,5 @@
 #!/bin/sh
+SERVICE_NAME="MQTT Control"
 PIDFILE="/var/run/mqtt-control.pid"
 
 if [ ! -f /opt/media/sdc/config/mqtt.conf ]; then

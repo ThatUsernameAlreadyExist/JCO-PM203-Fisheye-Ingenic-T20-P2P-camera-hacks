@@ -6,6 +6,7 @@
 # /on - motion detect on
 # /off - motion detect off
 
+SERVICE_NAME="Telegram Bot"
 PIDFILE="/var/run/telegram-bot.pid"
 
 if [ ! -f /opt/media/sdc/config/telegram.conf ]; then
