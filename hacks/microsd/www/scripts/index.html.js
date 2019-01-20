@@ -14,7 +14,7 @@ function scheduleRefreshLiveImage(interval) {
 }
 function refreshSysUsage() {
     var ts = new Date().getTime();
-    $.get("cgi-bin/sysusage.cgi?" + ts, function(sysusage){document.getElementById("sysusage").innerHTML = sysusage; scheduleRefreshSysUsage(5000);});
+    $.get("cgi-bin/state.cgi", {cmd: "sysusage", uid: ts}, function(sysusage){document.getElementById("sysusage").innerHTML = sysusage; scheduleRefreshSysUsage(5000);});
 }
 function scheduleRefreshSysUsage(interval) {
     if (timeoutJobs['refreshSysUsage'] != undefined) {
