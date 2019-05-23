@@ -4,7 +4,7 @@ export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
 CONFIGPATH="/opt/media/sdc/config"
 LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/startup.log"
-SWAP=false
+SWAP=false # NOTE: swap is not supported in default kernel (swapon not implemented).
 SWAPPATH="/opt/media/sdc/swapfile"
 SWAPSIZE=64
 
