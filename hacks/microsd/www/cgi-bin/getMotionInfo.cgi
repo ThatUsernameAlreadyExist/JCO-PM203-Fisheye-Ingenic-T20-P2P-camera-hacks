@@ -22,11 +22,6 @@ then
     region_of_interest="0,0,0,0"
 fi
 
-motion_timeout=`/opt/media/sdc/bin/setconf -g u 2>/dev/null`
-if [ "${motion_timeout}X" == "X" ]
-then
-    motion_timeout=60
-fi
 
 process=`ps -l| grep v4l2rtspserver-master | grep -v grep`
 w=`echo ${process}| awk -F '-W' '{print $2}' | awk '{print $1}'`
@@ -44,6 +39,5 @@ fi
 echo "{\"motion_indicator_color\": ${motion_indicator_color},
 \"motion_sensitivity\": ${motion_sensitivity},
 \"region_of_interest\": [${region_of_interest}],
-\"motion_timeout\": ${motion_timeout},
 \"width\": ${w},
 \"height\": ${h}}"

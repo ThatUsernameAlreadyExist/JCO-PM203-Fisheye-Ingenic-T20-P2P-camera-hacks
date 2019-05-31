@@ -62,13 +62,6 @@
         </div>
 
         <div class="field">
-            <label class="label">Motion Timeout</label>
-            <div class="control">
-                <input class="input" id="motion_timeout" name="motion_timeout" type="number" size="6">
-            </div>
-            <p class="help">Restore camera position after x seconds, -1 to deactivate</p>
-        </div>
-        <div class="field">
             <div class="control">
                 <input id="configMotionSubmit" class="button is-primary" type="submit" value="Configure motion" />
             </div>
@@ -186,7 +179,12 @@
             $('#restart_server').val(0);
             $('#motion_indicator_color').val(motionInfo.motion_indicator_color).change();
             $('#motion_sensitivity').val(motionInfo.motion_sensitivity).change();
-            $('#motion_timeout').val(motionInfo.motion_timeout).change();
+            ias.setOptions({
+                show: true
+            });
+            picture.css('opacity', 1);
+            region_disabled.hide();
+            ias.update();
         });
 
         $('#confMotionForm').submit(function (event) {
@@ -200,8 +198,7 @@
                 'y1': $('input[name=y1]').val(),
                 'restart_server': $('input[name=restart_server]').val(),
                 'motion_sensitivity': $('select[name=motion_sensitivity]').val(),
-                'motion_indicator_color': $('select[name=motion_indicator_color]').val(),
-                'motion_timeout': $('input[name=motion_timeout]').val()
+                'motion_indicator_color': $('select[name=motion_indicator_color]').val()
             };
             $.ajax({
                 type: 'POST',

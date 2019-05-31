@@ -321,7 +321,6 @@ if [ -n "$F_cmd" ]; then
         rewrite_config /opt/media/sdc/config/motion.conf region_of_interest "${F_x0},${F_y0},${F_x1},${F_y1}"
         rewrite_config /opt/media/sdc/config/motion.conf motion_sensitivity "${F_motion_sensitivity}"
         rewrite_config /opt/media/sdc/config/motion.conf motion_indicator_color "${F_motion_indicator_color}"
-        rewrite_config /opt/media/sdc/config/motion.conf motion_timeout "${F_motion_timeout}"
         if [ "${F_motion_tracking}X" == "X" ]; then
           rewrite_config /opt/media/sdc/config/motion.conf motion_tracking off
           /opt/media/sdc/bin/setconf -k t -v off
@@ -333,19 +332,12 @@ if [ -n "$F_cmd" ]; then
         /opt/media/sdc/bin/setconf -k r -v ${F_x0},${F_y0},${F_x1},${F_y1}
         /opt/media/sdc/bin/setconf -k m -v ${F_motion_sensitivity}
         /opt/media/sdc/bin/setconf -k z -v ${F_motion_indicator_color}
-        /opt/media/sdc/bin/setconf -k u -v ${F_motion_timeout}
 
         # Changed the detection region, need to restart the server
         if [ ${F_restart_server} == "1" ]
         then
-            if [ "$(rtsp_h264_server status)" == "ON" ]; then
-                rtsp_h264_server off
-                rtsp_h264_server on
-            fi
-            if [ "$(rtsp_mjpeg_server status)" == "ON" ]; then
-                rtsp_mjpeg_server off
-                rtsp_mjpeg_server on
-            fi
+            restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
+            restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
         fi
 
         echo "Motion Configuration done"
