@@ -7,8 +7,6 @@
 region_of_interest=0,0,1280,720
 motion_sensitivity=-1
 motion_indicator_color=2
-motion_timeout=-1
-motion_tracking=off
 
 # Configure how to deal with motion events:
 

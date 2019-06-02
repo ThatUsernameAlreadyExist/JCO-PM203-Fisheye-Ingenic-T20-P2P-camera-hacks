@@ -35,7 +35,7 @@ if [ -n "$F_cmd" ]; then
 
         4)
           echo "Content of v4l2rtspserver-master.log<br/>"
-          cat /opt/media/sdc/log/v4l2rtspserver-master.log
+          tail -n 256 /opt/media/sdc/log/v4l2rtspserver-master.log
           ;;
 
       esac
@@ -321,16 +321,8 @@ if [ -n "$F_cmd" ]; then
         rewrite_config /opt/media/sdc/config/motion.conf region_of_interest "${F_x0},${F_y0},${F_x1},${F_y1}"
         rewrite_config /opt/media/sdc/config/motion.conf motion_sensitivity "${F_motion_sensitivity}"
         rewrite_config /opt/media/sdc/config/motion.conf motion_indicator_color "${F_motion_indicator_color}"
-        if [ "${F_motion_tracking}X" == "X" ]; then
-          rewrite_config /opt/media/sdc/config/motion.conf motion_tracking off
-          /opt/media/sdc/bin/setconf -k t -v off
-        else
-          rewrite_config /opt/media/sdc/config/motion.conf motion_tracking on
-          /opt/media/sdc/bin/setconf -k t -v on
-        fi
 
         /opt/media/sdc/bin/setconf -k r -v ${F_x0},${F_y0},${F_x1},${F_y1}
-        /opt/media/sdc/bin/setconf -k m -v ${F_motion_sensitivity}
         /opt/media/sdc/bin/setconf -k z -v ${F_motion_indicator_color}
 
         # Changed the detection region, need to restart the server
@@ -339,6 +331,8 @@ if [ -n "$F_cmd" ]; then
             restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
             restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
         fi
+        
+        restart_service_if_need /opt/media/sdc/controlscripts/motion-detection
 
         echo "Motion Configuration done"
     ;;

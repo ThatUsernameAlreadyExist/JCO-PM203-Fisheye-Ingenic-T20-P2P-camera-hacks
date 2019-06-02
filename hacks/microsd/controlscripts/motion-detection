@@ -22,14 +22,12 @@ start()
      motion_sensitivity=4
   fi
   /opt/media/sdc/bin/setconf -k m -v $motion_sensitivity
-  rewrite_config /opt/media/sdc/config/motion.conf motion_sensitivity $motion_sensitivity
 }
 
 stop()
 {
   motion_sensitivity=-1
   /opt/media/sdc/bin/setconf -k m -v $motion_sensitivity
-  rewrite_config /opt/media/sdc/config/motion.conf motion_sensitivity $motion_sensitivity
 }
 
 if [ $# -eq 0 ]; then

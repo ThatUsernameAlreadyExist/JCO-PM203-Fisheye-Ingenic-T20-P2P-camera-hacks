@@ -4,24 +4,9 @@ echo "Pragma: no-cache"
 echo "Cache-Control: max-age=0, no-store, no-cache"
 echo
 
-motion_indicator_color=`/opt/media/sdc/bin/setconf -g z 2>/dev/null`
-if [ "${motion_indicator_color}X" == "X" ]
-then
-    motion_indicator_color="0"
+if [ -f /opt/media/sdc/controlscripts/configureMotion ]; then
+  . /opt/media/sdc/controlscripts/configureMotion  2>/dev/null
 fi
-
-motion_sensitivity=`/opt/media/sdc/bin/setconf -g m 2>/dev/null`
-if [ "${motion_sensitivity}X" == "X" ]
-then
-    motion_sensitivity="0"
-fi
-
-region_of_interest=`/opt/media/sdc/bin/setconf -g r 2>/dev/null`
-if [ "${region_of_interest}X" == "X" ]
-then
-    region_of_interest="0,0,0,0"
-fi
-
 
 process=`ps -l| grep v4l2rtspserver-master | grep -v grep`
 w=`echo ${process}| awk -F '-W' '{print $2}' | awk '{print $1}'`

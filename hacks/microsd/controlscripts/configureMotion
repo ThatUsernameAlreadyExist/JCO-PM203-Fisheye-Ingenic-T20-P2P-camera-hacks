@@ -10,7 +10,5 @@ fi
 if [ -f /opt/media/sdc/config/motion.conf ] ; then
     source /opt/media/sdc/config/motion.conf 2>/dev/null
     /opt/media/sdc/bin/setconf -k r -v ${region_of_interest} 2>/dev/null
-    /opt/media/sdc/bin/setconf -k m -v ${motion_sensitivity} 2>/dev/null
     /opt/media/sdc/bin/setconf -k z -v ${motion_indicator_color} 2>/dev/null
-    /opt/media/sdc/bin/setconf -k t -v ${motion_tracking} 2>/dev/null
 fi;

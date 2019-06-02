@@ -1,10 +1,2 @@
 #!/bin/sh
-if [ -f /opt/media/sdc/controlscripts/configureOsd ]; then
-    . /opt/media/sdc/controlscripts/configureOsd  2>/dev/null
-fi
-
-if [ -f /opt/media/sdc/controlscripts/configureMotion ]; then
-    . /opt/media/sdc/controlscripts/configureMotion  2>/dev/null
-fi
-
 /opt/media/sdc/controlscripts/rtsp-h264

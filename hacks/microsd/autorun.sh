@@ -89,6 +89,12 @@ initialize_gpio()
     blue_led on
 }
 
+init_rtsp_params()
+{
+    # Set default value (will be overrided if need by autostart scripts)
+    motion_detection off
+}
+
 run_autostart_scripts()
 {
     echo "Autostart..." >> $LOGPATH
@@ -107,5 +113,6 @@ create_swap_if_need
 init_network
 sync_time
 initialize_gpio
+init_rtsp_params
 run_autostart_scripts
 echo "--------Starting Hacks Finished!--------" >> $LOGPATH
