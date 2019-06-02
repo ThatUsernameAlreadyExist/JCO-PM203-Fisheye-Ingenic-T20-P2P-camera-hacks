@@ -390,3 +390,24 @@ all_password()
     rewrite_config /opt/media/sdc/config/rtspserver.conf USERNAME "$DEFAULT_LOGIN"
     rewrite_config /opt/media/sdc/config/rtspserver.conf USERPASSWORD "$1"
 }
+
+# Input arg - file with PID
+killpid()
+{
+  pid="$(cat "$1" 2>/dev/null)"
+  if [ "$pid" ]; then
+    kill "$pid"
+    rm "$1" 1> /dev/null 2>&1
+  fi
+}
+
+# Input arg - file with PID
+checkpid()
+{
+  pid="$(cat "$1" 2>/dev/null)"
+  if ([ "$pid" ] && kill -0 "$pid" >/dev/null); then
+    return 0
+  else
+    return 1
+  fi
+}

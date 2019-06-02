@@ -6,6 +6,7 @@ LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/v4l2rtspserver-master.log"
 export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/thirdlib:/system/lib/:/ipc/lib/'
 
+. /opt/media/sdc/scripts/common_functions.sh
 . /opt/media/sdc/scripts/update_timezone.sh
 
 if [ ! -f /opt/media/sdc/config/rtspserver.conf ]; then
@@ -20,24 +21,6 @@ if [ -f /opt/media/sdc/config/osd.conf ]; then
   . /opt/media/sdc/config/osd.conf 2>/dev/null
 fi
 
-killpid()
-{
-  pid="$(cat "$1" 2>/dev/null)"
-  if [ "$pid" ]; then
-    kill "$pid"
-    rm "$1" 1> /dev/null 2>&1
-  fi
-}
-
-checkpid()
-{
-  pid="$(cat "$1" 2>/dev/null)"
-  if ([ "$pid" ] && kill -0 "$pid" >/dev/null); then
-    return 0
-  else
-    return 1
-  fi
-}
 
 status()
 {
