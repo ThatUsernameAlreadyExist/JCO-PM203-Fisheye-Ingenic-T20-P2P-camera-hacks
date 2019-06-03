@@ -93,6 +93,9 @@ init_rtsp_params()
 {
     # Set default value (will be overrided if need by autostart scripts)
     motion_detection off
+    # Disable virtual memory over commit check: required for running scripts when motion detected.
+    # Without this 'system()' call in rtsp server fails with not enough memory error (fork() cannot allocate virtual memory).
+    echo 1 > /proc/sys/vm/overcommit_memory
 }
 
 run_autostart_scripts()
