@@ -86,7 +86,7 @@ initialize_gpio()
     sleep 3
     ir_led off
     ir_cut on
-    blue_led on
+    blue_led off
 }
 
 init_rtsp_params()
