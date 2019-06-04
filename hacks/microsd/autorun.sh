@@ -4,9 +4,6 @@ export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
 CONFIGPATH="/opt/media/sdc/config"
 LOGDIR="/opt/media/sdc/log"
 LOGPATH="$LOGDIR/startup.log"
-SWAP=false # NOTE: swap is not supported in default kernel (swapon not implemented).
-SWAPPATH="/opt/media/sdc/swapfile"
-SWAPSIZE=64
 
 ## Load some common functions:
 . /opt/media/sdc/scripts/common_functions.sh
@@ -49,21 +46,6 @@ init_network()
     echo "udhcpc: $udhcpc_status" >> $LOGPATH
 }
 
-create_swap_if_need()
-{
-    if [ "$SWAP" = true ]; then
-        if [ ! -f $SWAPPATH ]; then
-            echo "Creating ${SWAPSIZE}MB swap file on SD card"  >> $LOGPATH
-            dd if=/dev/zero of=$SWAPPATH bs=1M count=$SWAPSIZE
-            mkswap $SWAPPATH
-            echo "Swap file created in $SWAPPATH" >> $LOGPATH
-        fi
-        echo "Configuring swap file" >> $LOGPATH
-        swapon $SWAPPATH
-        echo "Swap set on file $SWAPPATH" >> $LOGPATH
-    fi
-}
-
 sync_time()
 {
     if [ ! -f $CONFIGPATH/ntp_srv.conf ]; then
@@ -83,7 +65,7 @@ initialize_gpio()
     echo 1 > /sys/class/gpio/gpio81/active_low
     echo "Initialized gpios" >> $LOGPATH
     
-    sleep 3
+    sleep 1
     ir_led off
     ir_cut on
     blue_led off
@@ -112,7 +94,6 @@ run_autostart_scripts()
 echo "--------Starting Hacks--------" >> $LOGPATH
 init_log
 stop_cloud
-create_swap_if_need
 init_network
 sync_time
 initialize_gpio
