@@ -4,14 +4,15 @@ LOGPATH="/var/log/service-watchdog.log"
 MAX_ERRORS_TO_REBOOT=5
 MAX_ERRORS_TO_ALTERNATIVE_REBOOT=10 # If normal reboot not work
 MIN_SUCCES_TO_RESET_REBOOT=30
-CHECK_TIMEOUT_SECONDS=30
+CHECK_TIMEOUT_SECONDS=15
 
 monitor_service()
 {
     SERVICE_TO_MONITOR=$1
+    NEED_REBOOT_ON_ERROR=$2
     CURRENT_ERRORS=0
     CURRENT_SUCCESS=0
-    
+
     while :
     do
         sleep $CHECK_TIMEOUT_SECONDS
@@ -22,6 +23,9 @@ monitor_service()
                 CURRENT_SUCCESS=0
                 CURRENT_ERRORS=0
             fi
+        elif [ $NEED_REBOOT_ON_ERROR -eq 0 ]; then
+            echo "$(date) $SERVICE_TO_MONITOR - perform restart (no reboot mode)" >> "$LOGPATH"
+            "$SERVICE_TO_MONITOR" start
         else
             CURRENT_SUCCESS=0
             CURRENT_ERRORS=$((CURRENT_ERRORS+1))
@@ -44,5 +48,5 @@ monitor_service()
 if [ $# -eq 0 ]; then
     echo "No service to monitor! First param - full patch to service control script." >> "$LOGPATH"
 else
-    monitor_service $1
+    monitor_service $1 $2
 fi

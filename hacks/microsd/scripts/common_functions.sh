@@ -204,14 +204,29 @@ rtsp_mjpeg_server(){
   esac
 }
 
+activate_motion_recording()
+{
+  # Set recording flag
+  flock -x /tmp/rec_control echo "1" > /tmp/rec_control
+}
+
+deactivate_motion_recording()
+{
+  # Reset recording flag
+  flock -x /tmp/rec_control echo "0" > /tmp/rec_control
+}
+
+
 # Control the motion detection function
 motion_detection(){
   case "$1" in
   on)
     /opt/media/sdc/bin/setconf -k m -v 4
+    deactivate_motion_recording
     ;;
   off)
     /opt/media/sdc/bin/setconf -k m -v -1
+    deactivate_motion_recording
     ;;
   status)
     status=$(/opt/media/sdc/bin/setconf -g m 2>/dev/null)
@@ -376,6 +391,15 @@ restart_service_if_need()
     fi
 }
 
+start_service_if_need()
+{
+    service_path="$1"
+    status=$("$service_path" status)
+    if [ $? -ne 0 -o -z "$status" ]; then
+        $service_path start > /dev/null 2>&1
+    fi
+}
+
 # Set a new ftp login password
 ftp_login_password()
 {
@@ -386,7 +410,7 @@ all_password()
 {
     DEFAULT_LOGIN="root"
     http_password $1
-    ftp_login_password "$DEFAULT_LOGIN" $1 
+    ftp_login_password "$DEFAULT_LOGIN" $1
     rewrite_config /opt/media/sdc/config/rtspserver.conf USERNAME "$DEFAULT_LOGIN"
     rewrite_config /opt/media/sdc/config/rtspserver.conf USERPASSWORD "$1"
 }
@@ -410,4 +434,21 @@ checkpid()
   else
     return 1
   fi
+}
+
+led_blink()
+{
+    blink_count=$1
+    led_status=$(blue_led status)
+
+    for ((i=1;i<=blink_count;i++)); do
+       blue_led on
+       sleep 0.25
+       blue_led off
+       sleep 0.25
+    done
+
+    if [ $led_status == "ON" ]; then
+        blue_led on
+    fi
 }

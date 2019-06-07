@@ -94,10 +94,10 @@ start()
     echo "/opt/media/sdc/bin/v4l2rtspserver-master $RTSPH264OPTS $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT" >> "$LOGPATH"
     /opt/media/sdc/bin/v4l2rtspserver-master $RTSPH264OPTS $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT 2>> "$LOGPATH" >> "$LOGPATH" &
     echo "$!" > "$PIDFILE"
-    
+
     ## Watchdog
     if ! checkpid "$WATCHDOG_PIDFILE"; then
-      /opt/media/sdc/scripts/service-watchdog.sh /opt/media/sdc/controlscripts/rtsp-h264 &
+      /opt/media/sdc/scripts/service-watchdog.sh /opt/media/sdc/controlscripts/rtsp-h264 1 &
       echo "$!" > "$WATCHDOG_PIDFILE"
     fi
   fi

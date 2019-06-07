@@ -85,7 +85,7 @@ $(document).ready(function() {
     });
     event.preventDefault();
   });
-  
+
   $('#allPasswordForm').submit(function(event) {
     var b = $('#allpwSubmit');
     b.toggleClass('is-loading');
@@ -111,7 +111,7 @@ $(document).ready(function() {
     });
     event.preventDefault();
   });
-  
+
   $('#telnetForm').submit(function(event) {
     var b = $('#telnetSubmit');
     b.toggleClass('is-loading');
@@ -165,7 +165,7 @@ $(document).ready(function() {
     });
     event.preventDefault();
   });
-  
+
   $('#formOSD').submit(function(event) {
     var b = $('#osdSubmit');
     b.toggleClass('is-loading');
@@ -194,6 +194,35 @@ $(document).ready(function() {
     $.ajax({
       type: 'POST',
       url: $('#formOSD').attr('action'),
+      data: formData,
+      dataType: 'html',
+      encode: true
+    }).done(function(res) {
+      b.toggleClass('is-loading');
+      b.prop('disabled', !b.prop('disabled'));
+      showResult(res);
+    });
+    event.preventDefault();
+  });
+
+  $('#formRecording').submit(function(event) {
+    var b = $('#recSubmit');
+    b.toggleClass('is-loading');
+    b.prop('disabled', !b.prop('disabled'));
+    if ($('input[name=motion_act]').prop('checked')) {
+          motion_act = '1';
+      } else {
+          motion_act = '0';
+      }
+    var formData = {
+      'motion_act': motion_act,
+      'postrec': $('input[name=postrec]').val(),
+      'maxduration': $('input[name=maxduration]').val(),
+      'diskspace': $('input[name=diskspace]').val()
+    };
+    $.ajax({
+      type: 'POST',
+      url: $('#formRecording').attr('action'),
       data: formData,
       dataType: 'html',
       encode: true
@@ -307,4 +336,3 @@ $(document).ready(function() {
         }
     });
 });
-

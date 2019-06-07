@@ -1,11 +1,27 @@
 #!/bin/sh
 SERVICE_NAME="Recording"
 PIDFILE="/var/run/recording.pid"
+WATCHDOG_PIDFILE="/var/run/recording-watch.pid"
 DCIM_PATH="/opt/media/sdc/DCIM"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/thirdlib:/system/lib/:/ipc/lib/'
+
+. /opt/media/sdc/scripts/common_functions.sh
+. /opt/media/sdc/scripts/update_timezone.sh
 
 if [ ! -d "$DCIM_PATH" ]; then
   mkdir -p $DCIM_PATH
 fi
+
+if [ ! -f /opt/media/sdc/config/recording.conf ]; then
+  cp /opt/media/sdc/config/recording.conf.dist /opt/media/sdc/config/recording.conf
+fi
+
+if [ ! -f /opt/media/sdc/config/rtspserver.conf ]; then
+  cp /opt/media/sdc/config/rtspserver.conf.dist /opt/media/sdc/config/rtspserver.conf
+fi
+
+. /opt/media/sdc/config/recording.conf
+. /opt/media/sdc/config/rtspserver.conf
 
 status()
 {
@@ -17,37 +33,51 @@ status()
 
 start()
 {
-  if [ -f $PIDFILE ]; then
-    echo "Recording already running";
+  if [ "$(status)" != "" ]; then
+    echo "A recording is already running, please stop it or reboot"
   else
-    echo "Start recording"
-    SUB_DIR="$(date +%m%dFANG)"
-    if [ ! -d "$DCIM_PATH/$SUB_DIR" ]; then
-      mkdir -p "$DCIM_PATH/$SUB_DIR"
+    echo "Starting recording"
+    /opt/media/sdc/controlscripts/rtsp-mjpeg stop # Mjpeg not supported
+
+    if [ "$USERNAME" != "" ]; then
+        CREDENTIAL="$USERNAME:$USERPASSWORD@"
     fi
-    FILE_NAME="MOV_$(date +%H%M.mov)"
-    RECORDING_PATH="$DCIM_PATH/$SUB_DIR/$FILE_NAME"
-    /opt/media/sdc/bin/busybox nohup /opt/media/sdc/bin/avconv -rtsp_transport tcp -y -i rtsp://0.0.0.0:554/unicast -vcodec copy -c:a aac -strict experimental "$RECORDING_PATH"  &>/dev/null &
+
+    if [ "$rec_motion_activated" == 1 ]; then
+        start_service_if_need /opt/media/sdc/controlscripts/motion-detection
+        motion_args="-s_stop 1 -s_control_file /tmp/rec_control"
+        deactivate_motion_recording #Disable record on start
+    else
+        motion_args="-s_stop 0"
+    fi
+    # Example:
+    # /opt/media/sdc/bin/ffmpeg-min-recorder -loglevel info -rtbufsize 786432 -re -vcodec h264 -analyzeduration 0 -rtsp_transport tcp -stimeout 3500000 -i rtsp://root:jco66688@0.0.0.0:554/unicast -vcodec copy -acodec copy -map 0 -dn -f extsegment -s_max_prerecord_bytes 524288 -s_prerecord_ms 0 -s_postrecord_ms 8000 -s_max_file_duration_ms 60000 -s_reserved_disk_space_mb 512 -s_stop 1 -s_control_file /tmp/rec_control /opt/media/sdc/DCIM
+
+    /opt/media/sdc/bin/busybox nohup /opt/media/sdc/bin/ffmpeg-min-recorder -loglevel quiet -rtbufsize 786432 -re -vcodec h264 -analyzeduration 0 -rtsp_transport tcp -stimeout 6500000 -i rtsp://${CREDENTIAL}127.0.0.1:$PORT/unicast \
+        -vcodec copy -acodec copy -map 0 -dn -f extsegment \
+        -s_max_prerecord_bytes 524288 -s_prerecord_ms 0 -s_postrecord_ms ${rec_postrecord_sec}000 -s_max_file_duration_ms ${rec_file_duration_sec}000 \
+        -s_reserved_disk_space_mb $rec_reserverd_disk_mb $motion_args "$DCIM_PATH" &>/dev/null &
     echo "$!" > "$PIDFILE"
+
+    ## Watchdog
+    if ! checkpid "$WATCHDOG_PIDFILE"; then
+      /opt/media/sdc/scripts/service-watchdog.sh /opt/media/sdc/controlscripts/recording 0 &
+      echo "$!" > "$WATCHDOG_PIDFILE"
+    fi
   fi
 }
 
 stop()
 {
-  pid="$(cat "$PIDFILE" 2>/dev/null)"
-  if [ "$pid" ]; then
-    kill "$pid" &&  rm "$PIDFILE"
-    echo "Stopped recording"
-  else
-    echo "Could not find a running recording to stop."
-  fi
+  killpid "$WATCHDOG_PIDFILE"
+  killpid "$PIDFILE"
 }
 
 if [ $# -eq 0 ]; then
   start
 else
   case $1 in start|stop|status)
-      $1
-      ;;
+    $1
+    ;;
   esac
 fi

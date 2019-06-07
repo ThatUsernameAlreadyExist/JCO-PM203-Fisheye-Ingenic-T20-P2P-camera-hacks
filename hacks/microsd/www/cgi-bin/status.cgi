@@ -7,6 +7,10 @@ echo ""
 
 # source header.cgi
 
+if [ ! -f /opt/media/sdc/config/recording.conf ]; then
+  cp /opt/media/sdc/config/recording.conf.dist /opt/media/sdc/config/recording.conf
+fi
+
 mount|grep "/opt/media/sdc"|grep "rw,">/dev/null
 
 if [ $? == 1 ]; then
@@ -548,8 +552,6 @@ PATH="/bin:/sbin:/usr/bin:/media/mmcblk0p2/data/bin:/media/mmcblk0p2/data/sbin:/
 
 IP=$(ifconfig wlan0 |grep "inet addr" |awk '{print $2}' |awk -F: '{print $2}')
 echo "<p>Path to feed : <a href='rtsp://$IP:$(source /opt/media/sdc/config/rtspserver.conf; echo $PORT)/unicast'>rtsp://$IP:$(source /opt/media/sdc/config/rtspserver.conf; echo $PORT)/unicast</a></p>"
-echo "<p>HLS : <a href='http://$IP:$(source /opt/media/sdc/config/rtspserver.conf; echo $PORT)/unicast.m3u8'>http://$IP:$(source /opt/media/sdc/config/rtspserver.conf; echo $PORT)/unicast.m3u8</a></p>"
-echo "<p>MPEG-DASH : <a href='http://$IP:$(source /opt/media/sdc/config/rtspserver.conf; echo $PORT)/unicast.mpd'>http://$IP:$(source /opt/media/sdc/config/rtspserver.conf; echo $PORT)/unicast.mpd</a></p>"
 
 cat << EOF
     </div>
@@ -868,6 +870,78 @@ cat << EOF
         <button class="button is-warning" onClick="call('cgi-bin/action.cgi?cmd=offDebug')">Off</button>
     </div>
 </div>
+
+
+<!-- Recording -->
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Recording</p>
+    <p class="help">MKV video files saved in DCIM folder on microSD card <br>
+    Recommended to use CBR, VBR or FixedQp video format</p>
+    </header>
+    <div class='card-content'>
+    <form id="formRecording" action="cgi-bin/action.cgi?cmd=conf_recording" method="post">
+        <div class="field is-horizontal">
+          <div class="field">
+            <input class="switch" name="motion_act" id="motion_act" type="checkbox"
+            $(if [ "$(source /opt/media/sdc/config/recording.conf && echo "$rec_motion_activated")" -eq 1 ]; then echo "checked"; fi)>
+            <label for="motion_act">Record only when motion detected</label>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Postrecord</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                        <input class="input" id="postrec" name="postrec" type="number" size="2" min="0" max="60" value="$(source /opt/media/sdc/config/recording.conf && echo "$rec_postrecord_sec")"/>
+                    </p>
+                    <p class="help">seconds, after motion is ended</p>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Max file duration</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                        <input class="input" id="maxduration" name="maxduration" type="number" size="3" min="10" max="600" value="$(source /opt/media/sdc/config/recording.conf && echo "$rec_file_duration_sec")"/>
+                    </p>
+                    <p class="help">seconds</p>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Reserved free disk space</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                        <input class="input" id="diskspace" name="diskspace" type="number" size="10" min="0" value="$(source /opt/media/sdc/config/recording.conf && echo "$rec_reserverd_disk_mb")"/>
+                    </p>
+                    <p class="help">megabytes, can be zero to disable removal of old files</p>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="control">
+                    <input id="recSubmit" class="button is-primary" type="submit" value="Set" />
+                    <p class="help">Note: work only with H264 RTSP</p>
+                </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
 
 <!-- Timelapse -->
 <div class='card status_card'>

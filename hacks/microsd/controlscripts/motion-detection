@@ -1,5 +1,6 @@
 #!/bin/sh
 SERVICE_NAME="Motion Detection"
+MONITOR_PIDFILE="/var/run/detection-monitor.pid"
 export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
 
 . /opt/media/sdc/scripts/common_functions.sh
@@ -8,12 +9,16 @@ status()
 {
   state=$(motion_detection status)
   if [[ $state == "ON" || $state == "on" ]]; then
-    echo "PID: OK" 
+    if checkpid "$MONITOR_PIDFILE"; then
+        pid="$(cat "$MONITOR_PIDFILE" 2>/dev/null)"
+        echo "PID: $pid"
+    fi
   fi
 }
 
 start()
 {
+  deactivate_motion_recording #Disable record on start
   motion_sensitivity=4
   if [ -f /opt/media/sdc/config/motion.conf ]; then
     source /opt/media/sdc/config/motion.conf
@@ -22,12 +27,20 @@ start()
      motion_sensitivity=4
   fi
   /opt/media/sdc/bin/setconf -k m -v $motion_sensitivity
+
+  ## Motion detection monitor
+  if ! checkpid "$MONITOR_PIDFILE"; then
+    /opt/media/sdc/scripts/detection-monitor.sh &
+    echo "$!" > "$MONITOR_PIDFILE"
+  fi
 }
 
 stop()
 {
   motion_sensitivity=-1
   /opt/media/sdc/bin/setconf -k m -v $motion_sensitivity
+  deactivate_motion_recording #Disable record on stop
+  killpid "$MONITOR_PIDFILE"
 }
 
 if [ $# -eq 0 ]; then

@@ -130,14 +130,14 @@ if [ -n "$F_cmd" ]; then
       /opt/media/sdc/controlscripts/rtsp-mjpeg stop
       /opt/media/sdc/controlscripts/rtsp-h264 stop
     ;;
-    
+
     set_telnet)
       telnetport=$(echo "${F_telnetport}"| sed -e 's/+/ /g')
       echo "TELNET_PORT=$telnetport" > /opt/media/sdc/config/telnetd.conf
       restart_service_if_need /opt/media/sdc/controlscripts/telnet-server
       echo "<p>Setting telnet service port to : $telnetport</p>"
     ;;
-    
+
     set_ftp)
       ftpport=$(echo "${F_ftpport}"| sed -e 's/+/ /g')
       ftppassword=$(printf '%b' "${F_ftppassword}")
@@ -194,7 +194,7 @@ if [ -n "$F_cmd" ]; then
       echo "<p>Setting http password to : $password</p>"
       http_password "$password"
     ;;
-    
+
     set_all_password)
       password=$(printf '%b' "${F_password//%/\\x}")
       echo "<p>Setting all services password to : $password</p>"
@@ -331,7 +331,7 @@ if [ -n "$F_cmd" ]; then
             restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
             restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
         fi
-        
+
         restart_service_if_need /opt/media/sdc/controlscripts/motion-detection
 
         echo "Motion Configuration done"
@@ -374,6 +374,25 @@ if [ -n "$F_cmd" ]; then
       else
         echo "Invalid timelapse duration"
       fi
+    ;;
+
+    conf_recording)
+      motion_act=$(printf '%b' "${F_motion_act}")
+      postrec=$(printf '%b' "${F_postrec}")
+      maxduration=$(printf '%b' "${F_maxduration}")
+      diskspace=$(printf '%b' "${F_diskspace}")
+
+      echo "Motion activated recording set to $motion_act.<BR>"
+      echo "Postrecord set to $postrec seconds.<BR>"
+      echo "Max file duration set to $maxduration seconds.<BR>"
+      echo "Reserved free disk space set to $diskspace Megabytes.<BR>"
+
+      echo "rec_motion_activated=$motion_act" > /opt/media/sdc/config/recording.conf
+      echo "rec_postrecord_sec=$postrec" >> /opt/media/sdc/config/recording.conf
+      echo "rec_file_duration_sec=$maxduration" >> /opt/media/sdc/config/recording.conf
+      echo "rec_reserverd_disk_mb=$diskspace" >> /opt/media/sdc/config/recording.conf
+
+      restart_service_if_need /opt/media/sdc/controlscripts/recording
     ;;
 
     conf_audioin)

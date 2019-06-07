@@ -5,6 +5,11 @@
 . /opt/media/sdc/scripts/common_functions.sh
 
 
+# Led
+if [ "$motion_trigger_led" = true ] ; then
+    led_blink 4 &
+fi
+
 # Save a snapshot
 if [ "$save_snapshot" = true ] ; then
 	pattern="${save_file_date_pattern:-+%d-%m-%Y_%H.%M.%S}"
@@ -27,7 +32,7 @@ if [ "$publish_mqtt_message" = true ] ; then
 	/opt/media/sdc/bin/mosquitto_pub.bin -h "$HOST" -p "$PORT" -u "$USER" -P "$PASS" -t "${TOPIC}"/motion ${MOSQUITTOOPTS} ${MOSQUITTOPUBOPTS} -m "ON"
 fi
 
-# The MQTT publish uses a separate image from the "save_snapshot" to keep things simple 
+# The MQTT publish uses a separate image from the "save_snapshot" to keep things simple
 if [ "$publish_mqtt_snapshot" = true ] ; then
 	/opt/media/sdc/bin/getimage > /tmp/last_image.jpg
 	/opt/media/sdc/bin/mosquitto_pub.bin -h "$HOST" -p "$PORT" -u "$USER" -P "$PASS" -t "${TOPIC}"/motion/snapshot ${MOSQUITTOOPTS} ${MOSQUITTOPUBOPTS} -f /tmp/last_image.jpg
