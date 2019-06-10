@@ -597,13 +597,11 @@ cat << EOF
                                        <option value="MP3" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOFORMAT | grep -w MP3)" != "" ]; then echo selected; fi)>MP3</option>
                                 </select>
                             </div>
-                            <span class="help">
+                            <p class="help">
                                 Needs a restart to become active.
-                            </span>
+                            </p>
                         </div>
                     </div>
-                    <div class="columns">
-                    <div class="column">
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Select in sample rate</label>
@@ -619,11 +617,27 @@ cat << EOF
                                     </select>
                                 </div>
                                 <span class="help">
-                                   Above 16000 some filters become inactive
+                                     Above 16000 some filters become inactive
                                 </span>
                         </div>
                     </div>
+                    <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Select out sample rate</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="select">
+                                    <select name="audiooutBR">
+                                           <option value="8000"  $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep 8000)" != "" ]; then echo selected; fi)>8000</option>
+                                           <option value="16000" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep 16000)" != "" ]; then echo selected; fi)>16000</option>
+                                           <option value="24000" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep -w 24000)" != "" ]; then echo selected; fi)>24000</option>
+                                           <option value="44100" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep -w 44100)" != "" ]; then echo selected; fi)>44100</option>
+                                           <option value="48000" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep -w 48000)" != "" ]; then echo selected; fi)>48000</option>
+                                    </select>
+                                </div>
 
+                            </div>
+                        </div>
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Filter (low filter)</label>
@@ -654,33 +668,6 @@ cat << EOF
                             </p>
                         </div>
                     </div>
-                </div>
-                <div class="column">
-                     <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Select out sample rate</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="select">
-                                    <select name="audiooutBR">
-                                           <option value="8000"  $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep 8000)" != "" ]; then echo selected; fi)>8000</option>
-                                           <option value="16000" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep 16000)" != "" ]; then echo selected; fi)>16000</option>
-                                           <option value="24000" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep -w 24000)" != "" ]; then echo selected; fi)>24000</option>
-                                           <option value="44100" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep -w 44100)" != "" ]; then echo selected; fi)>44100</option>
-                                           <option value="48000" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$(echo $AUDIOOUTBR | grep -w 48000)" != "" ]; then echo selected; fi)>48000</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">Volume</label>
-                        </div>
-                        <input class="slider is-fullwidth" name="audioinVol" step="1" min="-1" max="120" value="$(/opt/media/sdc/bin/setconf -g h)" type="range">
-                    </div>
-                    <br><br>
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">AEC filter</label>
@@ -689,13 +676,24 @@ cat << EOF
                             <p class="control">
                                 <div class="double">
                                     <input type="checkbox" name="AECEnabled" value="enabled" $(if [ "$(/opt/media/sdc/bin/setconf -g a)" == "true" ]; then echo checked; fi)/>
+                                    <span class="help">Better quality but higher CPU usage</span>
                                 </div>
                             </p>
                         </div>
                     </div>
-
-                </div>
-            </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Volume</label>
+                        </div>
+                        <div class="field-body">
+                            <p class="control">
+                                <div class="double">
+                                    <input class="slider is-fullwidth" name="audioinVol" step="1" min="-1" max="120" value="$(/opt/media/sdc/bin/setconf -g h)" type="range">
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
             <p class="control">
                 <input id="audioinSubmit" class="button is-primary" type="submit" value="Set" />
             </p>

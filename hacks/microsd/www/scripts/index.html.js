@@ -1,4 +1,3 @@
-var SWITCHES = [];
 
 var timeoutJobs = {};
 
@@ -6,41 +5,45 @@ function refreshLiveImage() {
     var ts = new Date().getTime();
     $("#liveview").attr("src", "cgi-bin/currentpic.cgi?" + ts);
 }
+
 function scheduleRefreshLiveImage(interval) {
     if (timeoutJobs['refreshLiveImage'] != undefined) {
         clearTimeout(timeoutJobs['refreshLiveImage']);
     }
     timeoutJobs['refreshLiveImage'] = setTimeout(refreshLiveImage, interval);
 }
+
 function refreshSysUsage() {
     var ts = new Date().getTime();
     $.get("cgi-bin/state.cgi", {cmd: "sysusage", uid: ts}, function(sysusage){document.getElementById("sysusage").innerHTML = sysusage; scheduleRefreshSysUsage(5000);});
 }
+
 function scheduleRefreshSysUsage(interval) {
     if (timeoutJobs['refreshSysUsage'] != undefined) {
         clearTimeout(timeoutJobs['refreshSysUsage']);
     }
     timeoutJobs['refreshSysUsage'] = setTimeout(refreshSysUsage, interval);
 }
-function syncSwitch(sw) {
-    var e = $('#' + sw);
-    if (!e.prop('disabled')) {
-        $.get("cgi-bin/camcontrols.cgi", {
-            cmd: "getstate",
-            control: sw
-        }).done(function (status) {
-            // console.log(sw + " status " + status + " / current " + e.prop('checked'));
-            e.prop('checked', (status.trim().toLowerCase() == "on"));
-        });
+
+function syncSwitchesTimeout(millis) {
+    if (timeoutJobs['syncSwitches'] != undefined) {
+        clearTimeout(timeoutJobs['syncSwitches']);
     }
+    timeoutJobs['syncSwitches'] = setTimeout(syncSwitches, millis);
 }
+
 function syncSwitches() {
-    for (var i in SWITCHES) {
-        if (timeoutJobs[SWITCHES[i]] != undefined) {
-            clearTimeout(timeoutJobs[SWITCHES[i]]);
+    $.get("cgi-bin/camcontrols.cgi", {
+        cmd: "getallstate",
+    }).done(function (data) {
+        var switchesStateArray = eval(data);
+        for (var i = 0; i < switchesStateArray.length; i++) {
+            var switchState = switchesStateArray[i];
+            var e = $('#' + switchState.id);
+            
+            e.prop('checked', (switchState.status.trim().toLowerCase() == "on"));
         }
-        syncSwitch(SWITCHES[i]);
-    }
+    });
 }
 
 function showResult(txt) {
@@ -99,8 +102,6 @@ $(document).ready(function () {
         });
     });
 
-    // Initial syncing of switches
-    timeoutJobs['syncSwitches'] = setTimeout(syncSwitches, 10);
     $('#camcontrol_link').hover(function () {
         // for desktop
         var e = $(this);
@@ -109,10 +110,7 @@ $(document).ready(function () {
             return;
         }
         // refresh switches on hover over Camera Controls menu
-        if (timeoutJobs['syncSwitches'] != undefined) {
-            clearTimeout(timeoutJobs['syncSwitches']);
-        }
-        timeoutJobs['syncSwitches'] = setTimeout(syncSwitches, 10);
+        syncSwitchesTimeout(500);
     }, function () { $(this).toggleClass('is-active'); });
 
     // Hookup navbar burger for mobile
@@ -126,10 +124,7 @@ $(document).ready(function () {
             return;
         }
         // refresh switches on burger is tapped
-        if (timeoutJobs['syncSwitches'] != undefined) {
-            clearTimeout(timeoutJobs['syncSwitches']);
-        }
-        timeoutJobs['syncSwitches'] = setTimeout(syncSwitches, 10);
+        syncSwitchesTimeout(500);
     });
     
     // Autohide navbar for mobile
@@ -234,11 +229,9 @@ function cameraControlClick(control)
 function updateCameraControls() {
     $.get("cgi-bin/camcontrols.cgi?cmd=getcontrols").done(function(data) {
         $("#camcontrol_items").empty();
-        SWITCHES = []
         var camControlsArray = eval(data);
         for (var i = 0; i < camControlsArray.length; i++) {
             var camControl = camControlsArray[i];
-            SWITCHES.push(camControl.id);
             $("#camcontrol_items").append("<span class=\"navbar-item\"><input id=\"" + camControl.id + "\" \
                 onclick='cameraControlClick(this)' \
                 type=\"checkbox\" name=\"" + camControl.id + "\" class=\"switch\" \
@@ -247,8 +240,6 @@ function updateCameraControls() {
                 <label for=\"" + camControl.id + "\">" + camControl.name + "</label></span>");
         }
         
-        if (SWITCHES.length > 0) {
-          syncSwitches(); 
-        }
+        syncSwitches();
     });
 }
