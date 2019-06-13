@@ -17,17 +17,13 @@ index-file.names = ( "index.html" )
 server.modules = ("mod_auth",
                   "mod_authn_file",
                   "mod_redirect",
-                  "mod_rewrite",
                   "mod_cgi",
-                  "mod_fastcgi",
-                  "mod_dirlisting",
                   "mod_staticfile",
-                  "mod_accesslog",
-                  "mod_openssl")
+                  "mod_openssl",
+                  "mod_alias")
 
 cgi.assign = ( ".cgi" => "/bin/sh" )
-
-
+alias.url = ( "/DCIM/" => "/opt/media/sdc/DCIM/" )
 
 $SERVER["socket"] == ":443" {
   ssl.engine = "enable"
