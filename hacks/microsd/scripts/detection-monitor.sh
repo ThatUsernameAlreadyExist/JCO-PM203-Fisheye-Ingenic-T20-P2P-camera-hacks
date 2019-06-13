@@ -15,7 +15,7 @@ monitor_motion_detection()
         if [ $NEW_MOTION_FLAG -ne $LAST_MOTION_FLAG ]; then
             if [ $NEW_MOTION_FLAG -eq 1 ]; then
                 /opt/media/sdc/scripts/detectionOn.sh
-                sleep $MONITOR_TIMEOUT_SLEEP_ON_DETECTION
+                sleep $MONITOR_TIMEOUT_SECONDS_ON_DETECTION
             else
                 /opt/media/sdc/scripts/detectionOff.sh
             fi
