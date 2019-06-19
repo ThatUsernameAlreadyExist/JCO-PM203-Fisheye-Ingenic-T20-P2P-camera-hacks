@@ -21,43 +21,20 @@ if [ -n "$F_cmd" ]; then
     list_dates)
       lastDateVal=''
       echo "["
-      files="$(find $DCIM_FOLDER/????-??-??_??-??-??.mkv -maxdepth 1 -exec basename "{}" \; | cut -d'_' -f1 | sort -u)"
+      files="$(/opt/media/sdc/bin/min-recorder-list p $DCIM_FOLDER)"
       for file in $files; do
         echo "{\"date\":\"$file\"},"
       done
-
-      ##Alternative variant:
-      #for filename in $DCIM_FOLDER/????-??-??_??-??-??.mkv; do
-      #  recordid="$(basename $filename)"
-      #  dateAndRec=(${recordid//_/ })
-      #  dateVal="${dateAndRec[0]}"
-      #  if [ "$lastDateVal" != "$dateVal" ];then
-      #      echo "{\"date\":\"$dateVal\"},"
-      #      lastDateVal=$dateVal
-      #  fi
-      #done
-
       echo "]"
     ;;
 
     list_records)
       dateVal="${F_date##*/}"
       echo "["
-      files="$(find $DCIM_FOLDER/${dateVal}_??-??-??.mkv -maxdepth 1 -exec basename "{}" \; | cut -d'_' -f2 | cut -d'.' -f1)"
+      files="$(/opt/media/sdc/bin/min-recorder-list p $DCIM_FOLDER f $dateVal)"
       for file in $files; do
         echo "{\"record\":\"$file\"},"
       done
-
-      ##Alternative variant:
-      #for filename in $DCIM_FOLDER/${dateVal}_??-??-??.mkv; do
-      #  recordid="$(basename $filename)"
-      #  dateAndRec=(${recordid//_/ })
-      #  rec="${dateAndRec[1]}"
-      #  recValAndMkv=(${rec//./ })
-      #  recVal="${recValAndMkv[0]}"
-      #  echo "{\"record\":\"$recVal\"},"
-      #done
-
       echo "]"
     ;;
 
