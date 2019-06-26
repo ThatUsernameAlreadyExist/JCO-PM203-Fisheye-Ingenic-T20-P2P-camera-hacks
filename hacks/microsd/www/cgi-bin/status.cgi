@@ -457,6 +457,7 @@ cat << EOF
                                 <option value="-W960 -H540"   $(source /opt/media/sdc/config/rtspserver.conf; if [ "$RTSPH264OPTS" == "-W960 -H540" ]; then echo selected; fi) >960x540</option>
                                 <option value="-W1280 -H720"  $(source /opt/media/sdc/config/rtspserver.conf; if [ "$RTSPH264OPTS" == "-W1280 -H720" ] || [ -z "$RTSPH264OPTS" ]; then echo selected; fi) >1280x720</option>
                                 <option value="-W1600 -H900"  $(source /opt/media/sdc/config/rtspserver.conf; if [ "$RTSPH264OPTS" == "-W1600 -H900" ]; then echo selected; fi) >1600x900</option>
+                                <option value="-W1664 -H936"  $(source /opt/media/sdc/config/rtspserver.conf; if [ "$RTSPH264OPTS" == "-W1664 -H936" ]; then echo selected; fi) >1664x936</option>
                                 <option value="-W1712 -H1072" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$RTSPH264OPTS" == "-W1712 -H1072" ]; then echo selected; fi) >1712x1072</option>
                                 <option value="-W1920 -H1080" $(source /opt/media/sdc/config/rtspserver.conf; if [ "$RTSPH264OPTS" == "-W1920 -H1080" ]; then echo selected; fi) >1920x1080</option>
                                 </select>
