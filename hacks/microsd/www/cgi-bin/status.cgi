@@ -330,10 +330,18 @@ cat << EOF
             <input class="switch" name="flip" id="flip" type="checkbox" $(if [ "$(/opt/media/sdc/bin/setconf -g f)" == 1 ]; then echo "checked";  fi) >
             <label for="flip">Image flip</label>
           </div>
-
          </div>
-
-
+        </div>
+        
+        <div class="column">
+        <br>
+        <div class="field is-horizontal">
+          <div class="field">
+            <input class="switch" name="enable_rtsp_log" id="enable_rtsp_log" type="checkbox"
+            $(if [ "$(source /opt/media/sdc/config/rtspserver.conf && [ -z $RTSPLOGENABLED ] && echo 1 || echo $RTSPLOGENABLED)" -ne 0 ]; then echo "checked"; fi)>
+            <label for="enable_rtsp_log">Enable RTSP server log</label>
+          </div>
+        </div>
         </div>
 
         </div>

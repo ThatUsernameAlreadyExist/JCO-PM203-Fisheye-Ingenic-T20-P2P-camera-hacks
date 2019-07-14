@@ -86,6 +86,10 @@ start()
     elif [ "$FLIP" == "OFF" ]; then
         /opt/media/sdc/bin/setconf -k f -v 0
     fi
+    
+    if [ $RTSPLOGENABLED -eq 0 ]; then
+        LOGPATH="/dev/null"
+    fi
 
     echo "================== START ===============" >> "$LOGPATH"
     echo "/opt/media/sdc/bin/v4l2rtspserver-master -fMJPG $RTSPMJPEGOPTS  $AUDIOPARAM $VIDEOFORMAT $CREDENTIAL $PORT" >> "$LOGPATH"

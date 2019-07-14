@@ -335,4 +335,17 @@ $(document).ready(function() {
             })
         }
     });
+    
+    $('#enable_rtsp_log').change(function() {
+        if($(this).is(":checked")) {
+           // if checked
+           $.ajax({
+            'url': 'cgi-bin/action.cgi?cmd=rtsp-log-on',
+           })
+        }  else {
+            $.ajax({
+                'url': 'cgi-bin/action.cgi?cmd=rtsp-log-off',
+            })
+        }
+    });
 });

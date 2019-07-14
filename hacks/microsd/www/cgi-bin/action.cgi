@@ -266,6 +266,18 @@ if [ -n "$F_cmd" ]; then
       rewrite_config /opt/media/sdc/config/rtspserver.conf FLIP "OFF"
       /opt/media/sdc/bin/setconf -k f -v 0
     ;;
+    
+    rtsp-log-on)
+      rewrite_config /opt/media/sdc/config/rtspserver.conf RTSPLOGENABLED 1
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
+    ;;
+
+    rtsp-log-off)
+      rewrite_config /opt/media/sdc/config/rtspserver.conf RTSPLOGENABLED 0
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-mjpeg
+      restart_service_if_need /opt/media/sdc/controlscripts/rtsp-h264
+    ;;
 
     motion_detection_on)
         motion_sensitivity=4
