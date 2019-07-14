@@ -1,0 +1,34 @@
+#!/bin/sh
+SERVICE_NAME="Night Mode"
+export LD_LIBRARY_PATH='/opt/media/sdc/lib/:/lib/:/ipc/lib/'
+
+. /opt/media/sdc/scripts/common_functions.sh
+
+status()
+{
+  state_led=$(ir_led status)
+  state_cut=$(ir_cut status)
+  state_night=$(night_mode status)
+  if [[ $state_led == "ON" || $state_led == "on" ]] && [[ $state_cut == "OFF" || $state_cut == "off" ]] && [[ $state_night == "ON" || $state_night == "on" ]]; then
+    echo "PID: OK"
+  fi
+}
+
+start()
+{
+  night_mode on
+}
+
+stop()
+{
+  night_mode off
+}
+
+if [ $# -eq 0 ]; then
+  start
+else
+  case $1 in start|stop|status)
+    $1
+    ;;
+  esac
+fi
