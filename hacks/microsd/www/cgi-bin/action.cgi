@@ -257,6 +257,14 @@ if [ -n "$F_cmd" ]; then
       /opt/media/sdc/bin/setconf -k n -v 0
     ;;
 
+    night-mode-on)
+      /opt/media/sdc/controlscripts/night-mode start
+    ;;
+
+    night-mode-off)
+      /opt/media/sdc/controlscripts/night-mode stop
+    ;;
+
     flip-on)
       rewrite_config /opt/media/sdc/config/rtspserver.conf FLIP "ON"
       /opt/media/sdc/bin/setconf -k f -v 1
