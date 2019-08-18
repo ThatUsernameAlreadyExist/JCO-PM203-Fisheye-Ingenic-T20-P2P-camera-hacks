@@ -372,13 +372,13 @@ get_current_cpu_usage()
 get_current_memory_usage()
 {
     # get used memory without buffers
-    used=$(free -m | awk 'NR==3{printf "%s\n", $3 }')
+    used=$(free | awk 'NR==2{printf "%s\n", $3-$6}')
     echo $used
 }
 
 get_all_memory()
 {
-    all=$(free -m | awk 'NR==2{printf "%s\n", $2 }')
+    all=$(free | awk 'NR==2{printf "%s\n", $2 }')
     echo $all
 }
 
