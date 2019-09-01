@@ -8,6 +8,9 @@ LOGPATH="$LOGDIR/startup.log"
 ## Load some common functions:
 . /opt/media/sdc/scripts/common_functions.sh
 
+# Mount bind to extended busybox.
+mount -o bind /opt/media/sdc/bin/busybox /bin/busybox
+
 init_log()
 {
     if [ ! -d $LOGDIR ]; then
@@ -53,7 +56,31 @@ sync_time()
     fi
     ntp_srv="$(cat "$CONFIGPATH/ntp_srv.conf")"
     timeout -t 30 sh -c "until ping -c1 \"$ntp_srv\" &>/dev/null; do sleep 3; done";
-    /opt/media/sdc/bin/busybox ntpd -p "$ntp_srv"
+    busybox ntpd -p "$ntp_srv"
+}
+
+init_crond()
+{
+    # Create crontab dir and start crond.
+    if [ ! -d ${CONFIGPATH}/cron ]; then
+      mkdir -p ${CONFIGPATH}/cron/crontabs
+      CRONPERIODIC="${CONFIGPATH}/cron/periodic"
+      mkdir -p ${CRONPERIODIC}/15min \
+               ${CRONPERIODIC}/hourly \
+               ${CRONPERIODIC}/daily \
+               ${CRONPERIODIC}/weekly \
+               ${CRONPERIODIC}/monthly
+      cat > ${CONFIGPATH}/cron/crontabs/root <<EOF
+# min   hour    day     month   weekday command
+*/15    *       *       *       *       busybox run-parts ${CRONPERIODIC}/15min
+0       *       *       *       *       busybox run-parts ${CRONPERIODIC}/hourly
+0       2       *       *       *       busybox run-parts ${CRONPERIODIC}/daily
+0       3       *       *       6       busybox run-parts ${CRONPERIODIC}/weekly
+0       5       1       *       *       busybox run-parts ${CRONPERIODIC}/monthly
+EOF
+      echo "Created cron directories and standard interval jobs" >> $LOGPATH
+    fi
+    busybox crond -c ${CONFIGPATH}/cron/crontabs
 }
 
 initialize_gpio()
@@ -96,6 +123,7 @@ init_log
 stop_cloud
 init_network
 sync_time
+init_crond
 initialize_gpio
 init_rtsp_params
 run_autostart_scripts
