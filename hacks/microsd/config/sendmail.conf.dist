@@ -4,12 +4,11 @@
 
 # If send an email, here are some parameter to configure
 
-#Email and name of the sender (maybe it doesn't work as mailer override it from authentication info)
+#Email of the sender
 FROM="House.home@gmail.com"
-FROMNAME="`hostname`"
 
-# Login and pasword to access snmtp server
-AUTH="john.doe"
+# Login and pasword to access smtp server
+AUTH="House.home@gmail.com"
 PASS="JOHNDOEPASSWORD"
 
 # Destination email
@@ -24,11 +23,7 @@ SUBJECT="Alert !!"
 BODY="This is an alert from `hostname`"
 
 # Number of capture to join the email
-NUMBEROFPICTURES=5
+NUMBEROFPICTURES=4
 # Time in seconds between captures
-TIMEBETWEENSNAPSHOT=5
-
-# Quality of compression (Valid quality values: 0 - 100, 100% is best)
-# Set to -1 for no compression
-QUALITY=50
+TIMEBETWEENSNAPSHOT=1
 
