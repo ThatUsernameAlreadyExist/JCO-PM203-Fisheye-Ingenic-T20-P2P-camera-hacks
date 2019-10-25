@@ -10,7 +10,7 @@ monitor_motion_detection()
     while :
     do
         sleep $MONITOR_TIMEOUT_SECONDS
-        NEW_MOTION_FLAG="$(flock -s /tmp/rec_control cat /tmp/rec_control)"
+        NEW_MOTION_FLAG="$(/opt/media/sdc/bin/getflag /tmp/rec_control)"
 
         if [ $NEW_MOTION_FLAG -ne $LAST_MOTION_FLAG ]; then
             if [ $NEW_MOTION_FLAG -eq 1 ]; then
