@@ -3,7 +3,5 @@
 ############################################################
 
 # Add your Telegram credentials here (these are just examples)
-apiToken="23132160:AAF...g$$w"
-userChatId="-309...32"
-tg_server="https://123.123.123.123:12312"
-tg_certs="--cacert /opt/media/sdc/config/ca.crt --cert /opt/media/sdc/config/client.crt"
+apiToken="23132160:AAFrSEwzJ-X-64tLnD8JJ$JoAxWIMg$$w"
+userChatId="30985132"
