@@ -1,13 +1,11 @@
 #!/bin/sh
 
+CURL="/opt/media/sdc/bin/curl"
 LASTUPDATEFILE="/tmp/last_update_id"
 TELEGRAM="/opt/media/sdc/bin/telegram"
 JQ="/opt/media/sdc/bin/jq"
 
 . /opt/media/sdc/config/telegram.conf
-
-CURL="/opt/media/sdc/bin/curl $tg_certs"
-
 [ -z $apiToken ] && echo "api token not configured yet" && exit 1
 [ -z $userChatId ] && echo "chat id not configured yet" && exit 1
 
@@ -15,10 +13,6 @@ sendShot() {
   /opt/media/sdc/bin/getimage > "/tmp/telegram_image.jpg" &&\
   $TELEGRAM p "/tmp/telegram_image.jpg"
   rm "/tmp/telegram_image.jpg"
-}
-
-sendVShot() {  
-  $TELEGRAM v $(ls -d /opt/media/sdc/DCIM/* | tail -n 1)
 }
 
 sendMem() {
@@ -39,7 +33,6 @@ respond() {
   case $1 in
     /mem) sendMem;;
     /shot) sendShot;;
-    /vshot) sendVShot;;
     /on) detectionOn;;
     /off) detectionOff;;
     *) $TELEGRAM m "I can't respond to '$1' command"
@@ -48,7 +41,7 @@ respond() {
 
 readNext() {
   lastUpdateId=$(cat $LASTUPDATEFILE || echo "0")
-  json=$($CURL -s -X GET "$tg_server/bot$apiToken/getUpdates?offset=$lastUpdateId&limit=1&allowed_updates=message")
+  json=$($CURL -s -X GET "https://api.telegram.org/bot$apiToken/getUpdates?offset=$lastUpdateId&limit=1&allowed_updates=message")
   echo $json
 }
 
