@@ -15,7 +15,7 @@ Also known as:
 * [Kingkonghome IP Camera Wireless 1080P Wifi Camera](https://www.aliexpress.com/item/Kingkonghome-IP-Camera-Wireless-1080P-Wifi-Camera-Security-Smart-Pet-Camera-Surveillance-Night-Vision-180-degree/32919998389.html)
 
 ## How to install
-1. Prepare an MicroSD-card with FAT32 filesystem
+1. Prepare an MicroSD-card with FAT32 filesystem and allocation unit size 32K (16K and smaller unit size may running system into unstable condition)
 2. Copy all data from /hacks/microsd folder to MicroSD-card
 3. Connect the camera to your WiFI network through Danale app (Android/IOS). See IP-address of the camera in your WiFi-router settings (required to connect via telnet).
 4. Place MicroSD-card in camera 

@@ -2,9 +2,10 @@
 what="$1"
 shift
 data="$@"
-CURL="/opt/media/sdc/bin/curl"
 
 . /opt/media/sdc/config/telegram.conf
+
+CURL="/opt/media/sdc/bin/curl $tg_certs"
 
 sendMessage() {
   text="$(echo "${@}" | sed 's:\\n:\n:g')"
@@ -12,7 +13,7 @@ sendMessage() {
 
   $CURL -s \
     -X POST \
-    https://api.telegram.org/bot$apiToken/sendMessage \
+    $tg_server/bot$apiToken/sendMessage \
     --data-urlencode "text=$text" \
     -d "chat_id=$userChatId"
 }
@@ -21,7 +22,7 @@ sendFile() {
   echo "Sending file: $1"
   $CURL -s \
     -X POST \
-    https://api.telegram.org/bot$apiToken/sendDocument \
+    $tg_server/bot$apiToken/sendDocument \
     -F chat_id="$userChatId" \
     -F document=@"$1"
 }
@@ -31,13 +32,25 @@ sendPhoto() {
   echo "Sending Photo: $1 $caption" >> /tmp/telegram.log
   $CURL -s \
     -X POST \
-    https://api.telegram.org/bot$apiToken/sendPhoto \
+    $tg_server/bot$apiToken/sendPhoto \
     -F chat_id="$userChatId" \
     -F photo="@${1}" \
+    -F caption="${caption}"
+}
+
+sendVideo() {
+  caption="$(hostname)-$(date +"%d%m%Y_%H%M%S")"
+  echo "Sending Video: $1 $caption" >> /tmp/telegram.log
+  $CURL -s \
+    -X POST \
+    $tg_server/bot$apiToken/sendVideo \
+    -F chat_id="$userChatId" \
+    -F video="@${1}" \
     -F caption="${caption}"
 }
 
 [ "$what" == "m" ] && sendMessage $data
 [ "$what" == "f" ] && sendFile $data
 [ "$what" == "p" ] && sendPhoto $data
-[ -z "$what" ] && echo -e "$0 <m|f|p> <data>\n m: message\n f: file\n p: picture"
+[ "$what" == "v" ] && sendVideo $data
+[ -z "$what" ] && echo -e "$0 <m|f|p|v> <data>\n m: message\n f: file\n p: picture\n v: video"
