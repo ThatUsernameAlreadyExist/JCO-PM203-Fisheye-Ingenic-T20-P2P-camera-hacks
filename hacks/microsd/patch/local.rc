@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if [ ! -f "/opt/media/sdc/autorun.sh" ]; then
+    mkdir /opt/media/sdc
+    mount /dev/mmcblk0p1 /opt/media/sdc/
+    /opt/media/sdc/autorun.sh &
+    sleep 5
+fi
