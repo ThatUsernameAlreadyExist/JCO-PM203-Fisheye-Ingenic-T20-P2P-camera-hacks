@@ -2,7 +2,17 @@
 
 if [ ! -f "/opt/media/sdc/autorun.sh" ]; then
     mkdir /opt/media/sdc
-    mount /dev/mmcblk0p1 /opt/media/sdc/
+    device_to_mount=$(mount | grep /dev/mmcblk | grep /opt/media/mmcblk | cut -d " " -f1)
+    if [ -z "$device_to_mount" ]; then
+        device_to_mount="/dev/mmcblk0p1"
+    fi
+    
+    if [ ! -d "/opt/media/mmcblk0p1" ]; then
+        mkdir /opt/media/mmcblk0p1
+        mount $device_to_mount /opt/media/mmcblk0p1/
+    fi
+    
+    mount $device_to_mount /opt/media/sdc/
     /opt/media/sdc/autorun.sh &
     sleep 5
 fi
