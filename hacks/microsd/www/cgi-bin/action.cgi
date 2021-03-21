@@ -21,6 +21,7 @@ if [ -n "$F_cmd" ]; then
         "" | 1)
           echo "Summary of all log files:<br/>"
           tail /var/log/*
+          tail /opt/media/sdc/log/*
           ;;
 
         2)

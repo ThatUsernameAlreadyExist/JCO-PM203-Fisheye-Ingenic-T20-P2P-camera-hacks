@@ -29,7 +29,7 @@ monitor_service()
         else
             CURRENT_SUCCESS=0
             CURRENT_ERRORS=$((CURRENT_ERRORS+1))
-            echo "$(date) Service $SERVICE_TO_MONITOR not runnning, error count: $CURRENT_ERRORS" >> "$LOGPATH"
+            echo "$(date) Service $SERVICE_TO_MONITOR not running, error count: $CURRENT_ERRORS" >> "$LOGPATH"
             if [ "$CURRENT_ERRORS" -gt "$MAX_ERRORS_TO_ALTERNATIVE_REBOOT" ]; then # If we can't reboot by normal call to 'reboot'
                 echo "$SERVICE_TO_MONITOR - perform alternative reboot" >> "$LOGPATH"
                 echo b >/proc/sysrq-trigger

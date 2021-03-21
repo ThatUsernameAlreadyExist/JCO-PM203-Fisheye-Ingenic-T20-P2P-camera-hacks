@@ -18,15 +18,34 @@ init_log()
     fi
 }
 
+enable_hardware_watchdog()
+{
+    # A Watchdog Timer is a hardware circuit that can reset the
+    # camera system in case of a software fault.
+    # This script will notify the kernel watchdog driver via the
+    # /dev/watchdog special device file that userspace is still alive, at
+    # regular intervals.
+    # When such a notification occurs, the driver will
+    # usually tell the hardware watchdog that everything is in order, and
+    # that the watchdog should wait for yet another little while to reset
+    # the camera. If userspace fails (system hang, RAM error, kernel bug), the
+    # notifications cease to occur, and the hardware watchdog will reset the
+    # camera (causing a reboot) after the timeout occurs.
+    #
+    # To disable watchdog use:
+    #       echo 'V'>/dev/watchdog
+    #       echo 'V'>/dev/watchdog0 
+    # Start watchdog (notify every 15 seconds, reboot if no notification in 40 seconds)
+    busybox watchdog -t 15 -T 40 /dev/watchdog
+    echo "Enabling hardware watchdog" >> $LOGPATH
+}
+
 stop_cloud()
 {
     echo "Stopping cloud apps" >> $LOGPATH
     ps | awk '/[a]uto_run.sh/ {print $1}' | while read PID; do kill -9 $PID; done;
     ps | awk '/[j]co_server/ {print $1}' | xargs kill -9 &>/dev/null
-    ps | awk '/[t]elnetd/ {print $1}' | xargs kill -9 &>/dev/null
-    ## "Magic Close" of watchdog to prevent rebooting of device.
-    echo 'V'>/dev/watchdog
-    echo 'V'>/dev/watchdog0    
+    ps | awk '/[t]elnetd/ {print $1}' | xargs kill -9 &>/dev/null  
     rm '/opt/media/mmcblk0p1/cid.txt' &>/dev/null
 }
 
@@ -117,14 +136,15 @@ run_autostart_scripts()
 }
 
 ##############################################################
-
-echo "--------Starting Hacks--------" >> $LOGPATH
 init_log
+echo "--------Starting Hacks--------" >> $LOGPATH
 stop_cloud
+enable_hardware_watchdog
 init_network
 sync_time
 init_crond
 initialize_gpio
 init_rtsp_params
 run_autostart_scripts
+echo "$(date)" >> $LOGPATH
 echo "--------Starting Hacks Finished!--------" >> $LOGPATH
