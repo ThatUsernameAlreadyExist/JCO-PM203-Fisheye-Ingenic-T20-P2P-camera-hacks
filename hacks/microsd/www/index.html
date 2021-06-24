@@ -11,7 +11,7 @@
     <link href="css/bulma-switch.1.0.1.min.css" rel="stylesheet">
     <link href="css/bulma-badge.1.0.1.min.css" rel="stylesheet">
     <link href="css/bulma-quickview.1.0.1.min.css" rel="stylesheet">
-
+    <link href="icomoon/style.css" rel="stylesheet">
     <!-- jQuery  -->
     <script src="scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
 
@@ -59,6 +59,14 @@
             display: block;
             max-height: 80vh;
         }
+        
+
+        .icnbtn {
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
 
     </style>
 </head>
@@ -72,8 +80,9 @@
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
-                <a class="navbar-item" href="." id="title">Fisheye</a>
-                <a class="navbar-item onpage" href="javascript: void(0)" data-target="view_records.html" id="viewrecordspage">Records</a>
+                <a class="navbar-item icnbtn" href="." id="title" title="Fisheye"><i class="icon-eye"></i></a>
+                <a class="navbar-item icnbtn onpage" href="javascript: void(0)" data-target="view_records.html" id="viewrecordspage" title="Records"><i class="icon-play-circle-o"></i></a>
+                <a class="navbar-item icnbtn" id="btn-ptt" onpointerdown="pushToTalk('on')" title="Push To Talk"><span><i class="icon-microphone"></i></span></a>
             </div>
             <div class="navbar-menu" id="nav_menu">
                 <!-- left menu -->
@@ -169,6 +178,8 @@
     </div>
 
     <script src="scripts/index.html.js" type="text/javascript"></script>
+    <script src="scripts/audiorecorder.js" type="text/javascript"></script>
+    <script src="scripts/audiocapture.js" type="text/javascript"></script>
 
 </body>
 

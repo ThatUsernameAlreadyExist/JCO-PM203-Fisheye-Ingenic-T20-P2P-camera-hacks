@@ -64,7 +64,7 @@ $(document).ready(function () {
     setTheme(getThemeChoice());
     
     // Set title page and menu with hostname
-    $.get("cgi-bin/state.cgi", {cmd: "hostname"}, function(title){document.title = title;document.getElementById("title").innerHTML = title;});
+    $.get("cgi-bin/state.cgi", {cmd: "hostname"}, function(title){document.title = title;document.getElementById("title").title = title;});
     
     // Set initial fast camera controls.
     updateCameraControls();
@@ -242,4 +242,20 @@ function updateCameraControls() {
         
         syncSwitches();
     });
+}
+
+
+function pushToTalk(action) {
+    if (action == "on") {
+        $("#btn-ptt span").attr("style","color:red");
+        $("#btn-ptt span").attr("onpointerdown","");
+        $("#btn-ptt").attr("onpointerup","pushToTalk('off')");
+        startRecording();
+    }
+    else {
+        stopRecording();
+        $("#btn-ptt span").attr("style","");
+        $("#btn-ptt span").attr("onpointerup","");
+        $("#btn-ptt").attr("onpointerdown","pushToTalk('on')");
+    }
 }

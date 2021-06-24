@@ -459,6 +459,11 @@ if [ -n "$F_cmd" ]; then
        /opt/media/sdc/bin/setconf -k h -v "$F_audioinVol" 2>/dev/null
      ;;
 
+    conf_ptt)
+        echo "$F_audiooutVol" > /opt/media/sdc/config/pttvolume.conf
+        echo "Push-to-talk volume set to $F_audiooutVol"
+    ;;
+
      motion_detection_mail_on)
          rewrite_config /opt/media/sdc/config/motion.conf sendemail "true"
          ;;

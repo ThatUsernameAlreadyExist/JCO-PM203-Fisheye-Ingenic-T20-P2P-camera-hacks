@@ -691,7 +691,7 @@ cat << EOF
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
-                            <label class="label">Volume</label>
+                            <label class="label">Mic sensitivity</label>
                         </div>
                         <div class="field-body">
                             <p class="control">
@@ -994,6 +994,37 @@ cat << EOF
     </div>
 </div>
 
+<!-- Push to talk -->
+<div class='card status_card'>
+    <header class='card-header'><p class='card-header-title'>Push-to-talk settings</p></header>
+    <div class='card-content'>
+        <form id="formPtt" action="cgi-bin/action.cgi?cmd=conf_ptt" method="post">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Volume</label>
+            </div>
+            <div class="field-body">
+                <p class="control">
+                    <div class="double">
+                        <input class="slider is-fullwidth" name="audiooutVol" step="1" min="0" max="120" value="$(cat /opt/media/sdc/config/pttvolume.conf)" type="range">
+                    </div>
+                </p>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="control">
+                    <input id="pttSubmit" class="button is-primary" type="submit" value="Set" />
+                </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
 EOF
 script=$(cat /opt/media/sdc/www/scripts/status.cgi.js)
 echo "<script>$script</script>"

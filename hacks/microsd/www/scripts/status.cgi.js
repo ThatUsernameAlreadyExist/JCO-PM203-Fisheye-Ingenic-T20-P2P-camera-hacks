@@ -348,4 +348,28 @@ $(document).ready(function() {
             })
         }
     });
+    
+    $('#formPtt').submit(function(event) {
+      var b = $('#pttSubmit');
+
+      b.toggleClass('is-loading');
+      b.prop('disabled', !b.prop('disabled'));
+
+      var formData = {
+        'audiooutVol': $('input[name=audiooutVol]').val(),
+      };
+      $.ajax({
+        type: 'POST',
+        url: $('#formPtt').attr('action'),
+        data: formData,
+        dataType: 'html',
+        encode: true
+      }).done(function(res) {
+
+        b.toggleClass('is-loading');
+        b.prop('disabled', !b.prop('disabled'));
+        showResult(res);
+      });
+      event.preventDefault();
+    });
 });
