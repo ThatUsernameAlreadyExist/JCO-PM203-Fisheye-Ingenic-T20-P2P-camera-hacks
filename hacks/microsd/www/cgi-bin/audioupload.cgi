@@ -24,5 +24,5 @@ then
     in_raw=`dd bs=1 count=${CONTENT_LENGTH} 1>$WAV_FILE`
     sed -i -e '1,/Content-Type:/d' $WAV_FILE
     echo " CONTENT LENGTH ${CONTENT_LENGTH}"
-    /opt/media/sdc/bin/busybox nohup /opt/media/sdc/bin/audioplay $WAV_FILE $ptt_volume
+    /opt/media/sdc/bin/busybox nohup /opt/media/sdc/bin/audioplay $WAV_FILE $ptt_volume > /dev/null &
 fi
