@@ -1,0 +1,11 @@
+#######################################################################
+# Edit this file and move it to /opt/media/sdc/config/monvifd.conf    #
+# if you need to add options, otherwise defaults will be used         #
+#######################################################################
+
+
+ONVIF_PORT=8081
+VENDOR_NAME=Ingenic
+HW_NAME=T20
+DEVICE_NAME=Fisheye
+DEVICE_MODEL=JCO
