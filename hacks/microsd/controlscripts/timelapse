@@ -2,6 +2,8 @@
 SERVICE_NAME="Timelapse"
 PIDFILE='/var/run/timelapse.pid'
 
+. /opt/media/sdc/scripts/update_timezone.sh
+
 status()
 {  PID=$(cat $PIDFILE)
    if [ "$PID" != "" ]; then
