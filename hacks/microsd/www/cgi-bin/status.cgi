@@ -104,7 +104,7 @@ cat << EOF
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <input class="input" id="password" name="password" type="password" size="12" value="*****"/>
+                        <input class="input" id="allpassword" name="allpassword" type="password" size="12" value="*****"/>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@ cat << EOF
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <input class="input" id="password" name="password" type="password" size="12" value="*****"/>
+                        <input class="input" id="httppassword" name="httppassword" type="password" size="12" value="*****"/>
                     </div>
                 </div>
             </div>

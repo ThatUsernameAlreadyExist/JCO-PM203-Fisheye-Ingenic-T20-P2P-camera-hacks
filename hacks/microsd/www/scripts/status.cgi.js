@@ -65,7 +65,7 @@ $(document).ready(function() {
     b.toggleClass('is-loading');
     b.prop('disabled', !b.prop('disabled'));
     var formData = {
-      'password': $('input[name=password]').val(),
+      'password': $('input[name=httppassword]').val(),
     };
     $.ajax({
       type: 'POST',
@@ -91,7 +91,7 @@ $(document).ready(function() {
     b.toggleClass('is-loading');
     b.prop('disabled', !b.prop('disabled'));
     var formData = {
-      'password': $('input[name=password]').val(),
+      'password': $('input[name=allpassword]').val(),
     };
     $.ajax({
       type: 'POST',
